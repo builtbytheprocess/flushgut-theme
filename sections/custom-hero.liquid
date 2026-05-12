@@ -1,0 +1,180 @@
+<style>
+/* ── hp-01 Hero ── self-contained ── */
+.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
+.hp-hero { position:relative; overflow:hidden; min-height:480px; display:flex; align-items:center; }
+.hp-hero__bg {
+  position:absolute; inset:0;
+  background-color:#fce8d5;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 1721 1721' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 7% 18%, rgb(242,117,33) 0%, rgba(0,0,0,0) 36%),
+    radial-gradient(circle at 70% 10%, rgb(242,117,33) 4%, rgba(0,0,0,0) 24%),
+    radial-gradient(circle at 37% 16%, rgb(159,35,128) 1%, rgba(0,0,0,0) 40%),
+    radial-gradient(circle at 99% 4%, rgb(159,35,128) 5%, rgba(0,0,0,0) 21%);
+  background-blend-mode:soft-light, normal, normal, normal, normal;
+}
+.hp-hero__content { position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; width:100%; padding:56px 0; gap:16px; }
+.hp-hero__text { flex:0 0 340px; min-width:0; }
+.hp-hero__overline { font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:var(--fg-purple); margin:0 0 14px; display:flex; align-items:center; gap:8px; }
+.hp-hero__overline::before { content:''; display:block; width:20px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
+/* Headline: each phrase on one line — use nowrap + fluid font */
+.hp-hero__headline { font-family:var(--font-display); font-size:clamp(32px,4.2vw,62px); font-weight:800; line-height:0.92; color:var(--fg-ink); text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 18px; white-space:nowrap; }
+/* "ONCE A WEEK." — orange-to-purple gradient text */
+.hp-hero__headline .hp-hero__accent {
+  display:block;
+  background:linear-gradient(90deg, #ff6b00 0%, #f37721 35%, #c0198a 70%, #a0237f 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:transparent;
+}
+.hp-hero__sub { font-family:var(--font-body); font-size:18px; font-weight:400; line-height:1.5; color:#5a3a2a; margin:0 0 24px; max-width:400px; }
+/* Green pulsing CTA */
+@keyframes fg-hero-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.55), 0 6px 20px rgba(34,197,94,0.35); }
+  50%       { box-shadow: 0 0 0 12px rgba(34,197,94,0), 0 6px 20px rgba(34,197,94,0.35); }
+}
+.hp-hero__cta {
+  display:inline-block; background:#22c55e; color:#fff;
+  font-family:var(--font-body); font-size:15px; font-weight:700;
+  letter-spacing:var(--track-btn); text-transform:uppercase;
+  text-decoration:none; padding:14px 28px; border-radius:100px;
+  box-shadow:0 6px 20px rgba(34,197,94,0.45);
+  animation:fg-hero-pulse 2.4s ease-in-out infinite;
+  transition:transform 0.2s;
+}
+.hp-hero__cta:hover { transform:translateY(-2px); animation-play-state:paused; }
+/* Trust row */
+.hp-hero__trust { margin-top:14px; font-family:var(--font-body); font-size:13px; color:#7a5040; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.hp-hero__trust-star { color:var(--fg-orange); letter-spacing:-1px; }
+.hp-hero__trust-sep { color:#c4a08a; }
+/* Attribute badges */
+.hp-hero__attr { display:flex; gap:6px; flex-wrap:nowrap; margin-top:10px; overflow:hidden; }
+.hp-hero__attr-pill { font-family:var(--font-body); font-size:10px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#5a3a2a; background:rgba(255,255,255,0.78); border:1px solid rgba(90,58,42,0.18); border-radius:100px; padding:4px 9px; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; }
+.hp-hero__attr-pill::before { content:'✓'; color:var(--fg-orange); font-weight:800; font-size:10px; }
+/* Product image — big on desktop */
+.hp-hero__img { flex:1 1 auto; display:flex; justify-content:flex-end; }
+.hp-hero__img img { width:100%; max-width:780px; height:auto; filter:drop-shadow(0 28px 56px rgba(0,0,0,0.28)); display:block; }
+@media (max-width:1100px) {
+  .hp-hero__text { flex:0 0 300px; }
+  .hp-hero__img img { max-width:620px; }
+  .hp-hero__headline { font-size:clamp(28px,4vw,56px); }
+}
+@media (max-width:900px) {
+  .hp-hero__text { flex:0 0 280px; }
+  .hp-hero__img img { max-width:440px; }
+  .hp-hero__headline { white-space:normal; font-size:clamp(36px,7vw,56px); }
+}
+@media (max-width:768px) {
+  .hp-hero__content { flex-direction:column; padding:40px 0 44px; text-align:center; gap:24px; }
+  .hp-hero__text { max-width:100%; }
+  .hp-hero__overline { justify-content:center; }
+  .hp-hero__trust { justify-content:center; }
+  .hp-hero__attr { justify-content:center; flex-wrap:nowrap; }
+  .hp-hero__sub { max-width:100%; font-size:16px; }
+  .hp-hero__img { order:-1; width:100%; }
+  .hp-hero__img img { width:min(420px, 92vw); }
+  .hp-hero__headline { white-space:normal; }
+}
+@media (max-width:380px) {
+  .hp-hero__attr-pill { font-size:9px; padding:3px 7px; }
+}
+</style>
+
+<!-- ============================================================
+     hp-01 — HERO
+     Headline: "ONE JELLY STICK." on one line, "ONCE A WEEK." on one line
+     CTA: #22c55e green, pulsing glow animation
+     Box image: 540px desktop
+     ============================================================ -->
+
+<section class="hp-hero" id="fg-hero" data-nav-theme="light">
+  <div class="hp-hero__bg"></div>
+  <div class="fg-container">
+    <div class="hp-hero__content">
+
+      <div class="hp-hero__text">
+        <p class="hp-hero__overline">Weekly fiber jelly &middot; 22 ingredients</p>
+        <h1 class="hp-hero__headline">
+          One Jelly Stick.<br><span class="hp-hero__accent">Once a Week.</span>
+        </h1>
+        <p class="hp-hero__sub">
+          22 premium dietary ingredients to support your gut routine. Tear. Squeeze. Done.
+        </p>
+        <a href="{{ section.settings.cta_url }}" class="hp-hero__cta">Start My Routine &rarr;</a>
+        <div class="hp-hero__trust">
+          <span class="hp-hero__trust-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <strong>4.8</strong>
+          <span class="hp-hero__trust-sep">&middot;</span>
+          150+ beta testers
+          <span class="hp-hero__trust-sep">&middot;</span>
+          60-day guarantee
+        </div>
+        <div class="hp-hero__attr">
+          <span class="hp-hero__attr-pill">HSA/FSA</span>
+          <span class="hp-hero__attr-pill">3rd Party Tested</span>
+          <span class="hp-hero__attr-pill">510M CFU</span>
+        </div>
+      </div>
+
+      <div class="hp-hero__img">
+        <img src="{{ section.settings.product_image | image_url: width: 780 | default: 'https://flushgut.com/wp-content/uploads/2026/01/Flushgut-box-camera-1a.webp' }}"
+             alt="FlushGut High Fiber Jelly — Orange Box"
+             width="680" height="auto"
+             loading="eager">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FlushGut Hero",
+  "tag": "section",
+  "class": "fg-section-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image",
+      "info": "If empty, uses the default product photo from WP CDN"
+    },
+    {
+      "type": "text",
+      "id": "headline_line1",
+      "label": "Headline line 1",
+      "default": "ONE JELLY STICK."
+    },
+    {
+      "type": "text",
+      "id": "headline_line2",
+      "label": "Headline line 2 (gradient accent)",
+      "default": "ONCE A WEEK."
+    },
+    {
+      "type": "text",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "22 premium dietary ingredients to support your gut routine. Tear. Squeeze. Done."
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA button URL",
+      "info": "Scrolls to buy box. Use /#fg-buy-box"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA button label",
+      "default": "Start My Routine →"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FlushGut Hero"
+    }
+  ]
+}
+{% endschema %}
