@@ -96,12 +96,12 @@
       <div class="hp-hero__text">
         <p class="hp-hero__overline">Weekly fiber jelly &middot; 22 ingredients</p>
         <h1 class="hp-hero__headline">
-          One Jelly Stick.<br><span class="hp-hero__accent">Once a Week.</span>
+          {{ section.settings.headline_line1 }}<br><span class="hp-hero__accent">{{ section.settings.headline_line2 }}</span>
         </h1>
         <p class="hp-hero__sub">
-          22 premium dietary ingredients to support your gut routine. Tear. Squeeze. Done.
+          {{ section.settings.subheadline }}
         </p>
-        <a href="{{ section.settings.cta_url }}" class="hp-hero__cta">Start My Routine &rarr;</a>
+        <a href="{{ section.settings.cta_url }}" class="hp-hero__cta">{{ section.settings.cta_label }}</a>
         <div class="hp-hero__trust">
           <span class="hp-hero__trust-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           <strong>4.8</strong>
@@ -120,7 +120,7 @@
       <div class="hp-hero__img">
         <img src="{{ section.settings.product_image | image_url: width: 780 | default: 'https://flushgut.com/wp-content/uploads/2026/01/Flushgut-box-camera-1a.webp' }}"
              alt="FlushGut High Fiber Jelly — Orange Box"
-             width="680" height="auto"
+             width="780" height="auto"
              loading="eager">
       </div>
 
