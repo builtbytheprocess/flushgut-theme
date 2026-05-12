@@ -1,0 +1,89 @@
+{% liquid
+  if product.handle == 'flushgut-orange'
+    assign current_flavor       = 'Orange'
+    assign current_flavor_dot   = '#f37721'
+    assign other_flavor         = 'Berry'
+    assign other_flavor_dot     = '#a0237f'
+    assign other_flavor_url     = '/products/flushgut-berry'
+  else
+    assign current_flavor       = 'Berry'
+    assign current_flavor_dot   = '#a0237f'
+    assign other_flavor         = 'Orange'
+    assign other_flavor_dot     = '#f37721'
+    assign other_flavor_url     = '/products/flushgut-orange'
+  endif
+%}
+
+<style>
+.fg-gallery { background: var(--fg-canvas); padding: 40px 0 0; }
+.fg-gallery__inner { max-width: 1100px; margin: 0 auto; padding: 0 var(--container-pad); }
+.fg-gallery__flavors { display: flex; gap: 8px; margin-bottom: 20px; }
+.fg-gallery__flavor-current { display: inline-flex; align-items: center; gap: 8px; background: var(--fg-orange); color: #fff; font-family: var(--font-body); font-size: 12px; font-weight: 700; padding: 7px 16px; border-radius: var(--radius-pill); }
+.fg-gallery__flavor-other { display: inline-flex; align-items: center; gap: 8px; background: var(--fg-card); color: var(--fg-ink); font-family: var(--font-body); font-size: 12px; font-weight: 600; padding: 7px 16px; border-radius: var(--radius-pill); border: 1px solid var(--fg-border); text-decoration: none; transition: border-color var(--motion-fast) var(--ease-out); }
+.fg-gallery__flavor-other:hover { border-color: var(--fg-orange); }
+.fg-flavor-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.fg-gallery__layout { display: flex; gap: 16px; align-items: flex-start; }
+.fg-gallery__thumbs { display: flex; flex-direction: column; gap: 8px; width: 64px; flex-shrink: 0; }
+.fg-gallery__thumb { width: 64px; height: 64px; border-radius: var(--radius-md); overflow: hidden; cursor: pointer; border: 2px solid var(--fg-border); transition: border-color var(--motion-fast) var(--ease-out); flex-shrink: 0; }
+.fg-gallery__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fg-gallery__thumb.fg-thumb--active { border-color: var(--fg-orange); }
+.fg-gallery__main { flex: 1; border-radius: var(--radius-lg); overflow: hidden; background: var(--fg-cream); }
+.fg-gallery__main img { width: 100%; height: auto; display: block; max-height: 600px; object-fit: contain; }
+@media (max-width: 768px) {
+  .fg-gallery__layout { flex-direction: column; }
+  .fg-gallery__thumbs { flex-direction: row; width: 100%; overflow-x: auto; padding-bottom: 4px; }
+  .fg-gallery__thumb { flex-shrink: 0; }
+}
+</style>
+
+<div class="fg-gallery" id="fg-product-gallery">
+  <div class="fg-gallery__inner">
+
+    <div class="fg-gallery__flavors">
+      <span class="fg-gallery__flavor-current">
+        <span class="fg-flavor-dot" style="background:{{ current_flavor_dot }};"></span>
+        {{ current_flavor }}
+      </span>
+      <a class="fg-gallery__flavor-other" href="{{ other_flavor_url }}">
+        <span class="fg-flavor-dot" style="background:{{ other_flavor_dot }};"></span>
+        {{ other_flavor }} →
+      </a>
+    </div>
+
+    <div class="fg-gallery__layout">
+
+      <div class="fg-gallery__thumbs">
+        {%- for image in product.images -%}
+          <div class="fg-gallery__thumb{% if forloop.first %} fg-thumb--active{% endif %}"
+               data-thumb
+               data-full-src="{{ image | image_url: width: 800 }}"
+               data-alt="{{ image.alt | escape }}">
+            <img src="{{ image | image_url: width: 128 }}"
+                 alt="{{ image.alt | escape }}"
+                 width="64" height="64"
+                 loading="{%- if forloop.first -%}eager{%- else -%}lazy{%- endif -%}">
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="fg-gallery__main">
+        <img data-main-image
+             src="{{ product.featured_image | image_url: width: 800 }}"
+             alt="{{ product.featured_image.alt | escape }}"
+             width="800"
+             loading="eager">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'fg-product-gallery.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Product Image Gallery",
+  "tag": "div",
+  "presets": [{ "name": "Product Image Gallery" }]
+}
+{% endschema %}
