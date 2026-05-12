@@ -1,0 +1,78 @@
+<style>
+/* ── 07 GLP-1 Bridge — self-contained styles ── */
+.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
+.fg-section { padding-block:var(--sp-section); }
+.bg-canvas { background-color:var(--fg-canvas); color:var(--fg-ink); }
+.fg-overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:var(--fg-orange); margin-bottom:20px; }
+.fg-overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
+.fg-h2 { font-family:var(--font-display); font-size:var(--fs-h2); font-weight:700; text-transform:uppercase; letter-spacing:-0.01em; line-height:var(--lh-heading); }
+.fg-body-lg { font-family:var(--font-body); font-size:var(--fs-body-lg); font-weight:300; line-height:var(--lh-body); }
+.text-orange { color:var(--fg-orange); }
+.fg-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--font-display); font-weight:800; font-size:17px; letter-spacing:var(--track-btn); text-transform:uppercase; text-decoration:none; border-radius:var(--radius-md); padding:16px 40px; border:2px solid transparent; cursor:pointer; white-space:nowrap; transition:transform var(--motion-fast) var(--ease-out),box-shadow var(--motion-fast) var(--ease-out),background-color var(--motion-fast) var(--ease-out),color var(--motion-fast) var(--ease-out),border-color var(--motion-fast) var(--ease-out); }
+.fg-btn-outline { background:transparent; color:var(--fg-orange); border-color:var(--fg-orange); }
+.fg-btn-outline:hover { background:var(--fg-orange); color:#fff; transform:translateY(-2px); }
+.fg-glp1-bridge { border-left:4px solid var(--fg-orange); padding-left:32px; }
+.fg-bridge-links { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:72px; }
+.fg-bridge-link { text-decoration:none; padding:24px; border:1px solid var(--fg-border); border-radius:var(--radius-lg); display:block; transition:border-color var(--motion-fast),box-shadow var(--motion-fast); }
+.fg-bridge-link:hover { border-color:var(--fg-orange); box-shadow:0 4px 20px rgba(243,119,33,0.1); }
+.fg-bridge-link__label { font-family:var(--font-body); font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-orange); margin-bottom:10px; }
+.fg-bridge-link__title { font-family:var(--font-display); font-size:22px; font-weight:700; text-transform:uppercase; color:var(--fg-ink); line-height:1.1; margin-bottom:8px; }
+.fg-bridge-link__desc  { font-size:14px; color:var(--fg-muted); }
+@media (max-width:900px) { .fg-bridge-links { grid-template-columns:1fr !important; } }
+</style>
+
+<!-- ============================================================
+     07 — GLP-1 BRIDGE
+     Background: --fg-canvas
+     Compliant language only. CTA → /glp-1-digestive-support/
+     ============================================================ -->
+
+<section class="fg-section bg-canvas" id="fg-glp1-bridge-section" data-nav-theme="light">
+  <div class="fg-container">
+
+    <div class="fg-glp1-bridge" data-aos="fade-up" style="max-width:760px;">
+      <p class="fg-overline">For GLP-1 users</p>
+      <h2 class="fg-h2" style="margin:0 0 24px;color:var(--fg-ink);">
+        Using GLP-1 medications?<br>
+        FlushGut <span class="text-orange">supports your gut routine.</span>
+      </h2>
+      <p class="fg-body-lg" style="color:var(--fg-muted);margin:0 0 20px;">
+        People using GLP-1 medications &mdash; including semaglutide (Ozempic, Wegovy) and tirzepatide (Mounjaro) &mdash; often look for fiber support as part of their daily wellness routine. These medications may affect gastric motility, which is why many GLP-1 users make fiber support part of their daily routine.
+      </p>
+      <p class="fg-body-lg" style="color:var(--fg-muted);margin:0 0 36px;">
+        FlushGut is a dietary supplement designed to support digestive routine consistency. It is not a drug, drug alternative, or treatment for any medication side effect.
+      </p>
+      <a class="fg-btn fg-btn-outline" href="/glp-1-digestive-support/" style="display:inline-flex;">
+        Learn more about GLP-1 digestive support &rarr;
+      </a>
+    </div>
+
+    <div class="fg-bridge-links">
+      <a class="fg-bridge-link" href="/glp-1-constipation-support/" data-aos="fade-up" data-aos-delay="0">
+        <div class="fg-bridge-link__label">Support &rarr;</div>
+        <div class="fg-bridge-link__title">GLP-1 Constipation Support</div>
+        <div class="fg-bridge-link__desc">Fiber to support your digestive routine on GLP-1 therapy</div>
+      </a>
+      <a class="fg-bridge-link" href="/glp-1-bloating-support/" data-aos="fade-up" data-aos-delay="100">
+        <div class="fg-bridge-link__label">Support &rarr;</div>
+        <div class="fg-bridge-link__title">GLP-1 Bloating Support</div>
+        <div class="fg-bridge-link__desc">Support gut comfort as part of your GLP-1 wellness routine</div>
+      </a>
+      <a class="fg-bridge-link" href="/the-digest/why-does-glp-1-cause-constipation/" data-aos="fade-up" data-aos-delay="200">
+        <div class="fg-bridge-link__label">The Digest &rarr;</div>
+        <div class="fg-bridge-link__title">Why Does GLP-1 Cause Constipation?</div>
+        <div class="fg-bridge-link__desc">The science behind GLP-1 and your digestive system</div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "GLP-1 Bridge",
+  "tag": "section",
+  "class": "fg-section",
+  "presets": [{ "name": "GLP-1 Bridge" }]
+}
+{% endschema %}
