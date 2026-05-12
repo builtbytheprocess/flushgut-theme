@@ -64,112 +64,139 @@
 @media (max-width: 600px) {
   .fg-buybox__inner { max-width: 100%; }
 }
+.fg-buybox { padding: 80px 0; }
+.fg-buybox__grid { max-width: 1200px; margin: 0 auto; padding: 0 var(--container-pad); display: grid; grid-template-columns: 1fr 480px; gap: 64px; align-items: center; }
+.fg-buybox__product-img { display: flex; align-items: center; justify-content: center; }
+.fg-buybox__product-img img { width: 100%; max-width: 480px; border-radius: var(--radius-xl,24px); display: block; filter: drop-shadow(0 24px 48px rgba(24,6,26,.16)); }
+.fg-buybox__form-col { max-width: 480px; }
+@media (max-width: 900px) {
+  .fg-buybox__grid { grid-template-columns: 1fr; gap: 32px; }
+  .fg-buybox__product-img img { max-width: 100%; border-radius: var(--radius-lg,16px); }
+}
 </style>
 
 <section class="fg-buybox" id="product-buy-box">
-  <div class="fg-buybox__inner">
+  <div class="fg-buybox__grid">
 
-    <div class="fg-buybox__title">{{ section.settings.title }}</div>
-    <div class="fg-buybox__sub">{{ section.settings.subtitle }}</div>
-    <div class="fg-badges">
-      <span class="fg-badge">7G Dietary Fiber</span>
-      <span class="fg-badge">Third-Party Tested</span>
-      <span class="fg-badge">Once Weekly</span>
-      <span class="fg-badge">HSA/FSA Eligible</span>
+    <!-- Left column: product box image -->
+    <div class="fg-buybox__product-img">
+      {%- if section.settings.box_image -%}
+        <img src="{{ section.settings.box_image | image_url: width: 560 }}"
+             alt="FlushGut — Orange &amp; Berry"
+             width="560" loading="lazy">
+      {%- else -%}
+        <img src="https://flushgut.com/wp-content/uploads/2026/05/boxeswithfruit.png"
+             alt="FlushGut — Orange &amp; Berry"
+             width="560" loading="lazy">
+      {%- endif -%}
     </div>
 
-    <div style="font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--fg-muted);margin-bottom:8px;">Flavor</div>
-    <div class="fg-flavors">
-      <span class="fg-flavor-nav-current">
-        <span class="fg-flavor-dot" style="background:{{ current_flavor_dot }};"></span>
-        {{ current_flavor }}
-      </span>
-      <a class="fg-flavor-nav-other" href="{{ other_flavor_url }}">
-        <span class="fg-flavor-dot" style="background:{{ other_flavor_dot }};"></span>
-        {{ other_flavor }} →
-      </a>
-    </div>
+    <!-- Right column: buy form -->
+    <div class="fg-buybox__form-col">
 
-    <div class="fg-savings-banner">YOU SAVE $10/MO — $120/YR</div>
-
-    <form data-atc-form>
-      <input type="hidden" data-variant-input value="{{ product.variants.first.id }}">
-      <input type="hidden" data-selling-plan-input name="selling_plan" value="{{ plan_11wk }}">
-
-      <div class="fg-tier fg-tier--selected"
-           data-tier
-           data-selling-plan="{{ plan_11wk }}"
-           data-price="$27.99/mo"
-           aria-expanded="true">
-        <div class="fg-tier__header">
-          <div class="fg-tier__radio"><div class="fg-tier__radio-dot"></div></div>
-          <div class="fg-tier__meta">
-            <div class="fg-tier__name">3 Months of FlushGut <span class="fg-tier__save">(SAVE 30%)</span></div>
-            <div class="fg-tier__freq">Ships every 11 weeks · 1-week buffer so you never run out</div>
-          </div>
-          <div class="fg-tier__price">
-            <div class="fg-tier__amount">$27.99</div>
-            <div class="fg-tier__was">$39.99/box</div>
-            <div style="font-size:10px;color:var(--fg-muted);">per box</div>
-          </div>
-        </div>
-        <div class="fg-tier__perks" data-tier-perks style="max-height:200px;">
-          <div class="fg-tier__perks-inner">
-            <div class="fg-tier__perks-label">Everything in 6-Week, Plus</div>
-            <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Welcome Kit <span style="color:var(--fg-muted);">($42 value)</span></div>
-            <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Mystery Gift <span style="color:var(--fg-muted);">($18 value)</span></div>
-            <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> 60-day money-back guarantee</div>
-            <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--exclusive">Exclusive</span> Access to the FlushGut Method library</div>
-          </div>
-        </div>
-        <div class="fg-tier__popular">Most Popular</div>
+      <div class="fg-buybox__title">{{ section.settings.title }}</div>
+      <div class="fg-buybox__sub">{{ section.settings.subtitle }}</div>
+      <div class="fg-badges">
+        <span class="fg-badge">7G Dietary Fiber</span>
+        <span class="fg-badge">Third-Party Tested</span>
+        <span class="fg-badge">Once Weekly</span>
+        <span class="fg-badge">HSA/FSA Eligible</span>
       </div>
 
-      <div class="fg-tier"
-           data-tier
-           data-selling-plan="{{ plan_5wk }}"
-           data-price="$29.99/mo"
-           aria-expanded="false">
-        <div class="fg-tier__header">
-          <div class="fg-tier__radio"><div class="fg-tier__radio-dot"></div></div>
-          <div class="fg-tier__meta">
-            <div class="fg-tier__name">6 Weeks of FlushGut <span class="fg-tier__save">(SAVE 25%)</span></div>
-            <div class="fg-tier__freq">Ships every 5 weeks · 1-week buffer so you never run out</div>
-          </div>
-          <div class="fg-tier__price">
-            <div class="fg-tier__amount">$29.99</div>
-            <div class="fg-tier__was">$39.99/box</div>
-          </div>
-        </div>
-        <div class="fg-tier__perks" data-tier-perks>
-          <div class="fg-tier__perks-inner">
-            <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Welcome Kit <span style="color:var(--fg-muted);">($42 value)</span></div>
-            <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> 60-day money-back guarantee</div>
-            <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> Cancel or pause anytime</div>
-          </div>
-        </div>
+      <div style="font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--fg-muted);margin-bottom:8px;">Flavor</div>
+      <div class="fg-flavors">
+        <span class="fg-flavor-nav-current">
+          <span class="fg-flavor-dot" style="background:{{ current_flavor_dot }};"></span>
+          {{ current_flavor }}
+        </span>
+        <a class="fg-flavor-nav-other" href="{{ other_flavor_url }}">
+          <span class="fg-flavor-dot" style="background:{{ other_flavor_dot }};"></span>
+          {{ other_flavor }} →
+        </a>
       </div>
 
-      <div class="fg-onetime">
-        <button type="button" class="fg-onetime__link"
-                data-tier
-                data-selling-plan=""
-                data-price="$39.99"
-                aria-expanded="false">
-          One Time Purchase for $39.99
+      <div class="fg-savings-banner">YOU SAVE $10/MO — $120/YR</div>
+
+      <form data-atc-form>
+        <input type="hidden" data-variant-input value="{{ product.variants.first.id }}">
+        <input type="hidden" data-selling-plan-input name="selling_plan" value="{{ plan_11wk }}">
+
+        <div class="fg-tier fg-tier--selected"
+             data-tier
+             data-selling-plan="{{ plan_11wk }}"
+             data-price="$27.99/mo"
+             aria-expanded="true">
+          <div class="fg-tier__header">
+            <div class="fg-tier__radio"><div class="fg-tier__radio-dot"></div></div>
+            <div class="fg-tier__meta">
+              <div class="fg-tier__name">3 Months of FlushGut <span class="fg-tier__save">(SAVE 30%)</span></div>
+              <div class="fg-tier__freq">Ships every 11 weeks · 1-week buffer so you never run out</div>
+            </div>
+            <div class="fg-tier__price">
+              <div class="fg-tier__amount">$27.99</div>
+              <div class="fg-tier__was">$39.99/box</div>
+              <div style="font-size:10px;color:var(--fg-muted);">per box</div>
+            </div>
+          </div>
+          <div class="fg-tier__perks" data-tier-perks style="max-height:200px;">
+            <div class="fg-tier__perks-inner">
+              <div class="fg-tier__perks-label">Everything in 6-Week, Plus</div>
+              <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Welcome Kit <span style="color:var(--fg-muted);">($42 value)</span></div>
+              <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Mystery Gift <span style="color:var(--fg-muted);">($18 value)</span></div>
+              <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> 60-day money-back guarantee</div>
+              <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--exclusive">Exclusive</span> Access to the FlushGut Method library</div>
+            </div>
+          </div>
+          <div class="fg-tier__popular">Most Popular</div>
+        </div>
+
+        <div class="fg-tier"
+             data-tier
+             data-selling-plan="{{ plan_5wk }}"
+             data-price="$29.99/mo"
+             aria-expanded="false">
+          <div class="fg-tier__header">
+            <div class="fg-tier__radio"><div class="fg-tier__radio-dot"></div></div>
+            <div class="fg-tier__meta">
+              <div class="fg-tier__name">6 Weeks of FlushGut <span class="fg-tier__save">(SAVE 25%)</span></div>
+              <div class="fg-tier__freq">Ships every 5 weeks · 1-week buffer so you never run out</div>
+            </div>
+            <div class="fg-tier__price">
+              <div class="fg-tier__amount">$29.99</div>
+              <div class="fg-tier__was">$39.99/box</div>
+            </div>
+          </div>
+          <div class="fg-tier__perks" data-tier-perks>
+            <div class="fg-tier__perks-inner">
+              <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Welcome Kit <span style="color:var(--fg-muted);">($42 value)</span></div>
+              <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> 60-day money-back guarantee</div>
+              <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> Cancel or pause anytime</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fg-onetime">
+          <button type="button" class="fg-onetime__link"
+                  data-tier
+                  data-selling-plan=""
+                  data-price="$39.99"
+                  aria-expanded="false">
+            One Time Purchase for $39.99
+          </button>
+        </div>
+
+        <button type="submit" class="fg-atc-btn" data-atc-btn
+                data-default-label="Start My FlushGut Routine — $27.99/mo">
+          <span data-cta-label>Start My FlushGut Routine — $27.99/mo</span>
         </button>
+      </form>
+
+      <div class="fg-trust-strip">
+        <div class="fg-trust-strip__item">Free US Shipping</div>
+        <div class="fg-trust-strip__item">60-Day Guarantee</div>
+        <div class="fg-trust-strip__item">Cancel Anytime</div>
       </div>
 
-      <button type="submit" class="fg-atc-btn" data-atc-btn
-              data-default-label="Start My FlushGut Routine — $27.99/mo">
-        <span data-cta-label>Start My FlushGut Routine — $27.99/mo</span>
-      </button>
-    </form>
-
-    <div class="fg-trust-strip">
-      <div class="fg-trust-strip__item">Free US Shipping</div>
-      <div class="fg-trust-strip__item">60-Day Guarantee</div>
-      <div class="fg-trust-strip__item">Cancel Anytime</div>
     </div>
 
   </div>
@@ -206,6 +233,12 @@
       "id": "selling_plan_11wk",
       "label": "Selling plan ID — 3-month (every 11 weeks)",
       "info": "Create this plan in Appstle first. Numeric ID only."
+    },
+    {
+      "type": "image_picker",
+      "id": "box_image",
+      "label": "Product box image (left column)",
+      "info": "If empty, uses the both-boxes image automatically."
     }
   ],
   "presets": [
