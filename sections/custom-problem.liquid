@@ -1,0 +1,92 @@
+<style>
+/* ── 02 Problem — self-contained styles ── */
+.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
+.fg-section { padding-block:var(--sp-section); }
+.bg-canvas { background-color:var(--fg-canvas); color:var(--fg-ink); }
+.fg-overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:var(--fg-orange); margin-bottom:20px; }
+.fg-overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
+.fg-h1 { font-family:var(--font-display); font-size:var(--fs-h1); font-weight:800; text-transform:uppercase; letter-spacing:var(--track-display); line-height:var(--lh-heading); }
+.fg-body-lg { font-family:var(--font-body); font-size:var(--fs-body-lg); font-weight:300; line-height:var(--lh-body); }
+.fg-editorial { font-family:var(--font-editorial); font-style:italic; font-weight:400; line-height:1.55; }
+.text-orange { color:var(--fg-orange); }
+.fg-stat { display:flex; flex-direction:column; gap:6px; }
+.fg-stat__number { font-family:var(--font-display); font-size:clamp(52px,6vw,88px); font-weight:800; color:var(--fg-orange); line-height:1; letter-spacing:-0.02em; }
+.fg-stat__label  { font-family:var(--font-body); font-size:14px; font-weight:400; color:var(--fg-muted); line-height:1.4; max-width:180px; }
+.fg-problem-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.fg-problem-stats { display:flex; flex-direction:column; gap:40px; padding-top:16px; }
+@media (max-width:900px) {
+  .fg-problem-grid { grid-template-columns:1fr !important; gap:48px !important; }
+}
+</style>
+
+<!-- ============================================================
+     02 — THE PROBLEM  (A moment — empathy)
+     Background: --fg-canvas
+     ============================================================ -->
+
+<section class="fg-section bg-canvas" data-nav-theme="light">
+  <div class="fg-container">
+
+    <div class="fg-problem-grid">
+
+      <!-- Left: text -->
+      <div>
+        <p class="fg-overline" data-aos="fade-up">The Fiber Gap</p>
+        <h2 class="fg-h1" data-aos="fade-up" data-aos-delay="60"
+            style="margin:0 0 28px;color:var(--fg-ink);">
+          Your gut needs fiber to push everything out.<br>
+          <span class="text-orange">Most of us are barely halfway there.</span>
+        </h2>
+        <div data-aos="fade-up" data-aos-delay="120">
+          <p class="fg-body-lg" style="color:var(--fg-muted);margin:0 0 16px;">
+            Soluble fiber forms a viscous gel inside your intestine &mdash; it binds waste together, supports gut transit, and helps your body process glucose and cholesterol at a healthier rate. That&rsquo;s why gastroenterologists point to fiber first when patients ask about regularity.
+          </p>
+          <p class="fg-body-lg" style="color:var(--fg-muted);margin:0;">
+            But the average American gets about 15 grams a day. The recommendation is 25&ndash;38g. For most people, the answer isn&rsquo;t knowing more &mdash; it&rsquo;s finding a format they&rsquo;ll actually do every single day.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: image + stats -->
+      <div class="fg-problem-stats">
+        <div data-aos="fade-left" data-aos-delay="40">
+          <img src="https://flushgut.com/wp-content/uploads/2026/05/fg-fiber-gel-1.png"
+               alt="Soluble fiber forming a viscous gel — how fiber supports gut transit"
+               width="480" height="320"
+               style="width:100%;height:auto;border-radius:var(--radius-lg);display:block;"
+               loading="lazy">
+        </div>
+        <div class="fg-stat" data-aos="fade-left" data-aos-delay="80">
+          <span class="fg-stat__number">95%</span>
+          <span class="fg-stat__label">of Americans fall short of the daily fiber recommendation</span>
+        </div>
+        <div class="fg-stat" data-aos="fade-left" data-aos-delay="160">
+          <span class="fg-stat__number">15g</span>
+          <span class="fg-stat__label">average daily fiber intake vs. 25&ndash;38g recommended</span>
+        </div>
+        <div class="fg-stat" data-aos="fade-left" data-aos-delay="240">
+          <span class="fg-stat__number">30g+</span>
+          <span class="fg-stat__label">daily fiber target consistently cited for optimal gut transit</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:80px;height:1px;background:var(--fg-border);"></div>
+
+    <p class="fg-editorial" data-aos="fade-up"
+       style="margin-top:40px;font-size:22px;color:var(--fg-muted);max-width:680px;">
+      &ldquo;Most people know they need more fiber. They&rsquo;ve just never found a format they&rsquo;ll actually stick to.&rdquo;
+    </p>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Problem Section",
+  "tag": "section",
+  "class": "fg-section",
+  "presets": [{ "name": "Problem Section" }]
+}
+{% endschema %}
