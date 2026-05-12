@@ -1,0 +1,98 @@
+<style>
+/* ── 04 Format Diff — self-contained styles ── */
+.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
+.fg-section { padding-block:var(--sp-section); }
+.bg-canvas { background-color:var(--fg-canvas); color:var(--fg-ink); }
+.fg-overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:var(--fg-orange); margin-bottom:20px; }
+.fg-overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
+.fg-h1 { font-family:var(--font-display); font-size:var(--fs-h1); font-weight:800; text-transform:uppercase; letter-spacing:var(--track-display); line-height:var(--lh-heading); }
+.fg-h3 { font-family:var(--font-body); font-size:var(--fs-h3); font-weight:500; line-height:1.35; }
+.fg-body    { font-family:var(--font-body); font-size:var(--fs-body);    font-weight:300; line-height:var(--lh-body); }
+.fg-body-lg { font-family:var(--font-body); font-size:var(--fs-body-lg); font-weight:300; line-height:var(--lh-body); }
+.text-orange { color:var(--fg-orange); }
+.fg-compare-wrap { overflow-x:auto; }
+.fg-compare-table { width:100%; min-width:500px; border-collapse:collapse; font-family:var(--font-body); }
+.fg-compare-table th,.fg-compare-table td { padding:14px 20px; text-align:center; border-bottom:1px solid var(--fg-border); font-size:15px; vertical-align:middle; }
+.fg-compare-table thead th { font-weight:600; font-size:var(--fs-label); letter-spacing:var(--track-label); text-transform:uppercase; padding-block:20px; color:var(--fg-muted); }
+.fg-compare-table thead th:first-child { text-align:left; }
+.fg-compare-table tbody td:first-child  { text-align:left; font-weight:400; }
+.fg-compare-table .col-jelly { background:rgba(243,119,33,0.07); color:var(--fg-orange); font-weight:700; }
+.fg-compare-table thead .col-jelly { color:var(--fg-orange); }
+.fg-compare-table .check   { color:var(--fg-orange); font-size:17px; }
+.fg-compare-table .cross   { color:var(--fg-border);  font-size:17px; }
+.fg-compare-table .partial { color:var(--fg-muted);   font-size:13px; }
+.fg-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:72px; }
+@media (max-width:900px) { .fg-steps { grid-template-columns:1fr !important; } }
+</style>
+
+<!-- ============================================================
+     04 — FORMAT DIFFERENTIATION  (B moment — authority)
+     Background: --fg-canvas
+     ============================================================ -->
+
+<section class="fg-section bg-canvas" data-nav-theme="light">
+  <div class="fg-container">
+
+    <p class="fg-overline" data-aos="fade-up">Why the format matters</p>
+
+    <h2 class="fg-h1" data-aos="fade-up" data-aos-delay="60"
+        style="margin:0 0 16px;color:var(--fg-ink);">
+      Tear.&nbsp;<span style="color:var(--fg-muted);">Eat.&nbsp;</span><span class="text-orange">Go.</span>
+    </h2>
+
+    <p class="fg-body-lg" data-aos="fade-up" data-aos-delay="120"
+       style="color:var(--fg-muted);max-width:560px;margin:0 0 64px;">
+      Most fiber supplements require mixing, shaking, or swallowing handfuls of capsules. FlushGut comes in a single jelly stick. No scoop. No blender bottle. No routine friction.
+    </p>
+
+    <div class="fg-compare-wrap" data-aos="fade-up" data-aos-delay="60">
+      <table class="fg-compare-table">
+        <thead>
+          <tr>
+            <th style="text-align:left;width:30%;">Feature</th>
+            <th class="col-jelly">FlushGut Jelly</th>
+            <th>Powder</th>
+            <th>Gummies</th>
+            <th>Capsules</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>No mixing required</td><td class="col-jelly check">&#10003;</td><td class="cross">&#10007;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+          <tr><td>Truly portable</td><td class="col-jelly check">&#10003;</td><td class="cross">&#10007;</td><td class="partial">Partial</td><td class="check">&#10003;</td></tr>
+          <tr><td>7.5g fiber per serving</td><td class="col-jelly check">&#10003;</td><td class="partial">Varies</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td></tr>
+          <tr><td>Consistent dose every time</td><td class="col-jelly check">&#10003;</td><td class="cross">&#10007;</td><td class="partial">Partial</td><td class="check">&#10003;</td></tr>
+          <tr><td>Takes under 10 seconds</td><td class="col-jelly check">&#10003;</td><td class="cross">&#10007;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+          <tr><td>Prebiotic + probiotic + L-carnitine</td><td class="col-jelly check">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fg-steps">
+      <div data-aos="fade-up" data-aos-delay="0">
+        <div style="font-family:var(--font-display);font-size:40px;font-weight:800;color:var(--fg-orange);margin-bottom:12px;">1</div>
+        <h3 class="fg-h3" style="margin:0 0 10px;">Tear</h3>
+        <p class="fg-body" style="color:var(--fg-muted);margin:0;">Single pre-portioned stick. Pre-torn notch. Zero mess.</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="100">
+        <div style="font-family:var(--font-display);font-size:40px;font-weight:800;color:var(--fg-orange);margin-bottom:12px;">2</div>
+        <h3 class="fg-h3" style="margin:0 0 10px;">Eat</h3>
+        <p class="fg-body" style="color:var(--fg-muted);margin:0;">Squeeze directly into your mouth. Berry or Orange &mdash; actually good.</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="200">
+        <div style="font-family:var(--font-display);font-size:40px;font-weight:800;color:var(--fg-orange);margin-bottom:12px;">3</div>
+        <h3 class="fg-h3" style="margin:0 0 10px;">Go</h3>
+        <p class="fg-body" style="color:var(--fg-muted);margin:0;">Done. No blender bottle. No cleanup. No excuses.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Format Comparison",
+  "tag": "section",
+  "class": "fg-section",
+  "presets": [{ "name": "Format Comparison" }]
+}
+{% endschema %}
