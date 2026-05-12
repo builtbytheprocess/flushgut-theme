@@ -68,7 +68,7 @@
         </div>
 
         <a class="fg-btn fg-btn-primary"
-           href="#fg-buy-box"
+           href="{{ section.settings.cta_scroll_target | default: '#fg-buy-box' }}"
            style="font-size:19px;padding:20px 48px;width:100%;justify-content:center;margin-bottom:16px;">
           Start My Routine &rarr;
         </a>
@@ -93,6 +93,15 @@
   "name": "Final CTA",
   "tag": "section",
   "class": "fg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "cta_scroll_target",
+      "label": "CTA scroll target",
+      "default": "#fg-buy-box",
+      "info": "ID to scroll to on CTA click. Use #fg-buy-box on homepage, #product-buy-box on product pages."
+    }
+  ],
   "presets": [{ "name": "Final CTA" }]
 }
 {% endschema %}
