@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "pg-gallery": {
+      "type": "product-image-gallery",
+      "settings": {}
+    },
+    "pg-buy-box": {
+      "type": "product-buy-box",
+      "settings": {
+        "title": "FlushGut Essentials",
+        "subtitle": "All-in-One Weekly Gut Support",
+        "selling_plan_5wk": "6089310437",
+        "selling_plan_11wk": ""
+      }
+    },
+    "pg-benefits": {
+      "type": "custom-benefits-row",
+      "settings": {}
+    },
+    "pg-ingredients": {
+      "type": "custom-ingredient-scroll",
+      "settings": {}
+    },
+    "pg-format": {
+      "type": "custom-format-diff",
+      "settings": {}
+    },
+    "pg-social": {
+      "type": "custom-social-proof",
+      "settings": {}
+    },
+    "pg-final-cta": {
+      "type": "custom-final-cta",
+      "settings": {
+        "cta_scroll_target": "#product-buy-box"
+      }
+    }
+  },
+  "order": [
+    "pg-gallery",
+    "pg-buy-box",
+    "pg-benefits",
+    "pg-ingredients",
+    "pg-format",
+    "pg-social",
+    "pg-final-cta"
+  ]
+}
