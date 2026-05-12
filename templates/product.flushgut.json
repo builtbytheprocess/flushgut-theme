@@ -1,8 +1,17 @@
 {
   "sections": {
-    "pg-gallery": {
-      "type": "product-image-gallery",
-      "settings": {}
+    "pg-hero": {
+      "type": "product-hero",
+      "settings": {
+        "overline": "Weekly Fiber Jelly · 22 Ingredients",
+        "headline_line1": "One Jelly Stick.",
+        "headline_line2": "Once a Week.",
+        "subheadline": "No pills. No powder. No mixing. Just tear, squeeze, and you're done — once a week.*",
+        "cta_url": "#product-buy-box",
+        "cta_label": "Start My Routine →",
+        "trust_headline": "4.8 from 150+ beta testers",
+        "trust_sub": "Third-party tested · 60-day guarantee"
+      }
     },
     "pg-buy-box": {
       "type": "product-buy-box",
@@ -13,31 +22,17 @@
         "selling_plan_11wk": ""
       }
     },
-    "pg-benefits": {
-      "type": "custom-benefits-row",
-      "settings": {}
-    },
-    "pg-ingredients": {
-      "type": "custom-ingredient-scroll",
-      "settings": {}
-    },
-    "pg-format": {
-      "type": "custom-format-diff",
-      "settings": {}
-    },
-    "pg-social": {
-      "type": "custom-social-proof",
-      "settings": {}
-    },
+    "pg-benefits": { "type": "custom-benefits-row", "settings": {} },
+    "pg-ingredients": { "type": "custom-ingredient-scroll", "settings": {} },
+    "pg-format": { "type": "custom-format-diff", "settings": {} },
+    "pg-social": { "type": "custom-social-proof", "settings": {} },
     "pg-final-cta": {
       "type": "custom-final-cta",
-      "settings": {
-        "cta_scroll_target": "#product-buy-box"
-      }
+      "settings": { "cta_scroll_target": "#product-buy-box" }
     }
   },
   "order": [
-    "pg-gallery",
+    "pg-hero",
     "pg-buy-box",
     "pg-benefits",
     "pg-ingredients",
