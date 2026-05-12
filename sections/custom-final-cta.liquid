@@ -1,0 +1,98 @@
+<style>
+/* ── 08 Final CTA — self-contained styles ── */
+.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
+.bg-dark { background-color:var(--fg-dark); color:var(--fg-canvas); }
+.fg-overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:rgba(243,119,33,0.9); margin-bottom:20px; }
+.fg-overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
+.fg-display { font-family:var(--font-display); font-size:var(--fs-hero); font-weight:800; text-transform:uppercase; letter-spacing:var(--track-display); line-height:var(--lh-display); }
+.bleed-right { margin-right:calc(-1 * (100vw - 100%) / 2); overflow:hidden; }
+.text-orange { color:var(--fg-orange); }
+.fg-editorial { font-family:var(--font-editorial); font-style:italic; font-weight:400; line-height:1.55; }
+.fg-pricing { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+.fg-pricing__main     { font-family:var(--font-display); font-size:clamp(40px,5vw,64px); font-weight:800; color:var(--fg-orange); line-height:1; }
+.fg-pricing__per      { font-family:var(--font-body); font-size:15px; color:rgba(250,248,245,0.6); }
+.fg-pricing__original { font-family:var(--font-body); font-size:15px; color:rgba(250,248,245,0.4); text-decoration:line-through; }
+.fg-pricing__badge    { display:inline-block; background:rgba(243,119,33,0.2); color:var(--fg-orange); font-family:var(--font-body); font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; padding:4px 12px; border-radius:var(--radius-pill); }
+.fg-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--font-display); font-weight:800; font-size:17px; letter-spacing:var(--track-btn); text-transform:uppercase; text-decoration:none; border-radius:var(--radius-md); padding:16px 40px; border:2px solid transparent; cursor:pointer; white-space:nowrap; transition:transform var(--motion-fast) var(--ease-out),box-shadow var(--motion-fast) var(--ease-out),background-color var(--motion-fast) var(--ease-out),color var(--motion-fast) var(--ease-out),border-color var(--motion-fast) var(--ease-out); }
+.fg-btn-primary { background:var(--fg-orange); color:#fff; border-color:var(--fg-orange); box-shadow:var(--shadow-cta); }
+.fg-btn-primary:hover { background:var(--fg-orange-hot); border-color:var(--fg-orange-hot); transform:translateY(-2px); box-shadow:0 10px 32px rgba(243,119,33,0.45); color:#fff; }
+.fg-trust-item { display:flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; opacity:0.65; }
+.fg-cta-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+@media (max-width:900px) {
+  .fg-cta-grid { grid-template-columns:1fr !important; gap:48px !important; }
+  .fg-cta-product-box { display:none; }
+}
+</style>
+
+<!-- ============================================================
+     08 — FINAL CTA  (D moment #3)
+     Background: --fg-dark
+     ============================================================ -->
+
+<section id="fg-final-cta" class="bg-dark" data-nav-theme="dark" style="padding-block:140px;">
+  <div class="fg-container">
+    <div class="fg-cta-grid">
+
+      <div>
+        <p class="fg-overline" data-aos="fade-up">Ready?</p>
+        <h2 class="fg-display bleed-right" data-aos="fade-up" data-aos-delay="60"
+            style="color:white;margin:0;line-height:0.88;">
+          YOUR GUT<br>ROUTINE<br><span class="text-orange">STARTS</span><br>HERE.
+        </h2>
+        <img src="https://flushgut.com/wp-content/uploads/2026/01/Flushgut-box-camera-1a.webp"
+             alt="FlushGut High Fiber Jelly — 6 week supply"
+             width="360" height="252" loading="lazy"
+             class="fg-cta-product-box"
+             style="margin-top:36px;border-radius:var(--radius-lg);width:100%;max-width:360px;">
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="120">
+        <div style="margin-bottom:36px;">
+          <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(250,248,245,0.12);">
+            <div style="font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg-orange);margin-bottom:10px;">Limited intro offer</div>
+            <div class="fg-pricing">
+              <span class="fg-pricing__main">$19.99</span>
+              <span class="fg-pricing__per">first box</span>
+              <span class="fg-pricing__original">$39.99</span>
+            </div>
+            <div style="margin-top:8px;"><span class="fg-pricing__badge">50% off</span></div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,248,245,0.5);margin-bottom:10px;">Then subscribe &amp; save</div>
+            <div class="fg-pricing">
+              <span style="font-family:var(--font-display);font-size:36px;font-weight:800;color:rgba(250,248,245,0.85);line-height:1;">$27.99</span>
+              <span class="fg-pricing__per">/box &middot; 3-month plan</span>
+            </div>
+            <div style="margin-top:8px;"><span class="fg-pricing__badge">30% savings</span></div>
+          </div>
+        </div>
+
+        <a class="fg-btn fg-btn-primary"
+           href="#fg-buy-box"
+           style="font-size:19px;padding:20px 48px;width:100%;justify-content:center;margin-bottom:16px;">
+          Start My Routine &rarr;
+        </a>
+
+        <p class="fg-editorial" style="color:rgba(250,248,245,0.45);font-size:15px;margin:0;text-align:center;">
+          Free shipping on every subscription order.
+        </p>
+
+        <div style="display:flex;justify-content:center;gap:20px;margin-top:24px;flex-wrap:wrap;">
+          <span class="fg-trust-item" style="color:rgba(250,248,245,0.45);font-size:11px;">&#10003; Cancel anytime</span>
+          <span class="fg-trust-item" style="color:rgba(250,248,245,0.45);font-size:11px;">&#10003; HSA/FSA eligible</span>
+          <span class="fg-trust-item" style="color:rgba(250,248,245,0.45);font-size:11px;">&#10003; 30-day satisfaction</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Final CTA",
+  "tag": "section",
+  "class": "fg-section",
+  "presets": [{ "name": "Final CTA" }]
+}
+{% endschema %}
