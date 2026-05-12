@@ -1,0 +1,162 @@
+<style>
+/* ── hp-05 Dr. Reger Video ── self-contained ── */
+.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
+.fg-section { padding-block:var(--sp-section); }
+.bg-dark { background-color:var(--fg-dark); color:var(--fg-canvas); }
+.hp-video__overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:rgba(243,119,33,0.9); margin-bottom:20px; }
+.hp-video__overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
+.hp-video__grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.hp-video__headline { font-family:var(--font-display); font-size:var(--fs-h2); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; line-height:1.05; color:#fff; margin:0 0 16px; }
+.hp-video__headline em { color:var(--fg-orange); font-style:normal; }
+.hp-video__copy { font-family:var(--font-body); font-size:17px; font-weight:300; line-height:1.65; color:rgba(250,248,245,0.75); margin:0 0 28px; }
+.hp-video__creds { display:flex; align-items:center; gap:16px; }
+.hp-video__doctor-img { width:64px; height:64px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid rgba(243,119,33,0.4); }
+.hp-video__doctor-name { font-family:var(--font-body); font-size:15px; font-weight:600; color:#fff; margin:0 0 2px; }
+.hp-video__doctor-title { font-family:var(--font-body); font-size:13px; color:rgba(250,248,245,0.55); margin:0; }
+.hp-video__embed { border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:16/9; background:#000; }
+.hp-video__embed iframe { width:100%; height:100%; border:none; display:block; }
+@media (max-width:900px) { .hp-video__grid { grid-template-columns:1fr; gap:40px; } }
+</style>
+
+<!-- ============================================================
+     hp-05 — DR. REGER VIDEO
+     Background: --fg-dark (continuation from ingredients)
+     NOTE: VIDEO_EMBED_URL is a placeholder — no embed found on /home-new-copy/.
+     Replace with actual YouTube/Vimeo embed src when available.
+     ============================================================ -->
+
+<section class="fg-section bg-dark" data-nav-theme="dark">
+  <div class="fg-container">
+    <div class="hp-video__grid">
+
+      <div data-aos="fade-right">
+        <p class="hp-video__overline">Doctor-led. Science-first.</p>
+        <h2 class="hp-video__headline">
+          The real reason<br>fiber works &mdash;<br>
+          <em>explained.</em>
+        </h2>
+        <p class="hp-video__copy">
+          Board-certified gastroenterologist Dr. John Reger explains why most people aren&rsquo;t getting enough fiber &mdash; and what actually happens in your gut when you do.
+        </p>
+        <div class="hp-video__creds">
+          <img class="hp-video__doctor-img"
+               src="https://flushgut.com/wp-content/uploads/2026/01/doctor-Gastroenterologist-flushgut.webp"
+               alt="Dr. John Reger" loading="lazy">
+          <div>
+            <p class="hp-video__doctor-name">Dr. John Reger</p>
+            <p class="hp-video__doctor-title">Board-Certified Gastroenterologist</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hp-video__embed" data-aos="fade-left" data-aos-delay="80">
+        <iframe
+          src="VIDEO_EMBED_URL"
+          title="Dr. John Reger explains fiber and gut health"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+<style>
+/* ── hp-06 Testimonials ── self-contained ── */
+.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
+.fg-section { padding-block:var(--sp-section); }
+.bg-canvas { background-color:var(--fg-canvas); color:var(--fg-ink); }
+.hp-testi__overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:var(--fg-orange); margin-bottom:20px; }
+.hp-testi__overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
+.hp-testi__header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; flex-wrap:wrap; gap:24px; }
+.hp-testi__headline { font-family:var(--font-display); font-size:var(--fs-h1); font-weight:800; text-transform:uppercase; letter-spacing:-0.02em; line-height:1.05; color:var(--fg-ink); margin:0; }
+.hp-testi__headline em { color:var(--fg-orange); font-style:normal; }
+.hp-testi__rating { display:flex; align-items:center; gap:12px; padding-bottom:8px; }
+.hp-testi__stars { color:var(--fg-orange); font-size:18px; letter-spacing:2px; }
+.hp-testi__score { font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--fg-ink); }
+.hp-testi__count { font-family:var(--font-body); font-size:14px; color:var(--fg-muted); }
+.hp-testi__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:start; }
+.hp-testi__card { background:#fff; border-radius:var(--radius-lg); border:1px solid var(--fg-border); padding:28px; display:flex; flex-direction:column; gap:20px; box-shadow:var(--shadow-card); }
+.hp-testi__card-stars { color:var(--fg-orange); font-size:13px; letter-spacing:2px; }
+.hp-testi__quote { font-family:var(--font-editorial); font-style:italic; font-size:17px; line-height:1.65; color:var(--fg-ink); margin:0; flex:1; }
+.hp-testi__meta { display:flex; align-items:center; gap:12px; }
+.hp-testi__avatar { width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.hp-testi__name { font-family:var(--font-body); font-size:14px; font-weight:600; color:var(--fg-ink); margin:0 0 2px; }
+.hp-testi__tag { font-family:var(--font-body); font-size:12px; color:var(--fg-muted); margin:0; }
+@media (max-width:900px) { .hp-testi__grid { grid-template-columns:1fr; } }
+</style>
+
+<!-- ============================================================
+     hp-06 — TESTIMONIALS
+     Background: --fg-canvas
+     ============================================================ -->
+
+<section class="fg-section bg-canvas" data-nav-theme="light">
+  <div class="fg-container">
+
+    <div class="hp-testi__header">
+      <div>
+        <p class="hp-testi__overline" data-aos="fade-up">Real words from real testers</p>
+        <h2 class="hp-testi__headline" data-aos="fade-up" data-aos-delay="60">
+          Real routines.<br><em>Real people.</em>
+        </h2>
+      </div>
+      <div class="hp-testi__rating" data-aos="fade-up" data-aos-delay="60">
+        <div class="hp-testi__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="hp-testi__score">4.8</span>
+        <span class="hp-testi__count">from 150+ beta testers</span>
+      </div>
+    </div>
+
+    <div class="hp-testi__grid">
+
+      <div class="hp-testi__card" data-aos="fade-up" data-aos-delay="0">
+        <div class="hp-testi__card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="hp-testi__quote">&ldquo;The tight stomach pressure I always had by evening &mdash; it&rsquo;s just gone. Not dramatically, just quietly gone. I didn&rsquo;t realize how much it was wearing on me until it stopped.&rdquo;</p>
+        <div class="hp-testi__meta">
+          <img class="hp-testi__avatar" src="https://flushgut.com/wp-content/uploads/2026/01/flush-gut-testimonial-aria-1.webp" alt="Aria" loading="lazy">
+          <div>
+            <p class="hp-testi__name">Aria M.</p>
+            <p class="hp-testi__tag">Verified beta tester &middot; 6 weeks</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hp-testi__card" data-aos="fade-up" data-aos-delay="100">
+        <div class="hp-testi__card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="hp-testi__quote">&ldquo;I&rsquo;ve tried three different fiber powders and I always forget them because mixing is annoying. This stick I actually use every week. The orange flavor is genuinely good.&rdquo;</p>
+        <div class="hp-testi__meta">
+          <img class="hp-testi__avatar" src="https://flushgut.com/wp-content/uploads/2026/01/flush-gut-testimonial-aria-2.webp" alt="Marcus" loading="lazy">
+          <div>
+            <p class="hp-testi__name">Marcus T.</p>
+            <p class="hp-testi__tag">Verified beta tester &middot; Daily routine</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hp-testi__card" data-aos="fade-up" data-aos-delay="200">
+        <div class="hp-testi__card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="hp-testi__quote">&ldquo;I feel normal again. Less bloated, less distracted by what&rsquo;s going on in my stomach. The little discomforts were wearing on me more than I knew &mdash; and now they&rsquo;re just not there.&rdquo;</p>
+        <div class="hp-testi__meta">
+          <img class="hp-testi__avatar" src="https://flushgut.com/wp-content/uploads/2026/01/flush-gut-testimonial-aria-3.webp" alt="Jennifer" loading="lazy">
+          <div>
+            <p class="hp-testi__name">Jennifer R.</p>
+            <p class="hp-testi__tag">Verified beta tester &middot; 8 weeks</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Social Proof",
+  "tag": "section",
+  "class": "fg-section",
+  "presets": [{ "name": "Social Proof" }]
+}
+{% endschema %}
