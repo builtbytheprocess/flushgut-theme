@@ -1,0 +1,229 @@
+{% liquid
+  assign orange = all_products['flushgut-orange']
+  assign berry  = all_products['flushgut-berry']
+  assign orange_variant = orange.variants.first
+  assign berry_variant  = berry.variants.first
+
+  assign plan_5wk  = section.settings.selling_plan_5wk
+  assign plan_11wk = section.settings.selling_plan_11wk
+%}
+
+<style>
+.fg-buybox { background: var(--fg-canvas); padding: 56px 0; }
+.fg-buybox__inner { max-width: 520px; margin: 0 auto; padding: 0 var(--container-pad); }
+.fg-buybox__title { font-family: var(--font-display); font-size: clamp(28px,4vw,42px); font-weight: 800; text-transform: uppercase; letter-spacing: var(--track-display); color: var(--fg-ink); margin: 0 0 4px; }
+.fg-buybox__sub { font-family: var(--font-body); font-size: 14px; color: var(--fg-muted); margin: 0 0 14px; }
+.fg-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.fg-badge { font-family: var(--font-body); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-ink); background: var(--fg-card); border: 1px solid var(--fg-border); border-radius: var(--radius-pill); padding: 4px 10px; }
+.fg-flavors { display: flex; gap: 8px; margin-bottom: 18px; }
+.fg-flavor-btn { flex: 1; background: var(--fg-card); border: 2px solid var(--fg-border); border-radius: var(--radius-md); padding: 10px 12px; display: flex; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--fg-muted); cursor: pointer; transition: border-color var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out); position: relative; }
+.fg-flavor-btn.fg-flavor--active { border-color: var(--fg-orange); color: var(--fg-ink); }
+.fg-flavor-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.fg-flavor-popular { position: absolute; top: -10px; right: 10px; background: var(--fg-orange); color: #fff; font-size: 9px; font-weight: 800; letter-spacing: 0.06em; padding: 2px 7px; border-radius: var(--radius-pill); text-transform: uppercase; }
+.fg-savings-banner { background: #e8f5e9; border-radius: var(--radius-md); padding: 8px 14px; text-align: center; font-family: var(--font-body); font-size: 12px; font-weight: 700; color: #2e7d32; margin-bottom: 12px; }
+.fg-tier { background: var(--fg-card); border: 2px solid var(--fg-border); border-radius: var(--radius-md); margin-bottom: 8px; overflow: hidden; cursor: pointer; opacity: 0.72; transition: opacity var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out); }
+.fg-tier--selected { border-color: var(--fg-orange); opacity: 1; }
+.fg-tier__header { display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 14px; gap: 10px; }
+.fg-tier__radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--fg-border); flex-shrink: 0; margin-top: 2px; transition: background var(--motion-fast), border-color var(--motion-fast); display: flex; align-items: center; justify-content: center; }
+.fg-tier--selected .fg-tier__radio { background: var(--fg-orange); border-color: var(--fg-orange); }
+.fg-tier__radio-dot { width: 6px; height: 6px; border-radius: 50%; background: #fff; display: none; }
+.fg-tier--selected .fg-tier__radio-dot { display: block; }
+.fg-tier__meta { flex: 1; }
+.fg-tier__name { font-family: var(--font-body); font-size: 13px; font-weight: 700; color: var(--fg-ink); }
+.fg-tier__save { color: var(--fg-orange); font-size: 12px; }
+.fg-tier__freq { font-size: 11px; color: var(--fg-muted); margin-top: 2px; }
+.fg-tier__price { text-align: right; flex-shrink: 0; }
+.fg-tier__amount { font-family: var(--font-body); font-size: 17px; font-weight: 900; color: var(--fg-ink); }
+.fg-tier__was { font-size: 11px; color: #bbb; text-decoration: line-through; }
+.fg-tier__perks { max-height: 0; overflow: hidden; transition: max-height var(--motion-base) var(--ease-out); background: #fffbf7; border-top: 1px solid #fde8d8; }
+.fg-tier__perks-inner { padding: 12px 14px; }
+.fg-tier__perks-label { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: var(--fg-muted); text-align: center; text-transform: uppercase; margin-bottom: 10px; }
+.fg-tier__perk { display: flex; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 12px; color: var(--fg-ink); margin-bottom: 6px; }
+.fg-tier__perk-tag { font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0; }
+.fg-tier__perk-tag--free { background: var(--fg-orange); color: #fff; }
+.fg-tier__perk-tag--exclusive { background: var(--fg-purple); color: #fff; }
+.fg-tier__perk-tag--check { color: #22c55e; font-size: 14px; }
+.fg-tier__popular { background: var(--fg-orange); color: #fff; text-align: center; padding: 5px; font-family: var(--font-body); font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.fg-onetime { text-align: center; margin-bottom: 18px; }
+.fg-onetime__link { font-family: var(--font-body); font-size: 12px; color: var(--fg-muted); text-decoration: underline; cursor: pointer; background: none; border: none; padding: 0; }
+.fg-atc-btn { width: 100%; background: var(--fg-orange); color: #fff; font-family: var(--font-body); font-size: 15px; font-weight: 900; letter-spacing: var(--track-btn); text-transform: uppercase; border: none; border-radius: var(--radius-pill); padding: 17px; cursor: pointer; transition: background var(--motion-fast) var(--ease-out), transform var(--motion-fast) var(--ease-out); box-shadow: var(--shadow-cta); margin-bottom: 12px; }
+.fg-atc-btn:hover { background: var(--fg-orange-hot); transform: translateY(-1px); }
+.fg-atc-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.fg-trust-strip { display: flex; border-top: 1px solid var(--fg-border); padding-top: 12px; }
+.fg-trust-strip__item { flex: 1; text-align: center; font-family: var(--font-body); font-size: 9px; font-weight: 700; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.06em; border-right: 1px solid var(--fg-border); padding: 0 6px; }
+.fg-trust-strip__item:last-child { border-right: none; }
+@media (max-width: 600px) {
+  .fg-buybox__inner { max-width: 100%; }
+}
+</style>
+
+<section class="fg-buybox" id="fg-buy-box">
+  <div class="fg-buybox__inner">
+
+    <img data-flavor-image
+         src="{{ orange.featured_image | image_url: width: 500 }}"
+         alt="FlushGut Orange"
+         width="500" height="500"
+         loading="lazy"
+         style="width:100%;max-width:320px;display:block;margin:0 auto 24px;border-radius:var(--radius-lg);">
+
+    <div class="fg-buybox__title">{{ section.settings.title }}</div>
+    <div class="fg-buybox__sub">{{ section.settings.subtitle }}</div>
+    <div class="fg-badges">
+      <span class="fg-badge">7G Dietary Fiber</span>
+      <span class="fg-badge">Third-Party Tested</span>
+      <span class="fg-badge">Once Weekly</span>
+      <span class="fg-badge">HSA/FSA Eligible</span>
+    </div>
+
+    <div style="font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--fg-muted);margin-bottom:8px;">Choose Your Flavor</div>
+    <div class="fg-flavors">
+      <button type="button"
+              class="fg-flavor-btn fg-flavor--active"
+              data-flavor-btn
+              data-variant-id="{{ orange_variant.id }}"
+              data-image-src="{{ orange.featured_image | image_url: width: 500 }}"
+              data-image-alt="FlushGut Orange"
+              aria-pressed="true">
+        <span class="fg-flavor-dot" style="background:#f37721;"></span>
+        Orange
+      </button>
+      <button type="button"
+              class="fg-flavor-btn"
+              data-flavor-btn
+              data-variant-id="{{ berry_variant.id }}"
+              data-image-src="{{ berry.featured_image | image_url: width: 500 }}"
+              data-image-alt="FlushGut Berry"
+              aria-pressed="false"
+              style="position:relative;">
+        <span class="fg-flavor-dot" style="background:#a0237f;"></span>
+        Berry
+        <span class="fg-flavor-popular">Most Popular</span>
+      </button>
+    </div>
+
+    <div class="fg-savings-banner">YOU SAVE $10/MO — $120/YR</div>
+
+    <form data-atc-form>
+      <input type="hidden" data-variant-input value="{{ orange_variant.id }}">
+      <input type="hidden" data-selling-plan-input name="selling_plan" value="{{ plan_11wk }}">
+
+      <div class="fg-tier fg-tier--selected"
+           data-tier
+           data-selling-plan="{{ plan_11wk }}"
+           data-price="$27.99/mo"
+           aria-expanded="true">
+        <div class="fg-tier__header">
+          <div class="fg-tier__radio"><div class="fg-tier__radio-dot"></div></div>
+          <div class="fg-tier__meta">
+            <div class="fg-tier__name">3 Months of FlushGut <span class="fg-tier__save">(SAVE 30%)</span></div>
+            <div class="fg-tier__freq">Ships every 11 weeks · 1-week buffer so you never run out</div>
+          </div>
+          <div class="fg-tier__price">
+            <div class="fg-tier__amount">$27.99</div>
+            <div class="fg-tier__was">$39.99/box</div>
+            <div style="font-size:10px;color:var(--fg-muted);">per box</div>
+          </div>
+        </div>
+        <div class="fg-tier__perks" data-tier-perks style="max-height:200px;">
+          <div class="fg-tier__perks-inner">
+            <div class="fg-tier__perks-label">Everything in 6-Week, Plus</div>
+            <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Welcome Kit <span style="color:var(--fg-muted);">($42 value)</span></div>
+            <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Mystery Gift <span style="color:var(--fg-muted);">($18 value)</span></div>
+            <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> 60-day money-back guarantee</div>
+            <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--exclusive">Exclusive</span> Access to the FlushGut Method library</div>
+          </div>
+        </div>
+        <div class="fg-tier__popular">Most Popular</div>
+      </div>
+
+      <div class="fg-tier"
+           data-tier
+           data-selling-plan="{{ plan_5wk }}"
+           data-price="$29.99/mo"
+           aria-expanded="false">
+        <div class="fg-tier__header">
+          <div class="fg-tier__radio"><div class="fg-tier__radio-dot"></div></div>
+          <div class="fg-tier__meta">
+            <div class="fg-tier__name">6 Weeks of FlushGut <span class="fg-tier__save">(SAVE 25%)</span></div>
+            <div class="fg-tier__freq">Ships every 5 weeks · 1-week buffer so you never run out</div>
+          </div>
+          <div class="fg-tier__price">
+            <div class="fg-tier__amount">$29.99</div>
+            <div class="fg-tier__was">$39.99/box</div>
+          </div>
+        </div>
+        <div class="fg-tier__perks" data-tier-perks>
+          <div class="fg-tier__perks-inner">
+            <div class="fg-tier__perk"><span class="fg-tier__perk-tag fg-tier__perk-tag--free">Free</span> Welcome Kit <span style="color:var(--fg-muted);">($42 value)</span></div>
+            <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> 60-day money-back guarantee</div>
+            <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">✓</span> Cancel or pause anytime</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fg-onetime">
+        <button type="button" class="fg-onetime__link"
+                data-tier
+                data-selling-plan=""
+                data-price="$39.99"
+                aria-expanded="false">
+          One Time Purchase for $39.99
+        </button>
+      </div>
+
+      <button type="submit" class="fg-atc-btn" data-atc-btn
+              data-default-label="Start My FlushGut Routine — $27.99/mo">
+        <span data-cta-label>Start My FlushGut Routine — $27.99/mo</span>
+      </button>
+    </form>
+
+    <div class="fg-trust-strip">
+      <div class="fg-trust-strip__item">Free US Shipping</div>
+      <div class="fg-trust-strip__item">60-Day Guarantee</div>
+      <div class="fg-trust-strip__item">Cancel Anytime</div>
+    </div>
+
+  </div>
+</section>
+
+<script src="{{ 'fg-buy-box.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "FlushGut Buy Box",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Product title",
+      "default": "FlushGut Essentials"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "All-in-One Weekly Gut Support"
+    },
+    {
+      "type": "text",
+      "id": "selling_plan_5wk",
+      "label": "Selling plan ID — 6-week (every 5 weeks)",
+      "info": "From Shopify Admin → Subscriptions. Numeric ID only.",
+      "default": "6089310437"
+    },
+    {
+      "type": "text",
+      "id": "selling_plan_11wk",
+      "label": "Selling plan ID — 3-month (every 11 weeks)",
+      "info": "Create this plan in Shopify Admin first. Numeric ID only."
+    }
+  ],
+  "presets": [
+    {
+      "name": "FlushGut Buy Box"
+    }
+  ]
+}
+{% endschema %}
