@@ -1,0 +1,79 @@
+<style>
+/* ── hp-02 Gut Cards ── self-contained ── */
+.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
+.fg-section { padding-block:var(--sp-section); }
+.hp-cards__section { background-color:var(--fg-orange); }
+.hp-cards__overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:rgba(255,255,255,0.8); margin-bottom:20px; }
+.hp-cards__overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
+.hp-cards__headline { font-family:var(--font-display); font-size:var(--fs-h1); font-weight:800; text-transform:uppercase; letter-spacing:-0.02em; line-height:1.05; color:#fff; margin:0 0 64px; max-width:700px; }
+.hp-cards__headline em { color:rgba(255,255,255,0.75); font-style:normal; }
+.hp-cards__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.hp-card { background:#fff; border-radius:var(--radius-lg); border:1px solid rgba(255,255,255,0.2); overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.15); transition:transform var(--motion-base) var(--ease-out); }
+.hp-card:hover { transform:translateY(-4px); }
+.hp-card__img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+.hp-card__body { padding:24px; }
+.hp-card__title { font-family:var(--font-display); font-size:24px; font-weight:800; text-transform:uppercase; color:var(--fg-ink); margin:0 0 10px; line-height:1.1; }
+.hp-card__copy { font-family:var(--font-body); font-size:15px; font-weight:300; line-height:1.65; color:var(--fg-muted); margin:0; }
+@media (max-width:900px) { .hp-cards__grid { grid-template-columns:1fr; } }
+</style>
+
+<!-- ============================================================
+     hp-02 — GUT PROBLEM CARDS
+     Background: --fg-canvas
+     3 cards with gut imagery from WP media library.
+     ============================================================ -->
+
+<section class="fg-section hp-cards__section" data-nav-theme="dark">
+  <div class="fg-container">
+
+    <p class="hp-cards__overline" data-aos="fade-up">The real reason you feel this way</p>
+    <h2 class="hp-cards__headline" data-aos="fade-up" data-aos-delay="60">
+      It&rsquo;s not in your head.<br>
+      <em>It&rsquo;s what no one warned you about.</em>
+    </h2>
+
+    <div class="hp-cards__grid">
+
+      <div class="hp-card" data-aos="fade-up" data-aos-delay="0">
+        <img class="hp-card__img"
+             src="https://flushgut.com/wp-content/uploads/2025/12/constipation-isnt-normal.webp"
+             alt="Constipation isn't normal" loading="lazy">
+        <div class="hp-card__body">
+          <h3 class="hp-card__title">Constipation isn&rsquo;t &ldquo;normal.&rdquo;</h3>
+          <p class="hp-card__copy">Low fiber, poor hydration, sluggish gut motility &mdash; your body is telling you something. Most people just learn to live with it. You don&rsquo;t have to.</p>
+        </div>
+      </div>
+
+      <div class="hp-card" data-aos="fade-up" data-aos-delay="100">
+        <img class="hp-card__img"
+             src="https://flushgut.com/wp-content/uploads/2025/12/bloating-pressure-flush-gut.webp"
+             alt="Bloating pressure" loading="lazy">
+        <div class="hp-card__body">
+          <h3 class="hp-card__title">Bloating: the pressure problem.</h3>
+          <p class="hp-card__copy">Fermentation, poor digestion, backed-up gut &mdash; the heaviness you feel by 4pm is real. And it&rsquo;s not something you should just push through.</p>
+        </div>
+      </div>
+
+      <div class="hp-card" data-aos="fade-up" data-aos-delay="200">
+        <img class="hp-card__img"
+             src="https://flushgut.com/wp-content/uploads/2025/12/daily-regularity.webp"
+             alt="Daily regularity" loading="lazy">
+        <div class="hp-card__body">
+          <h3 class="hp-card__title">Daily regularity (without drama).</h3>
+          <p class="hp-card__copy">Not a cleanse. Not a laxative. Consistent fiber support that lets your gut do its job &mdash; quietly, reliably, every week.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefits Row",
+  "tag": "section",
+  "class": "fg-section",
+  "presets": [{ "name": "Benefits Row" }]
+}
+{% endschema %}
