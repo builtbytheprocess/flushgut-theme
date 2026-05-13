@@ -1,5 +1,5 @@
 <style>
-.fgh { background: radial-gradient(ellipse at 5% 20%,rgba(242,117,33,0.88) 0%,transparent 40%), radial-gradient(ellipse at 72% 8%,rgba(242,117,33,0.72) 0%,transparent 30%), radial-gradient(ellipse at 34% 12%,rgba(159,35,128,0.82) 0%,transparent 44%), radial-gradient(ellipse at 96% 5%,rgba(159,35,128,0.68) 0%,transparent 24%), #fce8d5; min-height:calc(100vh - 58px); display:flex; align-items:center; padding:20px var(--container-pad); overflow:visible; }
+.fgh { background: radial-gradient(ellipse at 5% 20%,rgba(242,117,33,0.88) 0%,transparent 40%), radial-gradient(ellipse at 72% 8%,rgba(242,117,33,0.72) 0%,transparent 30%), radial-gradient(ellipse at 34% 12%,rgba(159,35,128,0.82) 0%,transparent 44%), radial-gradient(ellipse at 96% 5%,rgba(159,35,128,0.68) 0%,transparent 24%), #fce8d5; min-height:0; padding:36px var(--container-pad) 48px; display:flex; align-items:center; overflow:visible; }
 .fgh__inner { max-width:var(--container-max); margin:0 auto; width:100%; display:grid; grid-template-columns:360px 1fr; gap:0; align-items:center; }
 .fgh__copy { z-index:2; padding-right:24px; }
 .fgh__overline { font-family:var(--font-body); font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-purple); display:flex; align-items:center; gap:8px; margin-bottom:20px; }
@@ -21,8 +21,8 @@
 .fgh__trust-stars { color:var(--fg-orange); font-size:15px; letter-spacing:-1px; }
 .fgh__trust-text { font-family:var(--font-body); font-size:12px; color:var(--fg-ink); line-height:1.4; }
 .fgh__trust-text strong { display:block; font-weight:700; }
-.fgh__product { position:relative; display:flex; justify-content:center; align-items:center; min-height:520px; }
-.fgh__img { position:relative; z-index:2; max-height:460px; width:auto; max-width:100%; filter:drop-shadow(0 40px 80px rgba(24,6,26,.28)); animation:fgh-float 5s ease-in-out infinite; }
+.fgh__product { position:relative; display:flex; justify-content:center; align-items:center; min-height:260px; }
+.fgh__img { position:relative; z-index:2; max-height:280px; width:auto; max-width:100%; filter:drop-shadow(0 40px 80px rgba(24,6,26,.28)); animation:fgh-float 5s ease-in-out infinite; }
 @keyframes fgh-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
 .fgh-callout { position:absolute; z-index:3; display:flex; align-items:center; opacity:0; animation:fgh-cin .5s var(--ease-out) forwards; }
 @keyframes fgh-cin { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
@@ -90,7 +90,7 @@
       </div>
       <div class="fgh-callout fgh-callout--right fgh-callout--c4">
         <div class="fgh-callout__dot"></div><div class="fgh-callout__line"></div>
-        <div class="fgh-callout__pill">510M CFU Probiotic<small>Shelf-stable — no fridge needed</small></div>
+        <div class="fgh-callout__pill">🔬 Clinically Studied<small>200+ clinicians reviewed</small></div>
       </div>
       <div class="fgh-callout fgh-callout--right fgh-callout--c5">
         <div class="fgh-callout__dot"></div><div class="fgh-callout__line"></div>
@@ -98,7 +98,7 @@
       </div>
       <div class="fgh-callout fgh-callout--right fgh-callout--c6">
         <div class="fgh-callout__dot"></div><div class="fgh-callout__line"></div>
-        <div class="fgh-callout__pill">Once Weekly<small>Daily habits fail. Weekly ones stick.</small></div>
+        <div class="fgh-callout__pill">3x Per Week<small>Monday · Wednesday · Friday</small></div>
       </div>
 
       {%- if section.settings.hero_image -%}
@@ -126,7 +126,7 @@
     { "type": "text", "id": "overline", "label": "Overline", "default": "Weekly Fiber Jelly · 22 Ingredients" },
     { "type": "text", "id": "headline_line1", "label": "Headline line 1", "default": "One Jelly Stick." },
     { "type": "text", "id": "headline_line2", "label": "Headline line 2 (italic accent)", "default": "Once a Week." },
-    { "type": "text", "id": "subheadline", "label": "Subheadline", "default": "No pills. No powder. No mixing. Just tear, squeeze, and you're done — once a week.*" },
+    { "type": "text", "id": "subheadline", "label": "Subheadline", "default": "No pills. No powder. No mixing. Just tear, squeeze, and done — 3 times a week.*" },
     { "type": "url", "id": "cta_url", "label": "CTA URL", "info": "Use #fg-buy-box to scroll to buy box" },
     { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Start My Routine →" },
     { "type": "text", "id": "trust_headline", "label": "Trust badge headline", "default": "4.8 from 150+ beta testers" },

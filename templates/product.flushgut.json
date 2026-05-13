@@ -3,21 +3,21 @@
     "pg-hero": {
       "type": "product-hero",
       "settings": {
-        "overline": "Weekly Fiber Jelly · 22 Ingredients",
+        "overline": "3x Weekly Fiber Jelly · 22 Ingredients",
         "headline_line1": "One Jelly Stick.",
-        "headline_line2": "Once a Week.",
-        "subheadline": "No pills. No powder. No mixing. Just tear, squeeze, and you're done — once a week.*",
+        "headline_line2": "Three Times a Week.",
+        "subheadline": "No pills. No powder. No mixing. Just tear, squeeze, and support your gut — 3 times a week.*",
         "cta_url": "#product-buy-box",
         "cta_label": "Start My Routine →",
-        "trust_headline": "4.8 from 150+ beta testers",
-        "trust_sub": "Third-party tested · 60-day guarantee"
+        "trust_headline": "Reviewed by 200+ clinicians",
+        "trust_sub": "Third-party tested · HSA/FSA eligible"
       }
     },
     "pg-buy-box": {
       "type": "product-buy-box",
       "settings": {
         "title": "FlushGut Essentials",
-        "subtitle": "All-in-One Weekly Gut Support",
+        "subtitle": "Clinically Studied · 3x Weekly Gut Support",
         "selling_plan_5wk": "6089310437",
         "selling_plan_11wk": ""
       }

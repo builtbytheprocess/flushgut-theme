@@ -4,17 +4,19 @@
       "type": "custom-hero",
       "settings": {
         "headline_line1": "ONE JELLY STICK.",
-        "headline_line2": "ONCE A WEEK.",
-        "subheadline": "22 premium dietary ingredients to support your gut routine. Tear. Squeeze. Done.",
+        "headline_line2": "THREE TIMES A WEEK.",
+        "subheadline": "Clinically studied. 22 premium dietary ingredients. Tear, squeeze, and support your gut — 3x a week.",
         "cta_url": "#fg-buy-box",
-        "cta_label": "Start My Routine →"
+        "cta_label": "Start My Routine →",
+        "trust_headline": "Reviewed by 200+ clinicians",
+        "trust_sub": "Third-party tested · HSA/FSA eligible"
       }
     },
     "fg-buy-box": {
       "type": "custom-buy-box",
       "settings": {
         "title": "FlushGut Essentials",
-        "subtitle": "All-in-One Weekly Gut Support",
+        "subtitle": "Clinically Studied · 3x Weekly Gut Support",
         "selling_plan_5wk": "6089310437",
         "selling_plan_11wk": ""
       }
