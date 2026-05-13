@@ -11,12 +11,12 @@
 
 /* ── Free shipping bar ── */
 .fg-shipping-bar { padding: 10px 16px; background: var(--fg-canvas); border-bottom: 1px solid var(--fg-border); }
-.fg-shipping-bar__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.fg-shipping-bar__text { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--fg-ink); }
+.fg-shipping-bar__row { display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; margin-bottom: 8px; gap: 8px; }
+.fg-shipping-bar__text { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--fg-ink); flex: 1; }
 .fg-shipping-bar__text strong { color: var(--fg-orange); }
-.fg-shipping-bar__pct { font-family: var(--font-body); font-size: 12px; font-weight: 700; color: var(--fg-muted); }
-.fg-shipping-bar__track { height: 6px; background: var(--fg-border); border-radius: 3px; overflow: hidden; }
-.fg-shipping-bar__fill { height: 100%; background: linear-gradient(90deg, var(--fg-orange), var(--fg-orange-hot)); border-radius: 3px; transition: width 0.4s ease; }
+.fg-shipping-bar__pct { font-family: var(--font-body); font-size: 13px; font-weight: 800; color: var(--fg-muted); flex-shrink: 0; }
+.fg-shipping-bar__track { height: 8px; background: #e5e7eb; border-radius: 100px; overflow: hidden; width: 100%; }
+.fg-shipping-bar__fill { display: block; height: 8px; background: var(--fg-purple); border-radius: 100px; transition: width 0.6s ease; min-width: 2px; }
 
 /* ── Subscription reminder ── */
 .fg-sub-reminder { font-family: var(--font-body); font-size: 11px; color: var(--fg-orange); font-weight: 600; margin-top: 3px; }
