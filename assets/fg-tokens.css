@@ -69,12 +69,7 @@
   text-transform: none !important;
 }
 
-/* Tighten logo wrapper so 10px padding is respected */
+/* Remove extra space around logo */
 .header__heading-logo-wrapper {
   line-height: 0;
-}
-.header__heading-logo {
-  height: auto;
-  max-height: 40px;
-  width: auto;
 }
