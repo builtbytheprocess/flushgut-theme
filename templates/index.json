@@ -25,6 +25,10 @@
         "selling_plan_11wk": ""
       }
     },
+    "fg-gut-symptoms": {
+      "type": "custom-gut-symptoms",
+      "settings": {}
+    },
     "fg-benefits": {
       "type": "custom-benefits-row",
       "settings": {}
@@ -62,6 +66,7 @@
     "fg-hero",
     "fg-clinician-trust",
     "fg-buy-box",
+    "fg-gut-symptoms",
     "fg-benefits",
     "fg-problem",
     "fg-ingredients",

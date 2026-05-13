@@ -1,0 +1,80 @@
+<style>
+/* ── Gut Symptoms — self-contained ── */
+.fg-symptoms { background:#18061a; padding:80px 0; }
+.fg-symptoms__inner { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); text-align:center; }
+.fg-symptoms__overline { font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-orange); margin-bottom:12px; }
+.fg-symptoms__headline { font-family:var(--font-display); font-size:clamp(32px,4vw,56px); font-weight:900; text-transform:uppercase; line-height:1.0; color:#fff; margin:0 0 16px; }
+.fg-symptoms__headline em { color:var(--fg-orange); font-style:normal; }
+.fg-symptoms__body { font-family:var(--font-body); font-size:15px; color:rgba(250,248,245,0.6); line-height:1.65; max-width:560px; margin:0 auto 48px; }
+.fg-symptoms__cards { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:36px; }
+.fg-symptom-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px 16px; }
+.fg-symptom-card__icon { font-size:30px; margin-bottom:14px; line-height:1; }
+.fg-symptom-card__label { font-family:var(--font-body); font-size:13px; font-weight:700; color:#fff; line-height:1.3; }
+.fg-symptoms__stat { font-family:var(--font-body); font-size:13px; color:rgba(250,248,245,0.45); line-height:1.8; margin:0 0 24px; }
+.fg-symptoms__stat strong { color:var(--fg-orange); font-weight:600; }
+.fg-symptoms__cta { display:inline-flex; align-items:center; gap:8px; background:rgba(243,119,33,0.15); color:var(--fg-orange); font-family:var(--font-body); font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px 28px; border-radius:var(--radius-pill); border:1.5px solid rgba(243,119,33,0.4); text-decoration:none; transition:background 150ms; }
+.fg-symptoms__cta:hover { background:rgba(243,119,33,0.25); color:var(--fg-orange); }
+.fg-symptoms__cite { font-family:var(--font-body); font-size:10px; color:rgba(250,248,245,0.2); margin-top:28px; line-height:1.5; }
+.fg-symptoms__cite a { color:inherit; }
+@media(max-width:768px) {
+  .fg-symptoms { padding:56px 0; }
+  .fg-symptoms__cards { grid-template-columns:repeat(2,1fr); }
+  .fg-symptom-card:last-child { grid-column:1 / -1; max-width:50%; margin:0 auto; }
+}
+</style>
+
+<section class="fg-symptoms" data-nav-theme="dark">
+  <div class="fg-symptoms__inner">
+    <p class="fg-symptoms__overline" data-aos="fade-up">Does This Sound Like You?</p>
+    <h2 class="fg-symptoms__headline" data-aos="fade-up" data-aos-delay="60">
+      When Your Gut Is Off,<br>
+      <em>Everything Feels Off.</em>
+    </h2>
+    <p class="fg-symptoms__body" data-aos="fade-up" data-aos-delay="100">
+      Your gut influences more than digestion. When it&rsquo;s out of balance, the effects show up everywhere &mdash; your energy, your skin, your focus, your mood.
+    </p>
+
+    <div class="fg-symptoms__cards">
+      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="fg-symptom-card__icon">😮‍💨</div>
+        <div class="fg-symptom-card__label">Persistent Bloating</div>
+      </div>
+      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="60">
+        <div class="fg-symptom-card__icon">🧠</div>
+        <div class="fg-symptom-card__label">Brain Fog</div>
+      </div>
+      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="fg-symptom-card__icon">⚡</div>
+        <div class="fg-symptom-card__label">Low Energy</div>
+      </div>
+      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="180">
+        <div class="fg-symptom-card__icon">🐢</div>
+        <div class="fg-symptom-card__label">Sluggish Digestion</div>
+      </div>
+      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="fg-symptom-card__icon">🪞</div>
+        <div class="fg-symptom-card__label">Skin Flare-Ups</div>
+      </div>
+    </div>
+
+    <p class="fg-symptoms__stat" data-aos="fade-up">
+      61% of Americans experience weekly digestive issues.<sup>1</sup><br>
+      <strong>Your gut controls more than you think.</strong>
+    </p>
+
+    <a href="#fg-buy-box" class="fg-symptoms__cta" data-aos="fade-up">Support Your Gut Today &rarr;</a>
+
+    <p class="fg-symptoms__cite">
+      <sup>1</sup> <a href="https://europepmc.org/article/MED/30323268" target="_blank" rel="noopener">europepmc.org/article/MED/30323268</a>
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gut Symptoms",
+  "tag": "section",
+  "class": "fg-symptoms",
+  "presets": [{ "name": "Gut Symptoms" }]
+}
+{% endschema %}
