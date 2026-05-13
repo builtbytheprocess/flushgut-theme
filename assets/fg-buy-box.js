@@ -102,20 +102,25 @@
     }
 
     function openCartDrawer() {
-      // Trigger Dawn's cart drawer open
-      var cartDrawer = document.querySelector('cart-drawer');
-      if (cartDrawer && typeof cartDrawer.open === 'function') {
-        cartDrawer.open();
-      } else {
-        // Fallback: refresh cart icon count then navigate to cart
-        fetch('/cart.js')
-          .then(function (r) { return r.json(); })
-          .then(function (cart) {
-            var bubble = document.querySelector('.cart-count-bubble');
-            if (bubble) bubble.textContent = cart.item_count;
+      var drawer = document.querySelector('cart-drawer');
+      if (!drawer) { window.location.href = '/cart'; return; }
+
+      // Update cart count, then open
+      fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (cart) {
+          // Update header cart count bubbles
+          document.querySelectorAll('.cart-count-bubble span:not(.visually-hidden)').forEach(function (el) {
+            el.textContent = cart.item_count;
           });
-        window.location.href = '/cart';
-      }
+          // Open Dawn's cart drawer
+          if (typeof drawer.open === 'function') {
+            drawer.open();
+          }
+        })
+        .catch(function () {
+          window.location.href = '/cart';
+        });
     }
 
     function updateCta(price) {
