@@ -1,0 +1,102 @@
+<style>
+/* ── Clinician Trust Bar — self-contained ── */
+.fg-clin-strip { background:#18061a; }
+.fg-clin-strip__row { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); display:flex; align-items:center; }
+.fg-clin-stats { display:flex; align-items:center; flex:1; }
+.fg-clin-stat { display:flex; flex-direction:column; align-items:center; padding:16px 20px; flex:1; }
+.fg-clin-stat__num { font-family:var(--font-display); font-size:18px; font-weight:800; color:var(--fg-orange); line-height:1; text-transform:uppercase; }
+.fg-clin-stat__label { font-family:var(--font-body); font-size:9px; font-weight:500; letter-spacing:0.10em; text-transform:uppercase; color:rgba(250,248,245,0.5); margin-top:3px; text-align:center; }
+.fg-clin-divider { width:1px; height:28px; background:rgba(255,255,255,0.1); flex-shrink:0; }
+.fg-clin-toggle { font-family:var(--font-body); font-size:11px; font-weight:600; color:var(--fg-orange); white-space:nowrap; cursor:pointer; background:none; border:none; padding:16px 0 16px 20px; display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.fg-clin-toggle__arrow { display:inline-block; transition:transform 300ms ease; }
+.fg-clin-toggle.is-open .fg-clin-toggle__arrow { transform:rotate(180deg); }
+.fg-clin-cards { background:var(--fg-canvas); overflow:hidden; max-height:0; transition:max-height 420ms ease; border-bottom:1px solid var(--fg-border); }
+.fg-clin-cards.is-open { max-height:500px; }
+.fg-clin-cards__inner { max-width:var(--container-max); margin:0 auto; padding:28px var(--container-pad); display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.fg-clin-card { background:#fff; border-radius:12px; padding:20px; border:1px solid var(--fg-border); }
+.fg-clin-card__icon { font-size:22px; margin-bottom:10px; }
+.fg-clin-card__title { font-family:var(--font-body); font-size:13px; font-weight:700; color:var(--fg-ink); margin-bottom:6px; }
+.fg-clin-card__copy { font-family:var(--font-body); font-size:12px; color:var(--fg-muted); line-height:1.6; margin:0; }
+.fg-clin-disclaimer { font-family:var(--font-body); font-size:10px; color:var(--fg-muted); text-align:center; margin-top:8px; padding:0 var(--container-pad) 20px; max-width:var(--container-max); margin-left:auto; margin-right:auto; }
+@media(max-width:768px) {
+  .fg-clin-stats { overflow-x:auto; }
+  .fg-clin-stat { padding:12px 14px; min-width:80px; }
+  .fg-clin-stat__num { font-size:14px; }
+  .fg-clin-toggle { font-size:10px; padding-left:12px; }
+  .fg-clin-cards__inner { grid-template-columns:1fr 1fr; }
+}
+</style>
+
+<div class="fg-clin-strip">
+  <div class="fg-clin-strip__row">
+    <div class="fg-clin-stats">
+      <div class="fg-clin-stat">
+        <span class="fg-clin-stat__num">200+</span>
+        <span class="fg-clin-stat__label">Clinicians Reviewed</span>
+      </div>
+      <div class="fg-clin-divider"></div>
+      <div class="fg-clin-stat">
+        <span class="fg-clin-stat__num">Clinically</span>
+        <span class="fg-clin-stat__label">Studied Ingredients</span>
+      </div>
+      <div class="fg-clin-divider"></div>
+      <div class="fg-clin-stat">
+        <span class="fg-clin-stat__num">3rd Party</span>
+        <span class="fg-clin-stat__label">Lab Tested</span>
+      </div>
+      <div class="fg-clin-divider"></div>
+      <div class="fg-clin-stat">
+        <span class="fg-clin-stat__num">HSA / FSA</span>
+        <span class="fg-clin-stat__label">Eligible</span>
+      </div>
+    </div>
+    <button class="fg-clin-toggle" id="fg-clin-btn" onclick="fgClinToggle()" aria-expanded="false">
+      See why clinicians back it <span class="fg-clin-toggle__arrow">&#8964;</span>
+    </button>
+  </div>
+</div>
+
+<div class="fg-clin-cards" id="fg-clin-cards">
+  <div class="fg-clin-cards__inner">
+    <div class="fg-clin-card">
+      <div class="fg-clin-card__icon">🔬</div>
+      <div class="fg-clin-card__title">Clinically Studied Ingredients</div>
+      <p class="fg-clin-card__copy">Each active ingredient backed by published research on gut health, prebiotic fiber, and probiotic efficacy.</p>
+    </div>
+    <div class="fg-clin-card">
+      <div class="fg-clin-card__icon">✅</div>
+      <div class="fg-clin-card__title">200+ Clinician Approvals</div>
+      <p class="fg-clin-card__copy">Reviewed and supported by dietitians, gastroenterologists, and functional medicine practitioners.</p>
+    </div>
+    <div class="fg-clin-card">
+      <div class="fg-clin-card__icon">🧪</div>
+      <div class="fg-clin-card__title">3rd Party Lab Tested</div>
+      <p class="fg-clin-card__copy">Every batch tested for purity, potency, and safety before it ships.</p>
+    </div>
+    <div class="fg-clin-card">
+      <div class="fg-clin-card__icon">💳</div>
+      <div class="fg-clin-card__title">HSA/FSA Eligible</div>
+      <p class="fg-clin-card__copy">Recognized as a qualified health expense. Save up to 30% with pre-tax dollars.</p>
+    </div>
+  </div>
+  <p class="fg-clin-disclaimer">*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+</div>
+
+<script>
+function fgClinToggle() {
+  var btn = document.getElementById('fg-clin-btn');
+  var cards = document.getElementById('fg-clin-cards');
+  var isOpen = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+  btn.classList.toggle('is-open', !isOpen);
+  cards.classList.toggle('is-open', !isOpen);
+}
+</script>
+
+{% schema %}
+{
+  "name": "Clinician Trust Bar",
+  "tag": "div",
+  "presets": [{ "name": "Clinician Trust Bar" }]
+}
+{% endschema %}
