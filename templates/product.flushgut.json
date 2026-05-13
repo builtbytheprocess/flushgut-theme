@@ -24,6 +24,10 @@
     },
     "pg-benefits": { "type": "custom-benefits-row", "settings": {} },
     "pg-ingredients": { "type": "custom-ingredient-scroll", "settings": {} },
+    "pg-ingredient-science": {
+      "type": "custom-ingredient-science",
+      "settings": {}
+    },
     "pg-format": { "type": "custom-format-diff", "settings": {} },
     "pg-social": { "type": "custom-social-proof", "settings": {} },
     "pg-final-cta": {
@@ -36,6 +40,7 @@
     "pg-buy-box",
     "pg-benefits",
     "pg-ingredients",
+    "pg-ingredient-science",
     "pg-format",
     "pg-social",
     "pg-final-cta"

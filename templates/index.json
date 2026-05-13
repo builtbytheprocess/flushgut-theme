@@ -41,6 +41,10 @@
       "type": "custom-ingredient-scroll",
       "settings": {}
     },
+    "fg-ingredient-science": {
+      "type": "custom-ingredient-science",
+      "settings": {}
+    },
     "fg-how-to": {
       "type": "custom-how-to",
       "settings": {}
@@ -70,6 +74,7 @@
     "fg-benefits",
     "fg-problem",
     "fg-ingredients",
+    "fg-ingredient-science",
     "fg-how-to",
     "fg-format",
     "fg-social-proof",
