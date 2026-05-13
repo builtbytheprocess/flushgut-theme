@@ -110,8 +110,8 @@
               </div>
               <span class="fg-shipping-bar__pct">{{ ship_pct }}%</span>
             </div>
-            <div class="fg-shipping-bar__track">
-              <div class="fg-shipping-bar__fill" style="width:{{ ship_pct }}%;"></div>
+            <div style="height:8px;background:#e5e7eb;border-radius:100px;overflow:hidden;width:100%;margin-top:6px;">
+              <div style="height:8px;width:{{ ship_pct }}%;background:#a0237f;border-radius:100px;transition:width 0.6s ease;min-width:{% if ship_pct > 0 %}3px{% else %}0{% endif %};"></div>
             </div>
           </div>
 
