@@ -41,6 +41,9 @@
 .fg-cart-trust { display: flex; justify-content: center; gap: 16px; padding: 8px 0 0; }
 .fg-cart-trust span { font-family: var(--font-body); font-size: 10px; font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
+/* Hide Product/Total column headers */
+.cart-drawer .cart-items thead { display: none !important; }
+
 /* ── Dawn element overrides — FlushGut brand only ── */
 .cart-drawer .drawer__header { background: var(--fg-dark) !important; border-bottom: none; }
 .cart-drawer .drawer__heading { color: #fff !important; font-family: var(--font-body) !important; font-size: 16px !important; font-weight: 700 !important; }

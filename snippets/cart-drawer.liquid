@@ -110,9 +110,7 @@
               </div>
               <span class="fg-shipping-bar__pct">{{ ship_pct }}%</span>
             </div>
-            <div style="height:8px;background:#e5e7eb;border-radius:100px;overflow:hidden;width:100%;margin-top:6px;">
-              <div style="height:8px;width:{{ ship_pct }}%;background:#a0237f;border-radius:100px;transition:width 0.6s ease;min-width:{% if ship_pct > 0 %}3px{% else %}0{% endif %};"></div>
-            </div>
+            <div style="height:8px;border-radius:100px;background:linear-gradient(to right,#a0237f {{ ship_pct }}%,#e5e7eb {{ ship_pct }}%);margin-top:6px;width:100%;display:block;"></div>
           </div>
 
           {%- comment -%} FG: Urgency timer — subscription orders only {%- endcomment -%}
