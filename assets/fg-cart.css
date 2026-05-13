@@ -37,5 +37,7 @@
 .cart-drawer .cart-item__name { font-family: var(--font-body) !important; font-weight: 700 !important; }
 .cart-drawer .totals__total { font-family: var(--font-body) !important; font-size: 14px !important; font-weight: 600 !important; }
 .cart-drawer .totals__total-value { font-family: var(--font-body) !important; font-size: 18px !important; font-weight: 900 !important; color: var(--fg-ink) !important; }
-.cart-drawer #CartDrawer-Checkout { background: var(--fg-orange) !important; border-color: var(--fg-orange) !important; border-radius: var(--radius-pill) !important; font-family: var(--font-body) !important; font-weight: 900 !important; letter-spacing: 0.06em !important; box-shadow: var(--shadow-cta) !important; }
+/* Force checkout button full-width and trust strip stacked below */
+.cart-drawer .cart__ctas { display: flex !important; flex-direction: column !important; gap: 0 !important; align-items: stretch !important; }
+.cart-drawer #CartDrawer-Checkout { width: 100% !important; background: var(--fg-orange) !important; border-color: var(--fg-orange) !important; border-radius: var(--radius-pill) !important; font-family: var(--font-body) !important; font-weight: 900 !important; letter-spacing: 0.06em !important; box-shadow: var(--shadow-cta) !important; padding: 16px !important; font-size: 15px !important; }
 .cart-drawer #CartDrawer-Checkout:hover { background: var(--fg-orange-hot) !important; border-color: var(--fg-orange-hot) !important; }
