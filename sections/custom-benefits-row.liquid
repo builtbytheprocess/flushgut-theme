@@ -7,7 +7,7 @@
 .hp-cards__overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
 .hp-cards__headline { font-family:var(--font-display); font-size:var(--fs-h1); font-weight:800; text-transform:uppercase; letter-spacing:-0.02em; line-height:1.05; color:#fff; margin:0 0 64px; max-width:700px; }
 .hp-cards__headline em { color:rgba(255,255,255,0.75); font-style:normal; }
-.hp-cards__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.hp-cards__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:28px; }
 .hp-card { background:#fff; border-radius:var(--radius-lg); border:1px solid rgba(255,255,255,0.2); overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.15); transition:transform var(--motion-base) var(--ease-out); }
 .hp-card:hover { transform:translateY(-4px); }
 .hp-card__img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
@@ -37,30 +37,50 @@
       <div class="hp-card" data-aos="fade-up" data-aos-delay="0">
         <img class="hp-card__img"
              src="https://flushgut.com/wp-content/uploads/2025/12/constipation-isnt-normal.webp"
-             alt="Constipation isn't normal" loading="lazy">
+             alt="Gut health support" loading="lazy">
         <div class="hp-card__body">
-          <h3 class="hp-card__title">Constipation isn&rsquo;t &ldquo;normal.&rdquo;</h3>
-          <p class="hp-card__copy">Low fiber, poor hydration, sluggish gut motility &mdash; your body is telling you something. Most people just learn to live with it. You don&rsquo;t have to.</p>
+          <h3 class="hp-card__title">Gut Health</h3>
+          <p class="hp-card__copy">Prebiotic fiber and probiotic strains work together to support a balanced microbiome and regular, comfortable digestion.</p>
         </div>
       </div>
 
-      <div class="hp-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="hp-card" data-aos="fade-up" data-aos-delay="80">
         <img class="hp-card__img"
              src="https://flushgut.com/wp-content/uploads/2025/12/bloating-pressure-flush-gut.webp"
-             alt="Bloating pressure" loading="lazy">
+             alt="Immunity support" loading="lazy">
         <div class="hp-card__body">
-          <h3 class="hp-card__title">Bloating: the pressure problem.</h3>
-          <p class="hp-card__copy">Fermentation, poor digestion, backed-up gut &mdash; the heaviness you feel by 4pm is real. And it&rsquo;s not something you should just push through.</p>
+          <h3 class="hp-card__title">Immunity</h3>
+          <p class="hp-card__copy">70% of your immune system lives in your gut. A healthy, balanced microbiome may help support your body&rsquo;s natural defenses.*</p>
         </div>
       </div>
 
-      <div class="hp-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="hp-card" data-aos="fade-up" data-aos-delay="160">
         <img class="hp-card__img"
              src="https://flushgut.com/wp-content/uploads/2025/12/daily-regularity.webp"
-             alt="Daily regularity" loading="lazy">
+             alt="Energy support" loading="lazy">
         <div class="hp-card__body">
-          <h3 class="hp-card__title">Daily regularity (without drama).</h3>
-          <p class="hp-card__copy">Not a cleanse. Not a laxative. Consistent fiber support that lets your gut do its job &mdash; quietly, reliably, every week.</p>
+          <h3 class="hp-card__title">Energy</h3>
+          <p class="hp-card__copy">When your gut absorbs nutrients efficiently, your energy may follow. Less sluggishness, more vitality throughout the day.*</p>
+        </div>
+      </div>
+
+      <div class="hp-card" data-aos="fade-up" data-aos-delay="240">
+        <img class="hp-card__img"
+             src="https://flushgut.com/wp-content/uploads/2025/12/constipation-isnt-normal.webp"
+             alt="Brain and mood support" loading="lazy">
+        <div class="hp-card__body">
+          <h3 class="hp-card__title">Brain &amp; Mood</h3>
+          <p class="hp-card__copy">The gut-brain axis is real. A balanced microbiome may support clearer thinking, focus, and a calmer mood.*</p>
+        </div>
+      </div>
+
+      <div class="hp-card" data-aos="fade-up" data-aos-delay="320">
+        <img class="hp-card__img"
+             src="https://flushgut.com/wp-content/uploads/2025/12/bloating-pressure-flush-gut.webp"
+             alt="Skin health" loading="lazy">
+        <div class="hp-card__body">
+          <h3 class="hp-card__title">Skin</h3>
+          <p class="hp-card__copy">Gut imbalances often show up on your skin. Supporting your gut microbiome may help reduce internal inflammation that affects skin health.*</p>
         </div>
       </div>
 
