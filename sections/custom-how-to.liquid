@@ -1,0 +1,58 @@
+<style>
+.fg-howto { background: var(--fg-dark); padding: 80px 0; }
+.fg-howto__inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); }
+.fg-howto__kicker { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-orange); text-align: center; margin-bottom: 12px; }
+.fg-howto__title { font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px); font-weight: 900; text-transform: uppercase; letter-spacing: var(--track-display); line-height: 1.0; color: #fff; text-align: center; margin-bottom: 8px; }
+.fg-howto__title em { color: var(--fg-orange); font-style: normal; }
+.fg-howto__sub { font-family: var(--font-body); font-size: 15px; color: rgba(250,248,245,0.55); text-align: center; margin-bottom: 56px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.fg-howto__steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.fg-howto__step { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-xl); padding: 36px 28px; text-align: center; position: relative; }
+.fg-howto__num { width: 48px; height: 48px; border-radius: 50%; background: var(--fg-orange); color: #fff; font-family: var(--font-display); font-size: 22px; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 4px 16px rgba(243,119,33,0.45); }
+.fg-howto__step-title { font-family: var(--font-body); font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+.fg-howto__step-desc { font-family: var(--font-body); font-size: 14px; color: rgba(250,248,245,0.6); line-height: 1.65; }
+.fg-howto__disclaimer { font-family: var(--font-body); font-size: 11px; color: rgba(250,248,245,0.3); text-align: center; margin-top: 40px; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
+@media(max-width:768px) {
+  .fg-howto__steps { grid-template-columns: 1fr; gap: 16px; }
+  .fg-howto { padding: 56px 0; }
+}
+</style>
+
+<section class="fg-howto" id="fg-how-to">
+  <div class="fg-howto__inner">
+    <div class="fg-howto__kicker">How to Enjoy</div>
+    <h2 class="fg-howto__title">3 Simple Steps. <em>10 seconds a week.</em></h2>
+    <p class="fg-howto__sub">No blender. No measuring. No daily habit to maintain.</p>
+
+    <div class="fg-howto__steps">
+
+      <div class="fg-howto__step">
+        <div class="fg-howto__num">1</div>
+        <div class="fg-howto__step-title">Open One Packet</div>
+        <div class="fg-howto__step-desc">Peel open a FlushGut jelly packet on your chosen day of the week. No mixing, no measuring, no blender.</div>
+      </div>
+
+      <div class="fg-howto__step">
+        <div class="fg-howto__num">2</div>
+        <div class="fg-howto__step-title">Chew &amp; Drink Water</div>
+        <div class="fg-howto__step-desc">Soft jelly texture in Berry or Orange. Follow with adequate fluids, as part of a balanced diet to support digestive function.*</div>
+      </div>
+
+      <div class="fg-howto__step">
+        <div class="fg-howto__num">3</div>
+        <div class="fg-howto__step-title">Once a Week</div>
+        <div class="fg-howto__step-desc">One packet per week. Store in a refrigerator for extended shelf life and optimal taste.</div>
+      </div>
+
+    </div>
+
+    <p class="fg-howto__disclaimer">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How to Enjoy",
+  "tag": "div",
+  "presets": [{ "name": "How to Enjoy" }]
+}
+{% endschema %}

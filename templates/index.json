@@ -31,6 +31,10 @@
       "type": "custom-ingredient-scroll",
       "settings": {}
     },
+    "fg-how-to": {
+      "type": "custom-how-to",
+      "settings": {}
+    },
     "fg-format": {
       "type": "custom-format-diff",
       "settings": {}
@@ -54,6 +58,7 @@
     "fg-benefits",
     "fg-problem",
     "fg-ingredients",
+    "fg-how-to",
     "fg-format",
     "fg-social-proof",
     "fg-glp1",
