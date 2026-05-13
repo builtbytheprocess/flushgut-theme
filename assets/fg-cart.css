@@ -1,6 +1,41 @@
-/* FlushGut cart drawer additions */
-.fg-shipping-bar { padding: 12px 16px; background: var(--fg-canvas); border-bottom: 1px solid var(--fg-border); }
+/* FlushGut cart drawer additions — builds ON TOP of Dawn, never replaces */
+
+/* ── Free shipping bar ── */
+.fg-shipping-bar { padding: 10px 16px; background: var(--fg-canvas); border-bottom: 1px solid var(--fg-border); }
 .fg-shipping-bar__text { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--fg-ink); text-align: center; margin-bottom: 6px; }
 .fg-shipping-bar__track { height: 4px; background: var(--fg-border); border-radius: 2px; overflow: hidden; }
 .fg-shipping-bar__fill { height: 100%; background: var(--fg-orange); border-radius: 2px; transition: width 0.4s ease; }
-.fg-sub-reminder { font-family: var(--font-body); font-size: 11px; color: var(--fg-muted); margin-top: 4px; }
+
+/* ── Subscription reminder ── */
+.fg-sub-reminder { font-family: var(--font-body); font-size: 11px; color: var(--fg-orange); font-weight: 600; margin-top: 3px; }
+
+/* ── Urgency timer ── */
+.fg-urgency-bar { background: var(--fg-dark); padding: 9px 16px; text-align: center; }
+.fg-urgency-bar__text { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: #fff; }
+.fg-urgency-bar__text strong { background: var(--fg-orange); color: #fff; padding: 1px 7px; border-radius: 4px; font-size: 13px; margin-left: 4px; }
+
+/* ── Cross-sell ── */
+.fg-cart-xsell { display: flex; align-items: center; gap: 12px; margin: 8px 16px; padding: 12px; background: var(--fg-canvas); border: 1px solid var(--fg-border); border-radius: 10px; }
+.fg-cart-xsell__img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.fg-cart-xsell__info { flex: 1; min-width: 0; }
+.fg-cart-xsell__label { font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-orange); margin-bottom: 2px; }
+.fg-cart-xsell__name { font-family: var(--font-body); font-size: 13px; font-weight: 700; color: var(--fg-ink); }
+.fg-cart-xsell__price { font-family: var(--font-body); font-size: 11px; color: var(--fg-muted); }
+.fg-cart-xsell__btn { background: var(--fg-orange); color: #fff; border: none; border-radius: 100px; padding: 7px 16px; font-family: var(--font-body); font-size: 12px; font-weight: 700; cursor: pointer; flex-shrink: 0; transition: background 150ms; }
+.fg-cart-xsell__btn:hover { background: var(--fg-orange-hot); }
+.fg-cart-xsell__btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Trust strip ── */
+.fg-cart-trust { display: flex; justify-content: center; gap: 16px; padding: 8px 0 0; }
+.fg-cart-trust span { font-family: var(--font-body); font-size: 10px; font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ── Dawn element overrides — FlushGut brand only ── */
+.cart-drawer .drawer__header { background: var(--fg-dark) !important; border-bottom: none; }
+.cart-drawer .drawer__heading { color: #fff !important; font-family: var(--font-body) !important; font-size: 16px !important; font-weight: 700 !important; }
+.cart-drawer .drawer__close svg { color: rgba(255,255,255,0.7) !important; }
+.cart-drawer .drawer__close:hover svg { color: #fff !important; }
+.cart-drawer .cart-item__name { font-family: var(--font-body) !important; font-weight: 700 !important; }
+.cart-drawer .totals__total { font-family: var(--font-body) !important; font-size: 14px !important; font-weight: 600 !important; }
+.cart-drawer .totals__total-value { font-family: var(--font-body) !important; font-size: 18px !important; font-weight: 900 !important; color: var(--fg-ink) !important; }
+.cart-drawer #CartDrawer-Checkout { background: var(--fg-orange) !important; border-color: var(--fg-orange) !important; border-radius: var(--radius-pill) !important; font-family: var(--font-body) !important; font-weight: 900 !important; letter-spacing: 0.06em !important; box-shadow: var(--shadow-cta) !important; }
+.cart-drawer #CartDrawer-Checkout:hover { background: var(--fg-orange-hot) !important; border-color: var(--fg-orange-hot) !important; }

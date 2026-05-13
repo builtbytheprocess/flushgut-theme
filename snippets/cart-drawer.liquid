@@ -104,6 +104,17 @@
             </div>
           </div>
 
+          {%- comment -%} FG: Urgency timer — subscription orders only {%- endcomment -%}
+          {%- assign fg_has_sub = false -%}
+          {%- for item in cart.items -%}
+            {%- if item.selling_plan_allocation -%}{%- assign fg_has_sub = true -%}{%- endif -%}
+          {%- endfor -%}
+          {%- if fg_has_sub and cart != empty -%}
+            <div class="fg-urgency-bar">
+              <span class="fg-urgency-bar__text">&#128293; Your 30% discount expires in <strong id="fg-cart-timer">10:00</strong></span>
+            </div>
+          {%- endif -%}
+
           <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
             {%- if cart != empty -%}
               <div class="drawer__cart-items-wrapper">
@@ -497,6 +508,34 @@
             </p>
           </div>
           <div id="CartDrawer-CartErrors" role="alert"></div>
+
+          {%- comment -%} FG: Cross-sell — show the other flavor if only one is in cart {%- endcomment -%}
+          {%- if cart != empty -%}
+            {%- assign fg_has_orange = false -%}
+            {%- assign fg_has_berry = false -%}
+            {%- for item in cart.items -%}
+              {%- if item.product.handle == 'flushgut-orange' -%}{%- assign fg_has_orange = true -%}{%- endif -%}
+              {%- if item.product.handle == 'flushgut-berry' -%}{%- assign fg_has_berry = true -%}{%- endif -%}
+            {%- endfor -%}
+            {%- if fg_has_orange and fg_has_berry == false -%}
+              {%- assign fg_xsell = all_products['flushgut-berry'] -%}
+              {%- assign fg_xsell_label = 'Try Berry' -%}
+            {%- elsif fg_has_berry and fg_has_orange == false -%}
+              {%- assign fg_xsell = all_products['flushgut-orange'] -%}
+              {%- assign fg_xsell_label = 'Try Orange' -%}
+            {%- endif -%}
+            {%- if fg_xsell -%}
+              <div class="fg-cart-xsell">
+                <img src="{{ fg_xsell.featured_image | image_url: width: 100 }}" alt="{{ fg_xsell.title | escape }}" width="50" height="50" loading="lazy" class="fg-cart-xsell__img">
+                <div class="fg-cart-xsell__info">
+                  <div class="fg-cart-xsell__label">Customers also grab</div>
+                  <div class="fg-cart-xsell__name">{{ fg_xsell.title | escape }}</div>
+                  <div class="fg-cart-xsell__price">From {{ fg_xsell.price_min | money }}</div>
+                </div>
+                <button type="button" class="fg-cart-xsell__btn" data-xsell-id="{{ fg_xsell.variants.first.id }}">Add</button>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
         </form>
       </cart-drawer-items>
       <div class="drawer__footer">
@@ -597,10 +636,51 @@
               disabled
             {% endif %}
           >
-            {{ 'sections.cart.checkout' | t }}
+            &#128274; {{ 'sections.cart.checkout' | t }} &rarr;
           </button>
+          {%- comment -%} FG: Trust strip below checkout {%- endcomment -%}
+          <div class="fg-cart-trust">
+            <span>&#10003; Cancel anytime</span>
+            <span>&#10003; 60-day guarantee</span>
+            <span>&#10003; Secure checkout</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </cart-drawer>
+
+<script>
+(function(){
+  function fgStartTimer(){
+    var el=document.getElementById('fg-cart-timer');
+    if(!el)return;
+    var key='fg_ct_end';
+    var end=sessionStorage.getItem(key);
+    if(!end||isNaN(parseInt(end,10))){end=Date.now()+600000;sessionStorage.setItem(key,end);}
+    end=parseInt(end,10);
+    function tick(){
+      var r=Math.max(0,end-Date.now());
+      var m=Math.floor(r/60000);
+      var s=Math.floor((r%60000)/1000);
+      el.textContent=m+':'+(s<10?'0':'')+s;
+      if(r>0)setTimeout(tick,1000);
+    }
+    tick();
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fgStartTimer);}else{fgStartTimer();}
+
+  // Cross-sell add button
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('[data-xsell-id]');
+    if(!btn)return;
+    btn.textContent='Adding...';
+    btn.disabled=true;
+    fetch('/cart/add.js',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({items:[{id:parseInt(btn.dataset.xsellId,10),quantity:1}]})
+    }).then(function(){window.location.reload();}).catch(function(){btn.textContent='Add';btn.disabled=false;});
+  });
+})();
+</script>
