@@ -69,7 +69,27 @@
   text-transform: none !important;
 }
 
+/* ── Compact header — no wasted vertical space ── */
+.header-wrapper,
+.shopify-section-group-header-group .shopify-section { margin: 0 !important; }
+
+.header {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  min-height: 0 !important;
+}
+
+/* Remove gap between header group and page content */
+.shopify-section-group-header-group {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
 /* Remove extra space around logo */
 .header__heading-logo-wrapper {
   line-height: 0;
 }
+
+/* Kill any section top/bottom padding Dawn injects */
+.section-header { padding: 0 !important; }
