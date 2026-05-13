@@ -4,7 +4,7 @@
 .bg-dark { background-color:var(--fg-dark); color:var(--fg-canvas); }
 .fg-overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:rgba(243,119,33,0.9); margin-bottom:20px; }
 .fg-overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
-.fg-display { font-family:var(--font-display); font-size:var(--fs-hero); font-weight:800; text-transform:uppercase; letter-spacing:var(--track-display); line-height:var(--lh-display); }
+.fg-display { font-family:var(--font-display); font-size:clamp(28px,3.5vw,52px); font-weight:800; text-transform:uppercase; letter-spacing:var(--track-display); line-height:1.05; }
 .bleed-right { margin-right:calc(-1 * (100vw - 100%) / 2); overflow:hidden; }
 .text-orange { color:var(--fg-orange); }
 .fg-ingredient-card { display:flex; align-items:center; gap:20px; background:rgba(250,248,245,0.08); border:1px solid rgba(250,248,245,0.12); border-radius:var(--radius-lg); padding:20px 28px; }
