@@ -130,14 +130,14 @@
 }
 </style>
 
-<div class="fg-buybox-wrap" id="fg-buy-box" data-active-flavor="orange" data-flavor-section>
+<div class="fg-buybox-wrap" id="fg-buy-box" data-active-flavor="berry" data-flavor-section>
   <div class="fg-buybox-inner">
 
     <!-- Left: flavor-aware product image -->
     <div class="fg-buybox-img">
       <img data-flavor-image
-           src="{{ 'fg-orange-box.png' | asset_url }}"
-           alt="FlushGut Orange — High Fiber Jelly"
+           src="{{ 'fg-berry-box.png' | asset_url }}"
+           alt="FlushGut Berry — High Fiber Jelly"
            width="540" loading="lazy">
     </div>
 
@@ -156,26 +156,26 @@
       <div style="font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--fg-muted);margin-bottom:8px;">Choose Your Flavor</div>
       <div class="fg-flavors">
         <button type="button"
-                class="fg-flavor-btn fg-flavor--active"
+                class="fg-flavor-btn"
                 data-flavor-btn
                 data-variant-id="{{ orange_variant.id }}"
                 data-image-src="{{ 'fg-orange-box.png' | asset_url }}"
                 data-image-alt="FlushGut Orange"
                 data-section-bg="radial-gradient(ellipse at 10% 60%,rgba(255,200,60,0.55) 0%,transparent 50%),radial-gradient(ellipse at 90% 30%,rgba(255,140,0,0.5) 0%,transparent 48%),radial-gradient(ellipse at 50% 100%,rgba(255,200,80,0.3) 0%,transparent 40%),#fff8f0"
                 data-flavor-key="orange"
-                aria-pressed="true">
+                aria-pressed="false">
           <span class="fg-flavor-dot" style="background:#f37721;"></span>
           Orange
         </button>
         <button type="button"
-                class="fg-flavor-btn"
+                class="fg-flavor-btn fg-flavor--active"
                 data-flavor-btn
                 data-variant-id="{{ berry_variant.id }}"
                 data-image-src="{{ 'fg-berry-box.png' | asset_url }}"
                 data-image-alt="FlushGut Berry"
                 data-section-bg="radial-gradient(ellipse at 10% 60%,rgba(220,30,150,0.45) 0%,transparent 50%),radial-gradient(ellipse at 90% 30%,rgba(160,0,140,0.5) 0%,transparent 48%),radial-gradient(ellipse at 50% 100%,rgba(200,20,160,0.3) 0%,transparent 40%),#fdf0f8"
                 data-flavor-key="berry"
-                aria-pressed="false"
+                aria-pressed="true"
                 style="position:relative;">
           <span class="fg-flavor-dot" style="background:#a0237f;"></span>
           Berry
@@ -186,7 +186,7 @@
       <div class="fg-savings-banner">YOU SAVE $10/MO — $120/YR</div>
 
       <form data-atc-form>
-        <input type="hidden" data-variant-input value="{{ orange_variant.id }}">
+        <input type="hidden" data-variant-input value="{{ berry_variant.id }}">
         <input type="hidden" data-selling-plan-input name="selling_plan" value="{{ plan_11wk }}">
 
         <div class="fg-tier fg-tier--selected"
