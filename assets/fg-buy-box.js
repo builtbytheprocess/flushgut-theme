@@ -104,23 +104,11 @@
     function openCartDrawer() {
       var drawer = document.querySelector('cart-drawer');
       if (!drawer) { window.location.href = '/cart'; return; }
-
-      // Update cart count, then open
-      fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
-        .then(function (r) { return r.json(); })
-        .then(function (cart) {
-          // Update header cart count bubbles
-          document.querySelectorAll('.cart-count-bubble span:not(.visually-hidden)').forEach(function (el) {
-            el.textContent = cart.item_count;
-          });
-          // Open Dawn's cart drawer
-          if (typeof drawer.open === 'function') {
-            drawer.open();
-          }
-        })
-        .catch(function () {
-          window.location.href = '/cart';
-        });
+      if (typeof drawer.open === 'function') {
+        drawer.open();
+      } else {
+        window.location.href = '/cart';
+      }
     }
 
     function updateCta(price) {

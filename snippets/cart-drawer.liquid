@@ -109,12 +109,8 @@
 .fg-cart-empty__sub { font-size:14px; color:var(--fg-muted); margin-bottom:24px; }
 .fg-cart-empty__btn { display:inline-block; background:var(--fg-orange); color:#fff; padding:12px 28px; border-radius:100px; font-family:var(--font-body); font-size:14px; font-weight:700; text-decoration:none; }
 
-/* Keep Dawn's required structural styles */
-.cart-drawer__overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:99; opacity:0; transition:opacity 300ms; pointer-events:none; }
-cart-drawer.active .cart-drawer__overlay { opacity:1; pointer-events:auto; }
-.drawer { position:fixed; top:0; right:0; bottom:0; z-index:100; transform:translateX(100%); transition:transform 300ms ease; }
-cart-drawer.active .drawer { transform:none; }
-.fg-cart-panel { height:100vh; max-height:100vh; }
+/* Let Dawn handle ALL drawer animation — only style the panel contents */
+.fg-cart-panel { display:flex; flex-direction:column; height:100%; background:#fff; }
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
