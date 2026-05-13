@@ -11,7 +11,7 @@
 .fg-clin-toggle__arrow { display:inline-block; transition:transform 300ms ease; }
 .fg-clin-toggle.is-open .fg-clin-toggle__arrow { transform:rotate(180deg); }
 .fg-clin-cards { background:var(--fg-canvas); overflow:hidden; max-height:0; transition:max-height 420ms ease; border-bottom:1px solid var(--fg-border); }
-.fg-clin-cards.is-open { max-height:500px; }
+.fg-clin-cards.is-open { max-height:600px; }
 .fg-clin-cards__inner { max-width:var(--container-max); margin:0 auto; padding:28px var(--container-pad); display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
 .fg-clin-card { background:#fff; border-radius:12px; padding:20px; border:1px solid var(--fg-border); }
 .fg-clin-card__icon { font-size:22px; margin-bottom:10px; }
@@ -86,6 +86,7 @@
 function fgClinToggle() {
   var btn = document.getElementById('fg-clin-btn');
   var cards = document.getElementById('fg-clin-cards');
+  if (!btn || !cards) return;
   var isOpen = btn.getAttribute('aria-expanded') === 'true';
   btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
   btn.classList.toggle('is-open', !isOpen);
