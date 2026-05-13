@@ -55,3 +55,26 @@
   --motion-base: 250ms;
   --ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
+/* ── Nav font overrides ── */
+.header__menu-item,
+.header__menu-item span,
+.header__menu-item .link,
+.header__submenu .link,
+.header__active-menu-item {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+}
+
+/* Tighten logo wrapper so 10px padding is respected */
+.header__heading-logo-wrapper {
+  line-height: 0;
+}
+.header__heading-logo {
+  height: auto;
+  max-height: 40px;
+  width: auto;
+}
