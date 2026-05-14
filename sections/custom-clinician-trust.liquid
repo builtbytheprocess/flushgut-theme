@@ -19,10 +19,12 @@
 .fg-clin-card__copy { font-family:var(--font-body); font-size:12px; color:var(--fg-muted); line-height:1.6; margin:0; }
 .fg-clin-disclaimer { font-family:var(--font-body); font-size:10px; color:var(--fg-muted); text-align:center; margin-top:8px; padding:0 var(--container-pad) 20px; max-width:var(--container-max); margin-left:auto; margin-right:auto; }
 @media(max-width:768px) {
-  .fg-clin-stats { overflow-x:auto; }
-  .fg-clin-stat { padding:12px 14px; min-width:80px; }
-  .fg-clin-stat__num { font-size:14px; }
-  .fg-clin-toggle { font-size:10px; padding-left:12px; }
+  .fg-clin-toggle { display:none; }
+  .fg-clin-stats { display:grid; grid-template-columns:1fr 1fr; }
+  .fg-clin-stat { padding:10px 12px; flex:unset; }
+  .fg-clin-stat__num { font-size:13px; }
+  .fg-clin-stat__label { font-size:8px; }
+  .fg-clin-divider { display:none; }
   .fg-clin-cards__inner { grid-template-columns:1fr 1fr; }
 }
 </style>
