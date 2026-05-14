@@ -99,3 +99,9 @@
 
 /* Kill any section top/bottom padding Dawn injects */
 .section-header { padding: 0 !important; }
+
+/* Zero out Shopify's outer section wrapper padding.
+   Our schema "class" fields accidentally apply padding CSS to the wrapper,
+   creating naked white strips where the wrapper has no background color.
+   All section padding is controlled by the section's own inner elements. */
+.shopify-section { padding: 0 !important; margin-block: 0 !important; }
