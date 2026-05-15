@@ -76,10 +76,8 @@
 }
 
 /* ── Header — always visible, compact ── */
-.shopify-section-group-header-group { position:sticky; top:0; z-index:100; }
 .shopify-section-group-header-group .shopify-section { margin:0 !important; padding:0 !important; }
-.header-wrapper { background:#fff !important; border-bottom:1px solid var(--fg-border) !important; margin:0 !important; }
-.header { padding-top:10px !important; padding-bottom:10px !important; }
+.header-wrapper { background:#fff !important; border-bottom:1px solid var(--fg-border) !important; }
 .header__heading-logo-wrapper { line-height:0; }
 .section-header { padding:0 !important; margin:0 !important; }
 
