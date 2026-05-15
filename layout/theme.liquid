@@ -310,27 +310,15 @@
     {%- endif -%}
 
     <div class="fg-topbar" role="complementary" aria-label="Store information">
-      <div class="fg-topbar__track">
-        <div class="fg-topbar__inner" aria-hidden="true">
-          <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-        </div>
-      </div>
+      <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
+      <span class="fg-topbar__dot">&#9679;</span>
+      <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
     </div>
     <style>
-      .fg-topbar { background:#18061a; padding:7px 0; overflow:hidden; }
-      .fg-topbar__track { overflow:hidden; width:100%; }
-      .fg-topbar__inner { display:inline-flex; align-items:center; gap:24px; white-space:nowrap; animation:fg-ticker 22s linear infinite; }
-      .fg-topbar__inner:hover { animation-play-state:paused; }
-      @keyframes fg-ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-      .fg-topbar__item { display:inline-flex; align-items:center; gap:7px; font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--fg-orange); white-space:nowrap; }
-      .fg-topbar__dot { color:rgba(243,119,33,0.35); font-size:6px; flex-shrink:0; }
+      .fg-topbar { background:#18061a; padding:10px 24px; display:flex; align-items:center; justify-content:center; gap:20px; }
+      .fg-topbar__item { font-family:var(--font-body); font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-orange); white-space:nowrap; }
+      .fg-topbar__dot { color:rgba(243,119,33,0.4); font-size:6px; flex-shrink:0; }
+      @media(max-width:600px) { .fg-topbar { gap:12px; } .fg-topbar__item { font-size:10px; } }
     </style>
 
     {% sections 'header-group' %}

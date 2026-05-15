@@ -75,33 +75,13 @@
   text-transform: none !important;
 }
 
-/* ── Compact header — no wasted vertical space ── */
-.header-wrapper,
-.shopify-section-group-header-group .shopify-section { margin: 0 !important; }
-
-/* Ensure header is always visible — white bg + subtle separator against white hero */
-.header-wrapper { background:#fff !important; border-bottom:1px solid var(--fg-border) !important; }
-
-.header {
-  padding-top: 5px !important;
-  padding-bottom: 5px !important;
-  min-height: 0 !important;
-}
-
-/* Remove gap between header group and page content */
-.shopify-section-group-header-group {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-/* Remove extra space around logo */
-.header__heading-logo-wrapper {
-  line-height: 0;
-}
-
-/* Kill any section top/bottom padding Dawn injects */
-.section-header { padding: 0 !important; }
+/* ── Header — always visible, compact ── */
+.shopify-section-group-header-group { position:sticky; top:0; z-index:100; }
+.shopify-section-group-header-group .shopify-section { margin:0 !important; padding:0 !important; }
+.header-wrapper { background:#fff !important; border-bottom:1px solid var(--fg-border) !important; margin:0 !important; }
+.header { padding-top:10px !important; padding-bottom:10px !important; }
+.header__heading-logo-wrapper { line-height:0; }
+.section-header { padding:0 !important; margin:0 !important; }
 
 /* Zero out Shopify's outer section wrapper padding.
    Our schema "class" fields accidentally apply padding CSS to the wrapper,
