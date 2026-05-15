@@ -12,10 +12,13 @@
 .fg-stat { display:flex; flex-direction:column; gap:6px; }
 .fg-stat__number { font-family:var(--font-display); font-size:clamp(52px,6vw,88px); font-weight:800; color:var(--fg-orange); line-height:1; letter-spacing:-0.02em; }
 .fg-stat__label  { font-family:var(--font-body); font-size:14px; font-weight:400; color:var(--fg-muted); line-height:1.4; max-width:180px; }
-.fg-problem-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
-.fg-problem-stats { display:flex; flex-direction:column; gap:40px; padding-top:16px; }
+.fg-problem-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:64px; align-items:start; }
+.fg-problem-stats { display:flex; flex-direction:column; gap:24px; padding-top:0; }
+.fg-problem-img { width:100%; height:auto; border-radius:var(--radius-lg); display:block; margin-bottom:32px; }
+.fg-problem-stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 @media (max-width:900px) {
   .fg-problem-grid { grid-template-columns:1fr !important; gap:48px !important; }
+  .fg-problem-stat-row { grid-template-columns:1fr !important; gap:32px !important; }
 }
 </style>
 
@@ -53,26 +56,26 @@
         </div>
       </div>
 
-      <!-- Right: image + stats -->
-      <div class="fg-problem-stats">
-        <div data-aos="fade-left" data-aos-delay="40">
-          <img src="{{ 'fg-soluble-fiber.png' | asset_url }}"
-               alt="Soluble fiber forming a viscous gel — how fiber supports gut transit"
-               width="480" height="320"
-               style="width:100%;height:auto;border-radius:var(--radius-lg);display:block;"
-               loading="lazy">
-        </div>
-        <div class="fg-stat" data-aos="fade-left" data-aos-delay="80">
-          <span class="fg-stat__number">95%</span>
-          <span class="fg-stat__label">of Americans fall short of the daily fiber recommendation</span>
-        </div>
-        <div class="fg-stat" data-aos="fade-left" data-aos-delay="160">
-          <span class="fg-stat__number">15g</span>
-          <span class="fg-stat__label">average daily fiber intake vs. 25&ndash;38g recommended</span>
-        </div>
-        <div class="fg-stat" data-aos="fade-left" data-aos-delay="240">
-          <span class="fg-stat__number">30g+</span>
-          <span class="fg-stat__label">daily fiber target consistently cited for optimal gut transit</span>
+      <!-- Right: large image + stats in a row -->
+      <div data-aos="fade-left" data-aos-delay="40">
+        <img class="fg-problem-img"
+             src="{{ 'fg-soluble-fiber.png' | asset_url }}"
+             alt="Soluble fiber forming a viscous gel — how fiber supports gut transit"
+             width="720" height="480"
+             loading="lazy">
+        <div class="fg-problem-stat-row">
+          <div class="fg-stat" data-aos="fade-up" data-aos-delay="80">
+            <span class="fg-stat__number">95%</span>
+            <span class="fg-stat__label">of Americans fall short of the daily fiber recommendation</span>
+          </div>
+          <div class="fg-stat" data-aos="fade-up" data-aos-delay="160">
+            <span class="fg-stat__number">15g</span>
+            <span class="fg-stat__label">average daily fiber intake vs. 25&ndash;38g recommended</span>
+          </div>
+          <div class="fg-stat" data-aos="fade-up" data-aos-delay="240">
+            <span class="fg-stat__number">30g+</span>
+            <span class="fg-stat__label">daily fiber target consistently cited for optimal gut transit</span>
+          </div>
         </div>
       </div>
 
