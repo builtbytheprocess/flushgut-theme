@@ -310,15 +310,43 @@
     {%- endif -%}
 
     <div class="fg-topbar" role="complementary" aria-label="Store information">
-      <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
-      <span class="fg-topbar__dot">&#9679;</span>
-      <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
+      <!-- Desktop: static centered -->
+      <div class="fg-topbar__static">
+        <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
+        <span class="fg-topbar__dot">&#9679;</span>
+        <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
+      </div>
+      <!-- Mobile: slow marquee — two copies for seamless loop -->
+      <div class="fg-topbar__track" aria-hidden="true">
+        <div class="fg-topbar__scroll">
+          <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
+          <span class="fg-topbar__dot">&#9679;</span>
+          <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
+          <span class="fg-topbar__dot">&#9679;</span>
+          <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
+          <span class="fg-topbar__dot">&#9679;</span>
+          <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
+          <span class="fg-topbar__dot">&#9679;</span>
+        </div>
+      </div>
     </div>
     <style>
-      .fg-topbar { background:#18061a; padding:10px 24px; display:flex; align-items:center; justify-content:center; gap:20px; }
+      .fg-topbar { background:#18061a; padding:10px 24px; overflow:hidden; }
       .fg-topbar__item { font-family:var(--font-body); font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-orange); white-space:nowrap; }
       .fg-topbar__dot { color:rgba(243,119,33,0.4); font-size:6px; flex-shrink:0; }
-      @media(max-width:640px) { .fg-topbar { flex-direction:column; gap:4px; padding:8px 16px; } .fg-topbar__dot { display:none; } .fg-topbar__item { font-size:10px; } }
+      /* Desktop: static centered row */
+      .fg-topbar__static { display:flex; align-items:center; justify-content:center; gap:20px; }
+      .fg-topbar__track { display:none; }
+      /* Mobile: marquee */
+      @media(max-width:640px) {
+        .fg-topbar { padding:8px 0; }
+        .fg-topbar__static { display:none; }
+        .fg-topbar__track { display:block; overflow:hidden; width:100%; }
+        .fg-topbar__scroll { display:inline-flex; align-items:center; gap:20px; animation:fg-ticker 28s linear infinite; }
+        .fg-topbar__scroll:hover { animation-play-state:paused; }
+        .fg-topbar__item { font-size:11px; }
+        @keyframes fg-ticker { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+      }
     </style>
 
     {% sections 'header-group' %}
