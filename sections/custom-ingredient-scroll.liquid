@@ -39,12 +39,10 @@
 
     <div class="fg-ingr-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
 
-      <div style="display:flex;justify-content:center;align-items:center;">
-        <img id="fg-ingredient-packet"
-             src="/wp-content/uploads/videos/flushgut-packet-3d.png"
-             alt="FlushGut fiber jelly stick packet"
-             width="320" height="420"
-             style="width:280px;height:auto;filter:drop-shadow(0 20px 60px rgba(243,119,33,0.25));will-change:transform;"
+      <div style="position:relative;display:flex;justify-content:center;align-items:flex-end;overflow:hidden;align-self:stretch;">
+        <img src="{{ 'fg-back-box.png' | asset_url }}"
+             alt="Back of FlushGut box — supplement facts"
+             style="width:100%;max-width:420px;height:auto;display:block;margin-bottom:-60px;object-position:top;"
              loading="lazy">
       </div>
 
