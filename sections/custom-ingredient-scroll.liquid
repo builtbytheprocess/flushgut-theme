@@ -1,124 +1,139 @@
 <style>
 /* ── 03 Ingredient Scroll — self-contained styles ── */
-.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
-.bg-dark { background-color:var(--fg-dark); color:var(--fg-canvas); }
+.fg-ingr-section { position:relative; overflow:hidden; background-color:var(--fg-dark); }
 .fg-overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:rgba(243,119,33,0.9); margin-bottom:20px; }
 .fg-overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
 .fg-display { font-family:var(--font-display); font-size:clamp(28px,3.5vw,52px); font-weight:800; text-transform:uppercase; letter-spacing:var(--track-display); line-height:1.05; }
-.bleed-right { margin-right:calc(-1 * (100vw - 100%) / 2); overflow:hidden; }
 .text-orange { color:var(--fg-orange); }
 .fg-ingredient-card { display:flex; align-items:center; gap:20px; background:rgba(250,248,245,0.08); border:1px solid rgba(250,248,245,0.12); border-radius:var(--radius-lg); padding:20px 28px; }
 .fg-ingredient-card__amount { font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--fg-orange); line-height:1; white-space:nowrap; }
-.fg-ingredient-card__name   { font-family:var(--font-body); font-size:15px; font-weight:400; color:var(--fg-canvas); opacity:0.85; line-height:1.4; }
+.fg-ingredient-card__name { font-family:var(--font-body); font-size:15px; font-weight:400; color:var(--fg-canvas); opacity:0.85; line-height:1.4; }
 
-/* Grid layout — image left, cards right, both top-aligned */
-.fg-ingr-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:48px;
-  align-items:start;
+/* Two-column layout — image column stretches to section height */
+.fg-ingr-outer {
+  display: grid;
+  grid-template-columns: 48% 1fr;
+  min-height: 75vh;
 }
+
+/* Left: image fills the full column, wrist anchored to bottom edge */
 .fg-ingr-img-col {
-  overflow:visible;
+  position: relative;
+  overflow: hidden;
 }
 .fg-ingr-img-col img {
-  width:100%;
-  max-width:480px;
-  height:auto;
-  display:block;
-  margin-bottom:-120px; /* wrist exits section bottom */
+  position: absolute;
+  bottom: -45px; /* wrist bleeds below section */
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: block;
 }
-.fg-ingr-cards-col {
-  display:flex;
-  flex-direction:column;
-  gap:20px;
+
+/* Right: text content, centered vertically */
+.fg-ingr-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 48px 80px 40px;
 }
+.fg-ingr-cards { display:flex; flex-direction:column; gap:20px; margin-top:48px; }
+
+/* Mobile */
 @media(max-width:900px) {
-  .fg-ingr-grid { grid-template-columns:1fr; gap:32px; }
-  .fg-ingr-img-col img { max-width:320px; margin:0 auto; margin-bottom:0; display:block; }
+  .fg-ingr-outer { grid-template-columns:1fr; min-height:auto; }
+  .fg-ingr-img-col {
+    position: relative;
+    overflow: hidden;
+    height: 55vw;
+    max-height: 320px;
+  }
+  .fg-ingr-img-col img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: 100%;
+  }
+  .fg-ingr-content { padding: 40px 24px; }
 }
 </style>
 
 <!-- ============================================================
      03 — INGREDIENT SCROLL
-     Background: --fg-dark (purple gradient via theme.liquid global)
-     Box image bleeds from bottom-left edge of section.
+     Background: purple gradient via theme.liquid
+     Left column: back-of-box image, wrist exits section bottom.
      ============================================================ -->
 
-<section class="bg-dark"
-         id="fg-ingredient-section"
-         data-nav-theme="dark"
-         style="position:relative;overflow:hidden;padding-block:0;min-height:100vh;display:flex;align-items:center;">
+<section class="fg-ingr-section bg-dark" id="fg-ingredient-section" data-nav-theme="dark">
+  <div class="fg-ingr-outer">
 
-  <div class="fg-container" style="width:100%;padding-block:100px;position:relative;z-index:2;">
-
-    <p class="fg-overline">What&rsquo;s inside</p>
-
-    <h2 class="fg-display bleed-right" style="color:white;margin:0 0 48px;">
-      22 ACTIVE<br>
-      <span class="text-orange">INGREDIENTS.</span><br>
-      ONE JELLY STICK.
-    </h2>
-
-    <div class="fg-ingr-grid">
-
-      <!-- Left: back-of-box image, top-aligned, wrist bleeds below -->
-      <div class="fg-ingr-img-col">
-        <img src="{{ 'fg-back-box.png' | asset_url }}"
-             alt="Back of FlushGut box — supplement facts"
-             loading="lazy">
-      </div>
-
-      <!-- Right: ingredient cards -->
-      <div class="fg-ingr-cards-col">
-
-      <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="0">
-        <span class="fg-ingredient-card__amount">7.5g</span>
-        <div>
-          <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">Prebiotic Fiber Blend</div>
-          <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Supports gut bacteria + daily regularity</div>
-          <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Acts as food for beneficial gut bacteria — helping them multiply and produce short-chain fatty acids that may support your gut lining.*</p>
-        </div>
-      </div>
-
-      <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="80">
-        <span class="fg-ingredient-card__amount">4.3g</span>
-        <div>
-          <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">Fruit, Vegetable &amp; Kelp Blend</div>
-          <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Antioxidants + mineral support</div>
-        </div>
-      </div>
-
-      <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="160">
-        <span class="fg-ingredient-card__amount">500mg</span>
-        <div>
-          <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">L-Carnitine L-Tartrate</div>
-          <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Energy metabolism support</div>
-          <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Supports energy metabolism by helping transport fatty acids into cells — may help with that afternoon slump.*</p>
-        </div>
-      </div>
-
-      <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="240">
-        <span class="fg-ingredient-card__amount">510M</span>
-        <div>
-          <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">CFU Bacillus coagulans</div>
-          <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Shelf-stable probiotic strain</div>
-          <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Clinically studied strains in a stable jelly matrix — no refrigeration needed. May support microbiome diversity and regular digestion.*</p>
-        </div>
-      </div>
-
-    </div><!-- end fg-ingr-cards-col -->
-    </div><!-- end fg-ingr-grid -->
-
-    <div style="margin-top:60px;text-align:center;">
-      <a href="/ingredients/"
-         style="color:rgba(250,248,245,0.55);font-family:var(--font-body);font-size:14px;font-weight:500;letter-spacing:0.04em;text-decoration:none;border-bottom:1px solid rgba(250,248,245,0.2);padding-bottom:2px;transition:color 150ms,border-color 150ms;"
-         onmouseover="this.style.color='var(--fg-orange)';this.style.borderColor='var(--fg-orange)';"
-         onmouseout="this.style.color='rgba(250,248,245,0.55)';this.style.borderColor='rgba(250,248,245,0.2)';">
-        View all 22 ingredients &rarr;
-      </a>
+    <!-- Left: image anchored to bottom, wrist from edge -->
+    <div class="fg-ingr-img-col">
+      <img src="{{ 'fg-back-box.png' | asset_url }}"
+           alt="Back of FlushGut box — supplement facts"
+           loading="lazy">
     </div>
 
+    <!-- Right: headline + ingredient cards -->
+    <div class="fg-ingr-content">
+
+      <div>
+        <p class="fg-overline">What&rsquo;s inside</p>
+        <h2 class="fg-display" style="color:white;margin:0;">
+          22 ACTIVE<br>
+          <span class="text-orange">INGREDIENTS.</span><br>
+          ONE JELLY STICK.
+        </h2>
+      </div>
+
+      <div class="fg-ingr-cards">
+
+        <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="0">
+          <span class="fg-ingredient-card__amount">7.5g</span>
+          <div>
+            <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">Prebiotic Fiber Blend</div>
+            <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Supports gut bacteria + daily regularity</div>
+          </div>
+        </div>
+
+        <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="80">
+          <span class="fg-ingredient-card__amount">4.3g</span>
+          <div>
+            <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">Fruit, Vegetable &amp; Kelp Blend</div>
+            <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Antioxidants + mineral support</div>
+          </div>
+        </div>
+
+        <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="160">
+          <span class="fg-ingredient-card__amount">500mg</span>
+          <div>
+            <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">L-Carnitine L-Tartrate</div>
+            <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Energy metabolism support</div>
+          </div>
+        </div>
+
+        <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="240">
+          <span class="fg-ingredient-card__amount">510M</span>
+          <div>
+            <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">CFU Bacillus coagulans</div>
+            <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Shelf-stable probiotic strain</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:40px;">
+        <a href="/ingredients/"
+           style="color:rgba(250,248,245,0.55);font-family:var(--font-body);font-size:14px;font-weight:500;letter-spacing:0.04em;text-decoration:none;border-bottom:1px solid rgba(250,248,245,0.2);padding-bottom:2px;transition:color 150ms,border-color 150ms;"
+           onmouseover="this.style.color='var(--fg-orange)';this.style.borderColor='var(--fg-orange)';"
+           onmouseout="this.style.color='rgba(250,248,245,0.55)';this.style.borderColor='rgba(250,248,245,0.2)';">
+          View all 22 ingredients &rarr;
+        </a>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -126,7 +141,7 @@
 {
   "name": "Ingredient Scroll",
   "tag": "section",
-  "class": "fg-section",
+  "class": "fg-ingr-section",
   "presets": [{ "name": "Ingredient Scroll" }]
 }
 {% endschema %}
