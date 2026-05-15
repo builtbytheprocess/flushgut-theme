@@ -6,10 +6,6 @@
         "cta_url": "#fg-buy-box"
       }
     },
-    "fg-clinician-trust": {
-      "type": "custom-clinician-trust",
-      "settings": {}
-    },
     "fg-buy-box": {
       "type": "custom-buy-box",
       "settings": {
@@ -62,7 +58,6 @@
   },
   "order": [
     "fg-hero",
-    "fg-clinician-trust",
     "fg-buy-box",
     "fg-gut-symptoms",
     "fg-benefits",

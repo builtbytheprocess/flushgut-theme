@@ -79,6 +79,9 @@
 .header-wrapper,
 .shopify-section-group-header-group .shopify-section { margin: 0 !important; }
 
+/* Ensure header is always visible — white bg + subtle separator against white hero */
+.header-wrapper { background:#fff !important; border-bottom:1px solid var(--fg-border) !important; }
+
 .header {
   padding-top: 5px !important;
   padding-bottom: 5px !important;
