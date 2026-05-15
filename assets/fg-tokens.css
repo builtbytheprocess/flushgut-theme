@@ -75,11 +75,16 @@
   text-transform: none !important;
 }
 
-/* ── Header — always visible, compact ── */
+/* ── Header — sticky, always visible ── */
+.shopify-section-group-header-group {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
 .shopify-section-group-header-group .shopify-section { margin:0 !important; padding:0 !important; }
-.header-wrapper { background:#fff !important; border-bottom:1px solid var(--fg-border) !important; }
+.header-wrapper { display:block !important; background:#fff !important; border-bottom:1px solid var(--fg-border) !important; }
 .header__heading-logo-wrapper { line-height:0; }
-.section-header { padding:0 !important; margin:0 !important; }
+.section-header { display:block !important; padding:0 !important; margin:0 !important; }
 
 /* Zero out Shopify's outer section wrapper padding.
    Our schema "class" fields accidentally apply padding CSS to the wrapper,
