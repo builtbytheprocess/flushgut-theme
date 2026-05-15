@@ -10,80 +10,104 @@
 .fg-ingredient-card { display:flex; align-items:center; gap:20px; background:rgba(250,248,245,0.08); border:1px solid rgba(250,248,245,0.12); border-radius:var(--radius-lg); padding:20px 28px; }
 .fg-ingredient-card__amount { font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--fg-orange); line-height:1; white-space:nowrap; }
 .fg-ingredient-card__name   { font-family:var(--font-body); font-size:15px; font-weight:400; color:var(--fg-canvas); opacity:0.85; line-height:1.4; }
-@media (max-width:900px) {
-  #fg-ingredient-section .fg-ingr-grid { grid-template-columns:1fr !important; }
-  #fg-ingredient-packet { width:200px !important; }
+
+/* Back-of-box image — absolutely positioned at bottom-left */
+.fg-ingr-img-wrap {
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:46%;
+  z-index:1;
+  pointer-events:none;
+}
+.fg-ingr-img-wrap img {
+  width:100%;
+  height:auto;
+  display:block;
+  margin-bottom:-55px; /* wrist bleeds below section edge */
+}
+
+/* Cards pushed to right half on desktop */
+.fg-ingr-cards-col {
+  margin-left:50%;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  position:relative;
+  z-index:2;
+}
+
+@media(max-width:900px) {
+  .fg-ingr-img-wrap { display:none; }
+  .fg-ingr-cards-col { margin-left:0; }
 }
 </style>
 
 <!-- ============================================================
-     03 — INGREDIENT SCROLL  (D moment #2 — pinned scroll)
-     Background: --fg-dark
-     ingredient-scroll.js handles GSAP pinning.
+     03 — INGREDIENT SCROLL
+     Background: --fg-dark (purple gradient via theme.liquid global)
+     Box image bleeds from bottom-left edge of section.
      ============================================================ -->
 
 <section class="bg-dark"
          id="fg-ingredient-section"
          data-nav-theme="dark"
-         style="overflow:hidden;padding-block:0;min-height:100vh;display:flex;align-items:center;">
+         style="position:relative;overflow:hidden;padding-block:0;min-height:100vh;display:flex;align-items:center;">
 
-  <div class="fg-container" style="width:100%;padding-block:100px;">
+  <!-- Back-of-box image anchored to bottom-left, wrist off-screen -->
+  <div class="fg-ingr-img-wrap">
+    <img src="{{ 'fg-back-box.png' | asset_url }}"
+         alt="Back of FlushGut box — supplement facts"
+         loading="lazy">
+  </div>
+
+  <div class="fg-container" style="width:100%;padding-block:100px;position:relative;z-index:2;">
 
     <p class="fg-overline">What&rsquo;s inside</p>
 
-    <h2 class="fg-display bleed-right" style="color:white;margin:0 0 80px;">
+    <h2 class="fg-display bleed-right" style="color:white;margin:0 0 60px;">
       22 ACTIVE<br>
       <span class="text-orange">INGREDIENTS.</span><br>
       ONE JELLY STICK.
     </h2>
 
-    <div class="fg-ingr-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+    <div class="fg-ingr-cards-col">
 
-      <div style="position:relative;display:flex;justify-content:center;align-items:flex-end;overflow:hidden;align-self:stretch;">
-        <img src="{{ 'fg-back-box.png' | asset_url }}"
-             alt="Back of FlushGut box — supplement facts"
-             style="width:100%;max-width:420px;height:auto;display:block;margin-bottom:-60px;object-position:top;"
-             loading="lazy">
+      <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="0">
+        <span class="fg-ingredient-card__amount">7.5g</span>
+        <div>
+          <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">Prebiotic Fiber Blend</div>
+          <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Supports gut bacteria + daily regularity</div>
+          <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Acts as food for beneficial gut bacteria — helping them multiply and produce short-chain fatty acids that may support your gut lining.*</p>
+        </div>
       </div>
 
-      <div style="display:flex;flex-direction:column;gap:20px;">
-
-        <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="0">
-          <span class="fg-ingredient-card__amount">7.5g</span>
-          <div>
-            <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">Prebiotic Fiber Blend</div>
-            <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Supports gut bacteria + daily regularity</div>
-            <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Acts as food for beneficial gut bacteria — helping them multiply and produce short-chain fatty acids that may support your gut lining.*</p>
-          </div>
+      <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="80">
+        <span class="fg-ingredient-card__amount">4.3g</span>
+        <div>
+          <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">Fruit, Vegetable &amp; Kelp Blend</div>
+          <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Antioxidants + mineral support</div>
         </div>
-
-        <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="80">
-          <span class="fg-ingredient-card__amount">4.3g</span>
-          <div>
-            <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">Fruit, Vegetable &amp; Kelp Blend</div>
-            <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Antioxidants + mineral support</div>
-          </div>
-        </div>
-
-        <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="160">
-          <span class="fg-ingredient-card__amount">500mg</span>
-          <div>
-            <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">L-Carnitine L-Tartrate</div>
-            <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Energy metabolism support</div>
-            <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Supports energy metabolism by helping transport fatty acids into cells — may help with that afternoon slump.*</p>
-          </div>
-        </div>
-
-        <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="240">
-          <span class="fg-ingredient-card__amount">510M</span>
-          <div>
-            <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">CFU Bacillus coagulans</div>
-            <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Shelf-stable probiotic strain</div>
-            <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Clinically studied strains in a stable jelly matrix — no refrigeration needed. May support microbiome diversity and regular digestion.*</p>
-          </div>
-        </div>
-
       </div>
+
+      <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="160">
+        <span class="fg-ingredient-card__amount">500mg</span>
+        <div>
+          <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">L-Carnitine L-Tartrate</div>
+          <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Energy metabolism support</div>
+          <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Supports energy metabolism by helping transport fatty acids into cells — may help with that afternoon slump.*</p>
+        </div>
+      </div>
+
+      <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="240">
+        <span class="fg-ingredient-card__amount">510M</span>
+        <div>
+          <div class="fg-ingredient-card__name" style="font-weight:600;font-size:17px;margin-bottom:4px;">CFU Bacillus coagulans</div>
+          <div class="fg-ingredient-card__name" style="font-size:13px;opacity:0.6;">Shelf-stable probiotic strain</div>
+          <p style="font-family:var(--font-body);font-size:13px;color:var(--fg-muted);margin:4px 0 0;line-height:1.5;">Clinically studied strains in a stable jelly matrix — no refrigeration needed. May support microbiome diversity and regular digestion.*</p>
+        </div>
+      </div>
+
     </div>
 
     <div style="margin-top:60px;text-align:center;">
