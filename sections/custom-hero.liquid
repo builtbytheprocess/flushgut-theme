@@ -1,23 +1,17 @@
 <style>
 /* ── Hero Image — self-contained ── */
 .fg-hero-link { display:block; width:100%; line-height:0; cursor:pointer; }
+.fg-hero-link picture { display:block; width:100%; }
 .fg-hero-link img { width:100%; height:auto; display:block; }
-.fg-hero-img--mobile { display:none; }
-@media(max-width:767px) {
-  .fg-hero-img--desktop { display:none; }
-  .fg-hero-img--mobile { display:block; }
-}
 </style>
 
 <a class="fg-hero-link" href="#fg-buy-box" id="fg-hero" aria-label="Shop FlushGut — Start My Routine">
-  <img class="fg-hero-img--desktop"
-       src="{{ 'fg-hero-desktop.png' | asset_url }}"
-       alt="FlushGut — One Jelly Stick. Three Times a Week."
-       width="1440" loading="eager" fetchpriority="high">
-  <img class="fg-hero-img--mobile"
-       src="{{ 'fg-hero-mobile.png' | asset_url }}"
-       alt="FlushGut — One Jelly Stick. Three Times a Week."
-       width="750" loading="eager" fetchpriority="high">
+  <picture>
+    <source media="(max-width: 767px)" srcset="{{ 'fg-hero-mobile.png' | asset_url }}">
+    <img src="{{ 'fg-hero-desktop.png' | asset_url }}"
+         alt="FlushGut — One Jelly Stick. Three Times a Week."
+         width="1440" loading="eager" fetchpriority="high">
+  </picture>
 </a>
 
 {% schema %}
