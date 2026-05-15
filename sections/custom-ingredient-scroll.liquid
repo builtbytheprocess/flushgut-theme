@@ -11,35 +11,31 @@
 .fg-ingredient-card__amount { font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--fg-orange); line-height:1; white-space:nowrap; }
 .fg-ingredient-card__name   { font-family:var(--font-body); font-size:15px; font-weight:400; color:var(--fg-canvas); opacity:0.85; line-height:1.4; }
 
-/* Back-of-box image — absolutely positioned at bottom-left */
-.fg-ingr-img-wrap {
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:46%;
-  z-index:1;
-  pointer-events:none;
+/* Grid layout — image left, cards right, both top-aligned */
+.fg-ingr-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:48px;
+  align-items:start;
 }
-.fg-ingr-img-wrap img {
+.fg-ingr-img-col {
+  overflow:visible;
+}
+.fg-ingr-img-col img {
   width:100%;
+  max-width:480px;
   height:auto;
   display:block;
-  margin-bottom:-55px; /* wrist bleeds below section edge */
+  margin-bottom:-120px; /* wrist exits section bottom */
 }
-
-/* Cards pushed to right half on desktop */
 .fg-ingr-cards-col {
-  margin-left:50%;
   display:flex;
   flex-direction:column;
   gap:20px;
-  position:relative;
-  z-index:2;
 }
-
 @media(max-width:900px) {
-  .fg-ingr-img-wrap { display:none; }
-  .fg-ingr-cards-col { margin-left:0; }
+  .fg-ingr-grid { grid-template-columns:1fr; gap:32px; }
+  .fg-ingr-img-col img { max-width:320px; margin:0 auto; margin-bottom:0; display:block; }
 }
 </style>
 
@@ -54,24 +50,27 @@
          data-nav-theme="dark"
          style="position:relative;overflow:hidden;padding-block:0;min-height:100vh;display:flex;align-items:center;">
 
-  <!-- Back-of-box image anchored to bottom-left, wrist off-screen -->
-  <div class="fg-ingr-img-wrap">
-    <img src="{{ 'fg-back-box.png' | asset_url }}"
-         alt="Back of FlushGut box — supplement facts"
-         loading="lazy">
-  </div>
-
   <div class="fg-container" style="width:100%;padding-block:100px;position:relative;z-index:2;">
 
     <p class="fg-overline">What&rsquo;s inside</p>
 
-    <h2 class="fg-display bleed-right" style="color:white;margin:0 0 60px;">
+    <h2 class="fg-display bleed-right" style="color:white;margin:0 0 48px;">
       22 ACTIVE<br>
       <span class="text-orange">INGREDIENTS.</span><br>
       ONE JELLY STICK.
     </h2>
 
-    <div class="fg-ingr-cards-col">
+    <div class="fg-ingr-grid">
+
+      <!-- Left: back-of-box image, top-aligned, wrist bleeds below -->
+      <div class="fg-ingr-img-col">
+        <img src="{{ 'fg-back-box.png' | asset_url }}"
+             alt="Back of FlushGut box — supplement facts"
+             loading="lazy">
+      </div>
+
+      <!-- Right: ingredient cards -->
+      <div class="fg-ingr-cards-col">
 
       <div class="fg-ingredient-card" data-aos="fade-left" data-aos-delay="0">
         <span class="fg-ingredient-card__amount">7.5g</span>
@@ -108,7 +107,8 @@
         </div>
       </div>
 
-    </div>
+    </div><!-- end fg-ingr-cards-col -->
+    </div><!-- end fg-ingr-grid -->
 
     <div style="margin-top:60px;text-align:center;">
       <a href="/ingredients/"
