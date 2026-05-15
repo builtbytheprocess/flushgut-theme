@@ -318,7 +318,7 @@
       .fg-topbar { background:#18061a; padding:10px 24px; display:flex; align-items:center; justify-content:center; gap:20px; }
       .fg-topbar__item { font-family:var(--font-body); font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-orange); white-space:nowrap; }
       .fg-topbar__dot { color:rgba(243,119,33,0.4); font-size:6px; flex-shrink:0; }
-      @media(max-width:600px) { .fg-topbar { gap:12px; } .fg-topbar__item { font-size:10px; } }
+      @media(max-width:640px) { .fg-topbar { flex-direction:column; gap:4px; padding:8px 16px; } .fg-topbar__dot { display:none; } .fg-topbar__item { font-size:10px; } }
     </style>
 
     {% sections 'header-group' %}
