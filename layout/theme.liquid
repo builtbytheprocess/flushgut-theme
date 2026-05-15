@@ -351,6 +351,34 @@
 
     {% sections 'header-group' %}
 
+    <style>
+      /* ── Brand gradient backgrounds ── */
+      /* Purple: replaces all flat dark (#18061a / fg-dark) sections */
+      .bg-dark,
+      .fg-howto,
+      .fg-symptoms {
+        background-color: #18061a;
+        background-image: url('{{ "fg-bg-purple-desktop.png" | asset_url }}');
+        background-size: cover;
+        background-position: center center;
+      }
+      /* Orange: replaces flat orange benefits section */
+      .hp-cards__section {
+        background-color: var(--fg-orange);
+        background-image: url('{{ "fg-bg-orange-desktop.png" | asset_url }}');
+        background-size: cover;
+        background-position: center center;
+      }
+      @media(max-width:767px) {
+        .bg-dark, .fg-howto, .fg-symptoms {
+          background-image: url('{{ "fg-bg-purple-mobile.png" | asset_url }}');
+        }
+        .hp-cards__section {
+          background-image: url('{{ "fg-bg-orange-mobile.png" | asset_url }}');
+        }
+      }
+    </style>
+
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
