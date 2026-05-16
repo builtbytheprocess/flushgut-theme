@@ -1,46 +1,88 @@
 {
   "sections": {
-    "pg-hero": {
-      "type": "product-hero",
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "ingredients_tab": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to Use",
+            "icon": "clipboard",
+            "content": "<p>Take one jelly stick 3 times per week. Tear open, squeeze directly into your mouth, and follow with water.</p><p>Pro tip: chill it for the best taste.</p>",
+            "page": ""
+          }
+        },
+        "guarantee_tab": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "60-Day Guarantee",
+            "icon": "heart",
+            "content": "<p>Try FlushGut risk-free for 60 days. If you're not satisfied with your results, we'll refund your first order — no questions asked.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "buy_buttons",
+        "description",
+        "ingredients_tab",
+        "guarantee_tab"
+      ],
       "settings": {
-        "overline": "3x Weekly Fiber Jelly · 22 Ingredients",
-        "headline_line1": "One Jelly Stick.",
-        "headline_line2": "Three Times a Week.",
-        "subheadline": "No pills. No powder. No mixing. Just tear, squeeze, and support your gut — 3 times a week.*",
-        "cta_url": "#product-buy-box",
-        "cta_label": "Start My Routine →",
-        "trust_headline": "Reviewed by 200+ clinicians",
-        "trust_sub": "Third-party tested · HSA/FSA eligible"
+        "color_scheme": "scheme-1",
+        "secondary_background": false,
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "image_zoom": "lightbox",
+        "media_position": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
-    "pg-buy-box": {
-      "type": "product-buy-box",
-      "settings": {
-        "title": "FlushGut Essentials",
-        "subtitle": "Clinically Studied · 3x Weekly Gut Support",
-        "selling_plan_5wk": "6089310437",
-        "selling_plan_11wk": ""
-      }
-    },
-    "pg-benefits": { "type": "custom-benefits-row", "settings": {} },
-    "pg-ingredients": { "type": "custom-ingredient-scroll", "settings": {} },
-    "pg-ingredient-science": {
-      "type": "custom-ingredient-science",
+    "pg-format": {
+      "type": "custom-format-diff",
       "settings": {}
     },
-    "pg-format": { "type": "custom-format-diff", "settings": {} },
-    "pg-social": { "type": "custom-social-proof", "settings": {} },
+    "pg-social": {
+      "type": "custom-social-proof",
+      "settings": {}
+    },
     "pg-final-cta": {
       "type": "custom-final-cta",
-      "settings": { "cta_scroll_target": "#product-buy-box" }
+      "settings": {
+        "cta_scroll_target": "#MainContent"
+      }
     }
   },
   "order": [
-    "pg-hero",
-    "pg-buy-box",
-    "pg-benefits",
-    "pg-ingredients",
-    "pg-ingredient-science",
+    "main",
     "pg-format",
     "pg-social",
     "pg-final-cta"
