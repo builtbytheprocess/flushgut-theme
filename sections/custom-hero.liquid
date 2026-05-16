@@ -1,8 +1,42 @@
 <style>
 /* ── Hero Image — self-contained ── */
-.fg-hero-link { display:block; width:100%; line-height:0; cursor:pointer; }
+.fg-hero-link { display:block; width:100%; line-height:0; cursor:pointer; overflow:hidden; }
 .fg-hero-link picture { display:block; width:100%; }
-.fg-hero-link img { width:100%; height:auto; display:block; }
+.fg-hero-link img { width:100%; height:auto; display:block; max-width:100%; }
+
+/* Mobile: constrain height so CTA button is above fold */
+.fg-hero-mobile-cta { display:none; }
+@media(max-width:767px) {
+  .fg-hero-link img {
+    max-height: 72vh;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .fg-hero-mobile-cta {
+    display: block;
+    text-align: center;
+    padding: 16px 24px;
+    background: #fff;
+  }
+  .fg-hero-mobile-cta a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 360px;
+    background: var(--fg-orange);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    box-shadow: var(--shadow-cta);
+  }
+}
 </style>
 
 <a class="fg-hero-link" href="#fg-buy-box" id="fg-hero" aria-label="Shop FlushGut — Start My Routine">
@@ -10,9 +44,14 @@
     <source media="(max-width: 767px)" srcset="{{ 'fg-hero-mobile.png' | asset_url }}">
     <img src="{{ 'fg-hero-desktop.png' | asset_url }}"
          alt="FlushGut — One Jelly Stick. Three Times a Week."
-         width="1440" loading="eager" fetchpriority="high">
+         loading="eager" fetchpriority="high">
   </picture>
 </a>
+
+<!-- Mobile-only CTA button — always above fold regardless of image height -->
+<div class="fg-hero-mobile-cta">
+  <a href="#fg-buy-box">Start My Routine &rarr;</a>
+</div>
 
 {% schema %}
 {

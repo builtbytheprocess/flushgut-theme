@@ -1,4 +1,5 @@
 /* FlushGut Design Tokens — included globally via theme.liquid */
+html, body { overflow-x: hidden; max-width: 100%; }
 :root {
   /* Colors */
   --fg-canvas:     #faf8f5;
