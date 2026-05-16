@@ -87,6 +87,27 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .header__heading-logo-wrapper { line-height:0; }
 .section-header { display:block !important; padding:0 !important; margin:0 !important; }
 
+/* ── Product page — brand the Add to Cart button ── */
+.product-form__submit,
+.product-form__submit.button,
+button[name="add"] {
+  background: var(--fg-orange) !important;
+  color: #fff !important;
+  border-color: var(--fg-orange) !important;
+  border-radius: var(--radius-pill) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  box-shadow: var(--shadow-cta) !important;
+}
+.product-form__submit:hover,
+button[name="add"]:hover {
+  background: var(--fg-orange-hot) !important;
+  border-color: var(--fg-orange-hot) !important;
+  transform: translateY(-1px);
+}
+
 /* Zero out Shopify's outer section wrapper padding.
    Our schema "class" fields accidentally apply padding CSS to the wrapper,
    creating naked white strips where the wrapper has no background color.
