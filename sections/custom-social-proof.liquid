@@ -40,7 +40,7 @@
         </p>
         <div class="hp-video__creds">
           <img class="hp-video__doctor-img"
-               src="https://flushgut.com/wp-content/uploads/2026/01/doctor-Gastroenterologist-flushgut.webp"
+               src="{{ 'fg-dr-bubble.png' | asset_url }}"
                alt="Dr. John Reger" loading="lazy">
           <div>
             <p class="hp-video__doctor-name">Dr. John Reger</p>
@@ -50,13 +50,10 @@
       </div>
 
       <div class="hp-video__embed" data-aos="fade-left" data-aos-delay="80">
-        <iframe
-          src="VIDEO_EMBED_URL"
-          title="Dr. John Reger explains fiber and gut health"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+        <img src="{{ 'fg-dr-explaining.png' | asset_url }}"
+             alt="Dr. John Reger explaining how fiber works and gut health"
+             style="width:100%;height:100%;object-fit:cover;display:block;"
+             loading="lazy">
       </div>
 
     </div>
