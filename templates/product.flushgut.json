@@ -88,13 +88,95 @@
     },
     "pg-social": {
       "type": "custom-social-proof",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "aria": {
+          "type": "quote",
+          "settings": {
+            "fallback_image": "fg-tester-aria.webp",
+            "name": "Aria M.",
+            "meta": "Verified beta tester — Daily Routine",
+            "quote": "“The tight stomach pressure I always had by evening — it's just gone. Not dramatically, just quietly gone. I didn't realize how much it was wearing on me until it stopped.”"
+          }
+        },
+        "marcus": {
+          "type": "quote",
+          "settings": {
+            "fallback_image": "fg-tester-marcus.webp",
+            "name": "Marcus T.",
+            "meta": "Verified beta tester — 1 month",
+            "quote": "“I've tried three different fiber powders and I always forget them because mixing is annoying. This stick I actually use every week. The orange flavor is genuinely good.”"
+          }
+        },
+        "jennifer": {
+          "type": "quote",
+          "settings": {
+            "fallback_image": "fg-tester-jennifer.webp",
+            "name": "Jennifer R.",
+            "meta": "Verified beta tester — 3 months",
+            "quote": "“I feel normal again. Less bloated, less distracted by what's going on in my stomach. The little discomforts were wearing on me more than I knew, and now they're just not there.”"
+          }
+        },
+        "michael": {
+          "type": "quote",
+          "settings": {
+            "fallback_image": "fg-tester-michael.webp",
+            "name": "Michael M.",
+            "meta": "Verified beta tester — 2 months",
+            "quote": "“I never realized how much my lack of fiber was affecting my whole day. Adding this simple routine changed everything. My skin is clearer, my energy is steady, and I feel incredible.”"
+          }
+        }
+      },
+      "block_order": [
+        "aria",
+        "marcus",
+        "jennifer",
+        "michael"
+      ]
     },
     "pg-final-cta": {
       "type": "custom-final-cta",
       "settings": {
         "cta_scroll_target": "#MainContent"
-      }
+      },
+      "blocks": {
+        "capsule": {
+          "type": "product",
+          "settings": {
+            "name": "Capsule",
+            "pack": "80 Capsules / Bottle",
+            "fallback_image": "fg-pack-capsule.webp",
+            "fallback_one_price": "$37.99",
+            "fallback_sub_price": "$29.99"
+          }
+        },
+        "gummy": {
+          "type": "product",
+          "settings": {
+            "name": "Gummy",
+            "pack": "80 Gummies / Bottle",
+            "fallback_image": "fg-pack-gummy.webp",
+            "fallback_one_price": "$37.99",
+            "fallback_sub_price": "$29.99"
+          }
+        },
+        "jelly": {
+          "type": "product",
+          "settings": {
+            "name": "Jelly",
+            "pack": "15 Packets / Bag",
+            "fallback_image": "fg-pack-jelly.webp",
+            "fallback_one_price": "$85.99",
+            "fallback_sub_price": "$59.99",
+            "product": "flushgut-orange-and-berry-combo-pack"
+          }
+        }
+      },
+      "block_order": [
+        "capsule",
+        "gummy",
+        "jelly"
+      ]
     },
     "1781035310ce2428d8": {
       "type": "apps",

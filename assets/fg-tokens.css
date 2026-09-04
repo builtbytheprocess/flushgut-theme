@@ -18,6 +18,9 @@ html, body { overflow-x: hidden; max-width: 100%; }
   --fg-cream:      #EFE1CC;  /* lighter panels, fibre-gap left column */
   --fg-caramel:    #947751;  /* accent — "IT'S NOT IN YOUR HEAD", doctor band */
   --fg-tan:        #D4B281;  /* kraft texture midtone, card fills on kraft */
+  /* Caramel is a display colour. At body sizes on cream it only reaches 3.3:1,
+     so small text uses this deeper tone instead (4.8:1 on cream). */
+  --fg-caramel-deep: #7A5C38;
   --fg-parchment:  #F7EFE1;  /* card fills on cream */
 
   /* Foreground pairs — always set text colour from one of these */
@@ -36,7 +39,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
      once no section references it. */
   --fg-canvas:     var(--fg-cream);
   --fg-dark:       var(--fg-espresso);
-  --fg-orange:     var(--fg-caramel);
+  --fg-orange:     var(--fg-caramel-deep);
   --fg-orange-hot: var(--fg-espresso);
   --fg-purple:     var(--fg-espresso);
   --fg-muted:      var(--fg-on-light-dim);
