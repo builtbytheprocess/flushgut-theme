@@ -1,159 +1,200 @@
-<style>
-/* ── hp-05 Dr. Stein Video ── self-contained ── */
-.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
-.fg-section { padding-block:var(--sp-section); }
-.bg-dark { background-color:var(--fg-dark); color:var(--fg-canvas); }
-.hp-video__overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:rgba(243,119,33,0.9); margin-bottom:20px; }
-.hp-video__overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
-.hp-video__grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
-.hp-video__headline { font-family:var(--font-display); font-size:var(--fs-h2); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; line-height:1.05; color:#fff; margin:0 0 16px; }
-.hp-video__headline em { color:var(--fg-orange); font-style:normal; }
-.hp-video__copy { font-family:var(--font-body); font-size:17px; font-weight:300; line-height:1.65; color:rgba(250,248,245,0.75); margin:0 0 28px; }
-.hp-video__creds { display:flex; align-items:center; gap:16px; }
-.hp-video__doctor-img { width:64px; height:64px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid rgba(243,119,33,0.4); }
-.hp-video__doctor-name { font-family:var(--font-body); font-size:15px; font-weight:600; color:#fff; margin:0 0 2px; }
-.hp-video__doctor-title { font-family:var(--font-body); font-size:13px; color:rgba(250,248,245,0.55); margin:0; }
-.hp-video__embed { border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:16/9; background:#000; }
-.hp-video__embed iframe { width:100%; height:100%; border:none; display:block; }
-@media (max-width:900px) { .hp-video__grid { grid-template-columns:1fr; gap:40px; } }
-</style>
+{%- comment -%}
+  "Real routines. Real people." — four testimonial cards on the espresso texture.
 
-<!-- ============================================================
-     hp-05 — DR. STEIN VIDEO
-     Background: --fg-dark (continuation from ingredients)
-     NOTE: VIDEO_EMBED_URL is a placeholder — no embed found on /home-new-copy/.
-     Replace with actual YouTube/Vimeo embed src when available.
-     ============================================================ -->
+  Comp: y3430-4030 (600px). Headline left, rating cluster right ("4.8 from 150+
+  beta testers"), then four cards each with a circular headshot overlapping the
+  card's top edge, name, tenure, five stars and a quote.
 
-<section class="fg-section bg-dark" data-nav-theme="dark">
-  <div class="fg-container">
-    <div class="hp-video__grid">
+  Testimonials are advertising claims: the names, tenures and rating shown here
+  come from the comp and need substantiation on file.
+{%- endcomment -%}
 
-      <div data-aos="fade-right">
-        <p class="hp-video__overline">Doctor-led. Science-first.</p>
-        <h2 class="hp-video__headline">
-          The real reason<br>fiber works &mdash;<br>
-          <em>explained.</em>
-        </h2>
-        <p class="hp-video__copy">
-          Board-certified gastroenterologist Dr. Ralph Stein explains why most people aren&rsquo;t getting enough fiber &mdash; and what actually happens in your gut when you do.
+<section class="fg-proof">
+  <div class="fg-proof__inner">
+
+    <div class="fg-proof__head">
+      <h2 class="fg-proof__title">
+        <span>{{ section.settings.title_a }}</span>
+        <span class="fg-proof__title-b">{{ section.settings.title_b }}</span>
+      </h2>
+      <div class="fg-proof__rating">
+        <p class="fg-proof__rating-eyebrow"><span></span>{{ section.settings.rating_eyebrow }}<span></span></p>
+        <p class="fg-proof__rating-row">
+          {%- render 'fg-icon', name: 'stars' -%}
+          <strong>{{ section.settings.rating_score }}</strong>
+          <span>{{ section.settings.rating_note }}</span>
         </p>
-        <div class="hp-video__creds">
-          <img class="hp-video__doctor-img"
-               src="{{ 'fg-dr-bubble.png' | asset_url }}"
-               alt="Dr. Ralph Stein" loading="lazy">
-          <div>
-            <p class="hp-video__doctor-name">Dr. Ralph Stein</p>
-            <p class="hp-video__doctor-title">Board-Certified Gastroenterologist</p>
-          </div>
-        </div>
       </div>
-
-      <div class="hp-video__embed" data-aos="fade-left" data-aos-delay="80">
-        <img src="{{ 'fg-dr-explaining.png' | asset_url }}"
-             alt="Dr. Ralph Stein explaining how fiber works and gut health"
-             style="width:100%;height:100%;object-fit:cover;display:block;"
-             loading="lazy">
-      </div>
-
     </div>
+
+    <ul class="fg-proof__grid">
+      {%- for block in section.blocks -%}
+        <li class="fg-quote" {{ block.shopify_attributes }}>
+          <div class="fg-quote__avatar">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 334 }}"
+                   alt="{{ block.settings.name | escape }}" width="112" height="112" loading="lazy">
+            {%- elsif block.settings.fallback_image != blank -%}
+              <img src="{{ block.settings.fallback_image | asset_url }}"
+                   alt="{{ block.settings.name | escape }}" width="112" height="112" loading="lazy">
+            {%- endif -%}
+          </div>
+          <p class="fg-quote__name">{{ block.settings.name }}</p>
+          <p class="fg-quote__meta">{{ block.settings.meta }}</p>
+          <span class="fg-quote__stars">{%- render 'fg-icon', name: 'stars' -%}</span>
+          <blockquote class="fg-quote__text">{{ block.settings.quote }}</blockquote>
+        </li>
+      {%- endfor -%}
+    </ul>
+
   </div>
 </section>
+
 <style>
-/* ── hp-06 Testimonials ── self-contained ── */
-.fg-container { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); }
-.fg-section { padding-block:var(--sp-section); }
-.bg-canvas { background-color:var(--fg-canvas); color:var(--fg-ink); }
-.hp-testi__overline { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:var(--fs-label); font-weight:600; letter-spacing:var(--track-label); text-transform:uppercase; color:var(--fg-orange); margin-bottom:20px; }
-.hp-testi__overline::before { content:''; display:block; width:24px; height:2px; background:currentColor; border-radius:1px; flex-shrink:0; }
-.hp-testi__header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; flex-wrap:wrap; gap:24px; }
-.hp-testi__headline { font-family:var(--font-display); font-size:var(--fs-h1); font-weight:800; text-transform:uppercase; letter-spacing:-0.02em; line-height:1.05; color:var(--fg-ink); margin:0; }
-.hp-testi__headline em { color:var(--fg-orange); font-style:normal; }
-.hp-testi__rating { display:flex; align-items:center; gap:12px; padding-bottom:8px; }
-.hp-testi__stars { color:var(--fg-orange); font-size:18px; letter-spacing:2px; }
-.hp-testi__score { font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--fg-ink); }
-.hp-testi__count { font-family:var(--font-body); font-size:14px; color:var(--fg-muted); }
-.hp-testi__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:start; }
-.hp-testi__card { background:#fff; border-radius:var(--radius-lg); border:1px solid var(--fg-border); padding:28px; display:flex; flex-direction:column; gap:20px; box-shadow:var(--shadow-card); }
-.hp-testi__card-stars { color:var(--fg-orange); font-size:13px; letter-spacing:2px; }
-.hp-testi__quote { font-family:var(--font-editorial); font-style:italic; font-size:17px; line-height:1.65; color:var(--fg-ink); margin:0; flex:1; }
-.hp-testi__meta { display:flex; align-items:center; gap:12px; }
-.hp-testi__avatar { width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0; }
-.hp-testi__name { font-family:var(--font-body); font-size:14px; font-weight:600; color:var(--fg-ink); margin:0 0 2px; }
-.hp-testi__tag { font-family:var(--font-body); font-size:12px; color:var(--fg-muted); margin:0; }
-@media (max-width:900px) { .hp-testi__grid { grid-template-columns:1fr; } }
+  .fg-proof {
+    background-color: var(--fg-ink);
+    background-image: url('{{ 'fg-texture-espresso.jpg' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    color: var(--fg-on-dark);
+  }
+  .fg-proof__inner {
+    max-width: 1000px;
+    margin-inline: auto;
+    padding: 44px var(--container-pad) 52px;
+  }
+
+  .fg-proof__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 46px;
+  }
+  .fg-proof__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.3vw, 34px);
+    font-weight: 800;
+    letter-spacing: var(--track-display);
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--fg-cream);
+  }
+  .fg-proof__title span { margin-right: 12px; }
+  .fg-proof__title-b { color: var(--fg-caramel); }
+
+  .fg-proof__rating { text-align: right; }
+  .fg-proof__rating-eyebrow {
+    display: flex; align-items: center; gap: 10px; justify-content: flex-end;
+    margin: 0 0 6px;
+    font-family: var(--font-body); font-size: 11px; font-weight: var(--fg-w-bold);
+    letter-spacing: var(--track-label); text-transform: uppercase;
+    color: var(--fg-on-dark-dim);
+  }
+  .fg-proof__rating-eyebrow span { width: 26px; height: 1px; background: var(--fg-rule-dark); }
+  .fg-proof__rating-row {
+    display: flex; align-items: center; justify-content: flex-end; gap: 9px;
+    margin: 0; font-family: var(--font-body); font-size: 13px; color: var(--fg-on-dark-dim);
+  }
+  .fg-proof__rating-row .fg-i { width: 92px; height: 17px; color: var(--fg-caramel); }
+  .fg-proof__rating-row strong {
+    font-family: var(--font-display); font-size: 26px; font-weight: 800;
+    color: var(--fg-cream); line-height: 1;
+  }
+
+  .fg-proof__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .fg-quote {
+    position: relative;
+    margin-top: 56px;
+    padding: 68px 16px 24px;
+    border: 1px solid var(--fg-rule-dark);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+  /* The headshot straddles the card's top edge, as drawn in the comp. */
+  .fg-quote__avatar {
+    position: absolute;
+    top: -56px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 112px;
+    height: 112px;
+  }
+  .fg-quote__avatar img {
+    width: 112px; height: 112px; border-radius: 50%; object-fit: cover; display: block;
+  }
+  .fg-quote__name,
+  .fg-quote__meta { margin: 0; font-family: var(--font-body); line-height: 1.3; }
+  .fg-quote__name { font-size: 16px; font-weight: 700; color: var(--fg-cream); }
+  /* Two lines reserved so a longer tenure line does not drop one card's
+     stars and quote out of line with the rest. */
+  .fg-quote__meta { margin-top: 3px; min-height: 2.6em; font-size: 11px; color: var(--fg-on-dark-dim); }
+  .fg-quote__stars { display: block; margin: 10px auto 12px; width: 84px; color: var(--fg-caramel); }
+  .fg-quote__stars .fg-i { width: 84px; height: 15px; }
+  .fg-quote__text {
+    margin: 0;
+    font-style: normal;
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--fg-on-dark-dim);
+  }
+
+  @media (max-width: 900px) {
+    .fg-proof__grid { grid-template-columns: repeat(2, 1fr); gap: 16px 14px; }
+    .fg-proof__head { margin-bottom: 34px; }
+    .fg-proof__rating, .fg-proof__rating-eyebrow, .fg-proof__rating-row { text-align: left; justify-content: flex-start; }
+  }
+  @media (max-width: 560px) {
+    /* One card at a time, swiped — four stacked cards would run very long. */
+    .fg-proof__grid {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
+      margin-inline: calc(var(--container-pad) * -1);
+      padding-inline: var(--container-pad);
+    }
+    .fg-quote { scroll-snap-align: center; }
+  }
 </style>
-
-<!-- ============================================================
-     hp-06 — TESTIMONIALS
-     Background: --fg-canvas
-     ============================================================ -->
-
-<section class="fg-section bg-canvas" data-nav-theme="light">
-  <div class="fg-container">
-
-    <div class="hp-testi__header">
-      <div>
-        <p class="hp-testi__overline" data-aos="fade-up">Real words from real testers</p>
-        <h2 class="hp-testi__headline" data-aos="fade-up" data-aos-delay="60">
-          Real routines.<br><em>Real people.</em>
-        </h2>
-      </div>
-      <div class="hp-testi__rating" data-aos="fade-up" data-aos-delay="60">
-        <div class="hp-testi__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <span class="hp-testi__score">4.8</span>
-        <span class="hp-testi__count">from 150+ beta testers</span>
-      </div>
-    </div>
-
-    <div class="hp-testi__grid">
-
-      <div class="hp-testi__card" data-aos="fade-up" data-aos-delay="0">
-        <div class="hp-testi__card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="hp-testi__quote">&ldquo;The tight stomach pressure I always had by evening &mdash; it&rsquo;s just gone. Not dramatically, just quietly gone. I didn&rsquo;t realize how much it was wearing on me until it stopped.&rdquo;</p>
-        <div class="hp-testi__meta">
-          <img class="hp-testi__avatar" src="https://flushgut.com/wp-content/uploads/2026/01/flush-gut-testimonial-aria-1.webp" alt="Aria" loading="lazy">
-          <div>
-            <p class="hp-testi__name">Aria M.</p>
-            <p class="hp-testi__tag">Verified beta tester &middot; 1 month</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="hp-testi__card" data-aos="fade-up" data-aos-delay="100">
-        <div class="hp-testi__card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="hp-testi__quote">&ldquo;I&rsquo;ve tried three different fiber powders and I always forget them because mixing is annoying. This stick I actually use every week. The orange flavor is genuinely good.&rdquo;</p>
-        <div class="hp-testi__meta">
-          <img class="hp-testi__avatar" src="https://flushgut.com/wp-content/uploads/2026/01/flush-gut-testimonial-aria-2.webp" alt="Marcus" loading="lazy">
-          <div>
-            <p class="hp-testi__name">Marcus T.</p>
-            <p class="hp-testi__tag">Verified beta tester &middot; Daily routine</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="hp-testi__card" data-aos="fade-up" data-aos-delay="200">
-        <div class="hp-testi__card-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="hp-testi__quote">&ldquo;I feel normal again. Less bloated, less distracted by what&rsquo;s going on in my stomach. The little discomforts were wearing on me more than I knew &mdash; and now they&rsquo;re just not there.&rdquo;</p>
-        <div class="hp-testi__meta">
-          <img class="hp-testi__avatar" src="https://flushgut.com/wp-content/uploads/2026/01/flush-gut-testimonial-aria-3.webp" alt="Jennifer" loading="lazy">
-          <div>
-            <p class="hp-testi__name">Jennifer R.</p>
-            <p class="hp-testi__tag">Verified beta tester &middot; 8 weeks</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
 
 {% schema %}
 {
-  "name": "Social Proof",
-  "tag": "section",
-  "class": "fg-section",
-  "presets": [{ "name": "Social Proof" }]
+  "name": "FlushGut Testimonials",
+  "tag": "div",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "title_a", "label": "Headline part 1", "default": "Real Routines." },
+    { "type": "text", "id": "title_b", "label": "Headline part 2", "default": "Real People." },
+    { "type": "text", "id": "rating_eyebrow", "label": "Rating eyebrow", "default": "Real Words From Real Testers" },
+    { "type": "text", "id": "rating_score", "label": "Score", "default": "4.8" },
+    { "type": "text", "id": "rating_note", "label": "Score note", "default": "from 150+ beta testers" }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Headshot" },
+        { "type": "text", "id": "fallback_image", "label": "Theme asset fallback", "info": "e.g. fg-tester-aria.webp" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Aria M." },
+        { "type": "text", "id": "meta", "label": "Meta", "default": "Verified beta tester — Daily Routine" },
+        { "type": "textarea", "id": "quote", "label": "Quote" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "FlushGut Testimonials" }]
 }
 {% endschema %}

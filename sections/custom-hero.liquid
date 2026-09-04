@@ -1,25 +1,260 @@
-<style>
-/* ── Hero Image — self-contained ── */
-.fg-hero-link { display:block; width:100%; line-height:0; cursor:pointer; overflow:hidden; }
-.fg-hero-link picture { display:block; width:100%; }
-.fg-hero-link img { width:100%; height:auto; display:block; max-width:100%; }
-</style>
+{%- comment -%}
+  FlushGut Hero — rebuilt 2026-09-03 from the design comp.
 
-<a class="fg-hero-link" href="#fg-buy-box" id="fg-hero" aria-label="Shop FlushGut — Start My Routine">
-  <picture>
-    <source media="(max-width: 767px)" srcset="{{ 'fg-hero-mobile.png' | asset_url }}">
-    <img src="{{ 'fg-hero-desktop.png' | asset_url }}"
-         alt="FlushGut — One Jelly Stick. Three Times a Week."
-         loading="eager" fetchpriority="high">
-  </picture>
-</a>
+  Previously this section was a single flat PNG (fg-hero-desktop.png) with a
+  mobile twin. That left the page with no indexable headline and no real
+  mobile layout. It is now HTML over the comp's photographic ground, so the
+  headline is text, the CTA is a button, and the layout reflows on a phone.
+
+  Comp measurements (CSS px at a 1920 viewport):
+    band height 552 · eyebrow 33.8px @ x533/y161 · body 17px @ x460/y290
+    badges 11px @ y416 · CTA 16.2px @ y502 · callouts 14.1px @ x873
+{%- endcomment -%}
+
+{%- assign cta = section.settings.cta_url | default: '#fg-buy-box' -%}
+
+<section class="fg-hero" id="fg-hero">
+  <div class="fg-hero__inner">
+
+    <div class="fg-hero__copy">
+      <p class="fg-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+
+      <h1 class="fg-hero__title">
+        {%- render 'fg-logo' -%}
+        <span class="visually-hidden">{{ section.settings.eyebrow }} FlushGut</span>
+      </h1>
+
+      <p class="fg-hero__sub">{{ section.settings.subhead }}</p>
+
+      <ul class="fg-hero__badges">
+        {%- assign badges = section.settings.badges | split: ',' -%}
+        {%- for badge in badges -%}
+          {%- assign bits = badge | split: '|' -%}
+          <li class="fg-hero__badge">
+            {%- render 'fg-icon', name: bits[0] -%}
+            <span>{{ bits[1] | strip }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="fg-hero__actions">
+        <a class="fg-btn fg-hero__cta" href="{{ cta }}">
+          {{ section.settings.cta_label }}
+          {%- render 'fg-icon', name: 'play' -%}
+        </a>
+
+        <div class="fg-hero__trust">
+          {%- render 'fg-icon', name: 'clinicians' -%}
+          <div>
+            <p class="fg-hero__trust-lead">{{ section.settings.trust_lead }}</p>
+            <p class="fg-hero__trust-sub">{{ section.settings.trust_sub }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="fg-hero__callouts">
+      {%- assign callouts = section.settings.callouts | split: ';' -%}
+      {%- for callout in callouts -%}
+        {%- assign bits = callout | split: '|' -%}
+        <li class="fg-hero__callout">
+          <p class="fg-hero__callout-title">{{ bits[0] | strip }}</p>
+          <p class="fg-hero__callout-sub">{{ bits[1] | strip }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .fg-hero {
+    position: relative;
+    background-color: var(--fg-cream);
+    background-image: url('{{ 'fg-hero-wood.jpg' | asset_url }}');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  /* The comp centres a ~1000px content band in the 1920 canvas: copy at x460,
+     callouts at x873, packshot (already in the photo) at x1050-1450.
+     Because `cover` scales this 3.478:1 photo by height and centres it, and
+     the band is also centred, the columns stay aligned to the packshot as the
+     viewport narrows — which is why the band is 1000px, not --container-max. */
+  .fg-hero__inner {
+    max-width: 1000px;
+    margin-inline: auto;
+    padding: clamp(44px, 8.2vw, 106px) var(--container-pad) 32px;
+    min-height: 552px;
+    display: grid;
+    grid-template-columns: minmax(300px, 350px) 154px minmax(0, 1fr);
+    column-gap: 48px;
+    align-items: start;
+  }
+
+  /* ── Copy column ── */
+  /* Fully scoped: a global `.fg-display` rule leaks out of other sections,
+     so this section never relies on shared display classes. */
+  .fg-hero__eyebrow {
+    margin: 0 0 2px;
+    font-family: var(--font-display);
+    font-size: clamp(22px, 1.9vw, 34px);
+    font-weight: var(--fg-w-display);
+    letter-spacing: var(--track-display);
+    line-height: 1.05;
+    color: var(--fg-espresso);
+    text-transform: uppercase;
+  }
+
+  /* Scoped to this section: an unscoped .fg-logo__svg rule here would leak out
+     and resize the header wordmark, which is what happened first time round. */
+  .fg-hero__title { margin: 0 0 18px; }
+  .fg-hero__title .fg-logo { display: block; }
+  .fg-hero__title .fg-logo__svg { display: block; width: clamp(230px, 21vw, 326px); height: auto; }
+
+  .fg-hero__sub {
+    margin: 0 0 20px;
+    max-width: 34ch;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.42;
+    color: var(--fg-on-light);
+  }
+
+  .fg-hero__badges {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+    max-width: 380px;
+  }
+  .fg-hero__badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--fg-w-bold);
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-hero__badge .fg-i { width: 32px; height: 32px; }
+
+  .fg-hero__actions { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+  .fg-hero__cta { font-size: 15px; padding: 13px 28px; }
+
+  .fg-hero__trust { display: flex; align-items: center; gap: 11px; }
+  .fg-hero__trust .fg-i { width: 34px; height: 34px; color: var(--fg-espresso); }
+  .fg-hero__trust-lead,
+  .fg-hero__trust-sub { margin: 0; font-family: var(--font-body); line-height: 1.35; }
+  .fg-hero__trust-lead { font-size: 15px; font-weight: var(--fg-w-bold); color: var(--fg-espresso); }
+  .fg-hero__trust-sub  { font-size: 13px; color: var(--fg-on-light-dim); }
+
+  /* ── Callout column ── */
+  /* Comp geometry: 154px wide cards, 50px tall, 18px apart, first at y173.
+     Type is sized so each title holds one line inside that width, as drawn. */
+  .fg-hero__callouts {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .fg-hero__callout {
+    position: relative;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 253, 249, 0.92);
+    border-radius: var(--radius-sm);
+    padding: 6px 7px;
+    box-shadow: var(--shadow-card);
+  }
+  /* connector arrow pointing at the packshot */
+  .fg-hero__callout::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 42px;
+    height: 2px;
+    transform: translateY(-50%);
+    background: var(--fg-espresso);
+    opacity: 0.55;
+    -webkit-mask: linear-gradient(90deg, #000 60%, transparent 60%) 0 0/8px 2px repeat-x;
+            mask: linear-gradient(90deg, #000 60%, transparent 60%) 0 0/8px 2px repeat-x;
+  }
+  .fg-hero__callout-title,
+  .fg-hero__callout-sub { margin: 0; font-family: var(--font-body); line-height: 1.35; }
+  .fg-hero__callout-title { font-size: 11px; font-weight: 700; color: var(--fg-espresso); }
+  .fg-hero__callout-sub   { font-size: 10.5px; color: var(--fg-on-light-dim); }
+
+  /* ── Responsive ──
+     The comp is desktop-only. Below 1100px the photo's packshot no longer has
+     room beside the copy, so the callouts drop under the copy as a 2x2 grid
+     and the photo is pushed to a banner above. */
+  @media (max-width: 1180px) {
+    .fg-hero__inner { max-width: 920px; grid-template-columns: minmax(280px, 330px) 154px; }
+  }
+  @media (max-width: 980px) {
+    .fg-hero {
+      background-position: center bottom;
+      background-size: 150% auto;
+      padding-bottom: 34vw;
+    }
+    .fg-hero__inner {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      padding-top: 44px;
+      gap: 26px;
+    }
+    .fg-hero__sub { max-width: 46ch; }
+    .fg-hero__inner { max-width: 640px; }
+    .fg-hero__callouts { display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 0; }
+    .fg-hero__callout::after { display: none; }
+    /* Card type was tuned to the comp's 154px desktop column; full-width cards
+       can carry normal reading sizes. */
+    .fg-hero__callout { padding: 12px 14px; }
+    .fg-hero__callout-title { font-size: 14px; }
+    .fg-hero__callout-sub { font-size: 12.5px; }
+  }
+  @media (max-width: 560px) {
+    .fg-hero { padding-bottom: 62vw; background-size: 190% auto; }
+    .fg-hero__inner { padding-top: 32px; }
+    .fg-hero__badges { grid-template-columns: repeat(2, 1fr); max-width: 300px; gap: 18px 14px; }
+    .fg-hero__callouts { grid-template-columns: 1fr; }
+    .fg-hero__cta { width: 100%; justify-content: center; }
+    .fg-hero__actions { align-items: stretch; }
+  }
+</style>
 
 {% schema %}
 {
   "name": "FlushGut Hero",
   "tag": "div",
   "settings": [
-    { "type": "url", "id": "cta_url", "label": "Click destination", "info": "Where the image links. Default: #fg-buy-box" }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Can't Go?" },
+    { "type": "textarea", "id": "subhead", "label": "Subhead",
+      "default": "A simple daily fiber made to help support regularity, bloating, and gut health, without powders or mixing." },
+    { "type": "textarea", "id": "badges", "label": "Badges",
+      "info": "One per comma. Format: icon-name|Label",
+      "default": "clinically-proven|Clinically Proven Ingredients,glp1-friendly|GLP-1 Friendly,gentle-relief|Gentle Controlled Relief*,great-tasting|Great Tasting" },
+    { "type": "textarea", "id": "callouts", "label": "Callout cards",
+      "info": "One per semicolon. Format: Title|Subtitle",
+      "default": "Helps Keep Things Moving|Fiber support made simple;Feeds Good Gut Bacteria|Prebiotic + probiotic support;No Mixing Required|No powders. No clumps;Supports Less Bloat|For when your gut feels backed up" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Start My Routine" },
+    { "type": "url", "id": "cta_url", "label": "CTA destination", "info": "Default: #fg-buy-box" },
+    { "type": "text", "id": "trust_lead", "label": "Trust line", "default": "Reviewed by 200+ Clinicians" },
+    { "type": "text", "id": "trust_sub", "label": "Trust subline", "default": "Third-party tested — HSA/FSA eligible" }
   ],
   "presets": [{ "name": "FlushGut Hero" }]
 }

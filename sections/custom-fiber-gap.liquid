@@ -1,0 +1,239 @@
+{%- comment -%}
+  "The Fiber Gap" — long-form copy column beside a without/with panel.
+
+  Replaces custom-problem.liquid. Comp: y2230-3028 (798px). Cream column on the
+  left (x460-1010) carrying an eyebrow, a four-line 37.9px headline, four
+  paragraphs at 16.1px and three 61.4px statistics. The right panel sits over
+  the torso photograph and stacks WITHOUT ENOUGH FIBER (four points) above
+  WITH ENOUGH FIBER (four points), labels 16px @ x1155.
+{%- endcomment -%}
+
+<section class="fg-gap">
+
+  <div class="fg-gap__copy">
+    <div class="fg-gap__copy-inner">
+      <p class="fg-gap__eyebrow"><span></span>{{ section.settings.eyebrow }}</p>
+      <h2 class="fg-gap__title">{{ section.settings.title | newline_to_br }}</h2>
+      <div class="fg-gap__body">{{ section.settings.body }}</div>
+
+      <ul class="fg-gap__stats">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' -%}
+            <li {{ block.shopify_attributes }}>
+              <span class="fg-gap__stat-num">{{ block.settings.value }}</span>
+              <span class="fg-gap__stat-label">{{ block.settings.label | newline_to_br }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+
+  <div class="fg-gap__panel">
+    <div class="fg-gap__panel-inner">
+      {%- for group in (1..2) -%}
+        {%- liquid
+          if group == 1
+            assign heading_a = section.settings.without_a
+            assign heading_b = section.settings.without_b
+            assign points = section.settings.without_points
+          else
+            assign heading_a = section.settings.with_a
+            assign heading_b = section.settings.with_b
+            assign points = section.settings.with_points
+          endif
+        -%}
+        <div class="fg-gap__group">
+          <h3 class="fg-gap__group-title">
+            <span class="fg-gap__group-title-a">{{ heading_a }}</span>
+            <span class="fg-gap__group-title-b">{{ heading_b }}</span>
+          </h3>
+          <ul class="fg-gap__points">
+            {%- assign list = points | split: ',' -%}
+            {%- for point in list -%}
+              {%- assign bits = point | split: '|' -%}
+              <li>
+                {%- render 'fg-icon', name: bits[0] -%}
+                <span>{{ bits[1] | strip | newline_to_br }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .fg-gap {
+    display: grid;
+    grid-template-columns: minmax(0, 1030fr) minmax(0, 890fr);
+    background: var(--fg-cream);
+  }
+
+  /* ── Left: copy ── */
+  .fg-gap__copy { display: flex; justify-content: flex-end; }
+  .fg-gap__copy-inner {
+    width: 100%;
+    max-width: 620px;
+    padding: 54px clamp(24px, 1.5vw, 30px) 54px 24px;
+  }
+
+  .fg-gap__eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    margin: 0 0 10px;
+    font-family: var(--font-body);
+    font-size: 13px; font-weight: var(--fg-w-bold);
+    letter-spacing: var(--track-label); text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-gap__eyebrow span { width: 30px; height: 1px; background: var(--fg-espresso); flex: 0 0 auto; }
+
+  .fg-gap__title {
+    margin: 0 0 22px;
+    font-family: var(--font-display);
+    font-size: clamp(25px, 2.6vw, 38px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: var(--track-display);
+    text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+
+  .fg-gap__body { font-family: var(--font-body); font-size: 15px; line-height: 1.5; color: var(--fg-espresso); }
+  .fg-gap__body p { margin: 0 0 16px; }
+  .fg-gap__body p:last-child { margin-bottom: 0; }
+
+  .fg-gap__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 30px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .fg-gap__stats li { display: flex; flex-direction: column; gap: 4px; }
+  .fg-gap__stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(38px, 4vw, 61px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--fg-caramel);
+  }
+  .fg-gap__stat-label {
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: var(--fg-w-display);
+    line-height: 1.15; letter-spacing: var(--track-display);
+    text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+
+  /* ── Right: without / with over the photograph ── */
+  .fg-gap__panel {
+    position: relative;
+    background-color: var(--fg-kraft);
+    background-image: url('{{ 'fg-torso.jpg' | asset_url }}');
+    background-size: cover;
+    /* The subject sits around 42% across a 2.67:1 frame. Cover crops this panel
+       to a narrow window, so anchor at 20% to land the midriff on the right of
+       the panel with the points clear of it, as the comp draws it. */
+    background-position: 20% center;
+  }
+  .fg-gap__panel-inner {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 30px;
+    padding: 48px clamp(24px, 3vw, 40px);
+    max-width: 340px;
+  }
+  .fg-gap__group-title {
+    margin: 0 0 18px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: var(--track-display);
+    text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-gap__group-title-a { display: block; font-size: clamp(26px, 2.3vw, 34px); }
+  .fg-gap__group-title-b { display: block; font-size: clamp(16px, 1.3vw, 19px); }
+
+  .fg-gap__points { margin: 0; padding: 0; list-style: none; display: grid; gap: 15px; }
+  .fg-gap__points li {
+    display: flex; align-items: center; gap: 13px;
+    font-family: var(--font-body);
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.03em; line-height: 1.2; text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-gap__points .fg-i { width: 30px; height: 30px; flex: 0 0 auto; }
+
+  @media (max-width: 1100px) {
+    .fg-gap { grid-template-columns: 1fr; }
+    .fg-gap__copy { justify-content: center; }
+    .fg-gap__copy-inner { max-width: 680px; padding-inline: var(--container-pad); }
+    .fg-gap__panel { background-position: right center; }
+    .fg-gap__panel-inner {
+      max-width: 680px; margin-inline: auto; width: 100%;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 34px;
+      padding-block: 40px;
+    }
+  }
+  @media (max-width: 620px) {
+    .fg-gap__stats { grid-template-columns: 1fr; gap: 14px; }
+    .fg-gap__stats li { flex-direction: row; align-items: baseline; gap: 12px; }
+    .fg-gap__stat-num { flex: 0 0 auto; min-width: 92px; }
+    .fg-gap__panel-inner { grid-template-columns: 1fr; }
+    .fg-gap__panel { background-position: 78% center; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "FlushGut Fiber Gap",
+  "tag": "div",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Fiber Gap" },
+    { "type": "textarea", "id": "title", "label": "Headline",
+      "default": "Your gut needs fiber to push everything out.\nMost of us are barely halfway there." },
+    { "type": "richtext", "id": "body", "label": "Body copy",
+      "default": "<p>Soluble fiber forms a viscous gel inside your intestine — it binds waste together, supports gut transit, and helps your body process glucose and cholesterol at a healthier rate. That's why gastroenterologists point to fiber first when patients ask about regularity.</p><p>But the average American gets about 15 grams a day. The recommendation is 25–38g. For most people, the answer isn't knowing more — it's finding a format they'll actually do every single day.</p><p>The gut-brain axis is a two-way communication network between your digestive system and your brain. Research shows that gut bacteria directly influence mood, cognitive function, and stress response — meaning a healthier gut may support a clearer, calmer mind.*</p><p>70% of your immune system lives in your gut. When your microbiome is in balance, your body's defenses may be stronger.*</p>" },
+    { "type": "header", "content": "Without enough fiber" },
+    { "type": "text", "id": "without_a", "label": "Heading line 1", "default": "Without" },
+    { "type": "text", "id": "without_b", "label": "Heading line 2", "default": "Enough Fiber" },
+    { "type": "textarea", "id": "without_points", "label": "Points", "info": "icon-name|Label",
+      "default": "waste-sits|Waste Sits\nAnd Build Up,sluggish-transit|Sluggish\nTransit,bloating-discomfort|Bloating And\nDiscomfort,toxins-reabsorbed|Toxins Can Be\nReabsorbed" },
+    { "type": "header", "content": "With enough fiber" },
+    { "type": "text", "id": "with_a", "label": "Heading line 1", "default": "With" },
+    { "type": "text", "id": "with_b", "label": "Heading line 2", "default": "Enough Fiber" },
+    { "type": "textarea", "id": "with_points", "label": "Points", "info": "icon-name|Label",
+      "default": "viscous-gel|Soluble Fiber Forms\nA Viscous Gel,waste-moves|Waste Moves\nSmoothly,less-bloating|Less Bloating\nMore Comfort,gut-brain|Supports Gut-Brain\nCommunication" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "95%" },
+        { "type": "textarea", "id": "label", "label": "Label" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FlushGut Fiber Gap",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "95%", "label": "Of Americans\nfall short\nof the daily fiber\nrecommendation" } },
+        { "type": "stat", "settings": { "value": "15g", "label": "Average daily\nfiber intake vs\n25-38g\nrecommended" } },
+        { "type": "stat", "settings": { "value": "30g+", "label": "Daily fiber target\nconsistently cited\nfor optimal\ngut transit" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

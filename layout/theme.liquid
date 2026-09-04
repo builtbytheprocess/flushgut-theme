@@ -308,7 +308,7 @@
     </script>
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient template-{{ request.page_type }}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -317,85 +317,84 @@
       {%- render 'cart-drawer' -%}
     {%- endif -%}
 
+    {%- comment -%}
+      Topbar — four trust claims, per the 2026 comp. Icons are vector paths
+      lifted from the comp itself (snippets/fg-icon.liquid), replacing the
+      emoji characters used previously.
+      Desktop: static centred row. Mobile: marquee, since four claims will
+      not fit on a phone.
+    {%- endcomment -%}
+    {%- assign fg_topbar_items = 'clinician-recommended|Clinician Recommended,clinician-reviewed|Reviewed by 200+ Clinicians,free-shipping|Free US Shipping on Subscriptions,hsa-fsa|HSA/FSA Eligible' | split: ',' -%}
     <div class="fg-topbar" role="complementary" aria-label="Store information">
-      <!-- Desktop: static centered -->
       <div class="fg-topbar__static">
-        <span class="fg-topbar__item">&#10003; Clinician Recommended</span>
-        <span class="fg-topbar__dot">&#9679;</span>
-        <span class="fg-topbar__item">&#9201; Reviewed by 200+ Clinicians</span>
-        <span class="fg-topbar__dot">&#9679;</span>
-        <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
-        <span class="fg-topbar__dot">&#9679;</span>
-        <span class="fg-topbar__item">&#9733; HSA/FSA Eligible</span>
+        {%- for pair in fg_topbar_items -%}
+          {%- assign bits = pair | split: '|' -%}
+          <span class="fg-topbar__item">
+            {%- render 'fg-icon', name: bits[0] -%}
+            <span>{{ bits[1] }}</span>
+          </span>
+        {%- endfor -%}
       </div>
-      <!-- Mobile: slow marquee — two copies for seamless loop -->
       <div class="fg-topbar__track" aria-hidden="true">
         <div class="fg-topbar__scroll">
-          <span class="fg-topbar__item">&#10003; Clinician Recommended</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#9201; Reviewed by 200+ Clinicians</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#9733; HSA/FSA Eligible</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#10003; Clinician Recommended</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#9201; Reviewed by 200+ Clinicians</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
-          <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#9733; HSA/FSA Eligible</span>
-          <span class="fg-topbar__dot">&#9679;</span>
+          {%- for i in (1..2) -%}
+            {%- for pair in fg_topbar_items -%}
+              {%- assign bits = pair | split: '|' -%}
+              <span class="fg-topbar__item">
+                {%- render 'fg-icon', name: bits[0] -%}
+                <span>{{ bits[1] }}</span>
+              </span>
+            {%- endfor -%}
+          {%- endfor -%}
         </div>
       </div>
     </div>
     <style>
-      .fg-topbar { background:#18061a; padding:10px 24px; overflow:hidden; }
-      .fg-topbar__item { font-family:var(--font-body); font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--fg-orange); white-space:nowrap; }
-      .fg-topbar__dot { color:rgba(243,119,33,0.4); font-size:6px; flex-shrink:0; }
-      /* Desktop: static centered row */
-      .fg-topbar__static { display:flex; align-items:center; justify-content:center; gap:20px; }
-      .fg-topbar__track { display:none; }
-      /* Mobile: marquee */
-      @media(max-width:640px) {
-        .fg-topbar { padding:8px 0; }
-        .fg-topbar__static { display:none; }
-        .fg-topbar__track { display:block; overflow:hidden; width:100%; }
-        .fg-topbar__scroll { display:inline-flex; align-items:center; gap:20px; animation:fg-ticker 28s linear infinite; }
-        .fg-topbar__scroll:hover { animation-play-state:paused; }
-        .fg-topbar__item { font-size:11px; }
-        @keyframes fg-ticker { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+      .fg-topbar { background: var(--fg-espresso); padding: 11px 24px; overflow: hidden; }
+      .fg-topbar__item {
+        display: inline-flex; align-items: center; gap: 9px;
+        font-family: var(--font-body); font-size: 12px; font-weight: var(--fg-w-bold);
+        letter-spacing: var(--track-label); text-transform: uppercase;
+        color: var(--fg-on-dark); white-space: nowrap;
+      }
+      .fg-topbar__item .fg-i { width: 17px; height: 17px; flex: 0 0 auto; }
+      .fg-topbar__static { display: flex; align-items: center; justify-content: center; gap: 46px; }
+      .fg-topbar__track { display: none; }
+      @media (max-width: 900px) {
+        .fg-topbar { padding: 9px 0; }
+        .fg-topbar__static { display: none; }
+        .fg-topbar__track { display: block; overflow: hidden; width: 100%; }
+        .fg-topbar__scroll { display: inline-flex; align-items: center; gap: 34px;
+                             animation: fg-ticker 34s linear infinite; }
+        .fg-topbar__scroll:hover { animation-play-state: paused; }
+        .fg-topbar__item { font-size: 11px; }
+        @keyframes fg-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .fg-topbar__scroll { animation: none; }
       }
     </style>
 
     {% sections 'header-group' %}
 
     <style>
-      /* ── Brand gradient backgrounds ── */
-      /* Purple: replaces all flat dark (#18061a / fg-dark) sections */
-      .bg-dark,
-      .fg-howto,
+      /* ── Brand section grounds (2026 comp) ──
+         The magenta-era gradient PNGs (fg-bg-purple-*, fg-bg-orange-*) are
+         retired. The comp uses two grounds: a kraft paper texture behind the
+         symptoms band, and flat espresso everywhere dark. */
+      .bg-dark {
+        background-color: var(--fg-espresso);
+        background-image: none;
+      }
       .fg-symptoms {
-        background-color: #18061a;
-        background-image: url('{{ "fg-bg-purple-desktop.png" | asset_url }}');
+        background-color: var(--fg-kraft);
+        background-image: url('{{ "fg-texture-kraft.jpg" | asset_url }}');
         background-size: cover;
         background-position: center center;
       }
-      /* Orange: replaces flat orange benefits section */
       .hp-cards__section {
-        background-color: var(--fg-orange);
-        background-image: url('{{ "fg-bg-orange-desktop.png" | asset_url }}');
-        background-size: cover;
-        background-position: center center;
-      }
-      @media(max-width:767px) {
-        .bg-dark, .fg-howto, .fg-symptoms {
-          background-image: url('{{ "fg-bg-purple-mobile.png" | asset_url }}');
-        }
-        .hp-cards__section {
-          background-image: url('{{ "fg-bg-orange-mobile.png" | asset_url }}');
-        }
+        background-color: var(--fg-espresso);
+        background-image: none;
       }
     </style>
 

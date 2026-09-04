@@ -1,115 +1,281 @@
-/* FlushGut Design Tokens — included globally via theme.liquid */
+/* ==========================================================================
+   FlushGut Design Tokens — included globally via layout/theme.liquid
+   Rebrand 2026-09-03: magenta/orange -> brown/kraft, per the design comp
+   "FlushGut Website.pdf" (1920 x 4979 CSS px).
+
+   Colours below are sampled directly from the comp. Nothing in a section
+   file should hardcode a hex value — everything reads from here, which is
+   what keeps a stray magenta from surviving in an overlooked corner.
+   ========================================================================== */
+
 html, body { overflow-x: hidden; max-width: 100%; }
+
 :root {
-  /* Colors */
-  --fg-canvas:     #faf8f5;
-  --fg-dark:       #18061a;
-  --fg-orange:     #f37721;
-  --fg-orange-hot: #ff6b00;
-  --fg-purple:     #a0237f;
-  --fg-ink:        #1c1616;
-  --fg-muted:      #6b6060;
-  --fg-border:     #e4dfd7;
-  --fg-cream:      #f0ece5;
-  --fg-card:       #ffffff;
+  /* ── Brand palette (sampled from the comp) ───────────────────────────── */
+  --fg-espresso:   #442E17;  /* topbar, values bar, benefits, footer, buttons */
+  --fg-ink:        #291905;  /* testimonial ground, deepest text */
+  --fg-kraft:      #DEC6A6;  /* primary light background */
+  --fg-cream:      #EFE1CC;  /* lighter panels, fibre-gap left column */
+  --fg-caramel:    #947751;  /* accent — "IT'S NOT IN YOUR HEAD", doctor band */
+  --fg-tan:        #D4B281;  /* kraft texture midtone, card fills on kraft */
+  --fg-parchment:  #F7EFE1;  /* card fills on cream */
 
-  /* Typography */
-  --font-display:   'Knockout 49', 'Barlow Condensed', 'Impact', 'Arial Narrow', sans-serif;
-  --font-body:      'DM Sans', system-ui, -apple-system, sans-serif;
+  /* Foreground pairs — always set text colour from one of these */
+  --fg-on-dark:    #EFE1CC;
+  --fg-on-dark-dim: rgba(239, 225, 204, 0.72);
+  --fg-on-light:   #442E17;
+  --fg-on-light-dim: rgba(68, 46, 23, 0.70);
 
-  /* Font sizes */
-  --fs-hero:    clamp(32px, 4.2vw, 62px);
-  --fs-h1:      clamp(24px, 3.2vw, 48px);
-  --fs-h2:      clamp(22px, 2.8vw, 40px);
-  --fs-h3:      clamp(18px, 2vw, 28px);
-  --fs-body:    17px;
-  --fs-body-lg: 20px;
+  --fg-rule-dark:  rgba(239, 225, 204, 0.20);  /* hairlines on espresso */
+  --fg-rule-light: rgba(68, 46, 23, 0.22);     /* hairlines on kraft/cream */
+
+  /* ── Legacy aliases ──────────────────────────────────────────────────
+     Sections not yet rebuilt still reference the old magenta-era names.
+     Pointing them at the new palette means the site never renders
+     half-rebranded while the rebuild is in progress. Remove an alias only
+     once no section references it. */
+  --fg-canvas:     var(--fg-cream);
+  --fg-dark:       var(--fg-espresso);
+  --fg-orange:     var(--fg-caramel);
+  --fg-orange-hot: var(--fg-espresso);
+  --fg-purple:     var(--fg-espresso);
+  --fg-muted:      var(--fg-on-light-dim);
+  --fg-border:     var(--fg-rule-light);
+  --fg-card:       var(--fg-parchment);
+
+  /* ── Typography ──────────────────────────────────────────────────────── */
+  --font-display: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body:    'Archivo', system-ui, -apple-system, sans-serif;
+
+  --fg-w-display: 700;
+  --fg-w-bold:    600;
+  --fg-w-body:    400;
+
+  /* Font sizes — the comp's desktop values are the clamp ceilings */
+  --fs-hero:    clamp(40px, 5.2vw, 86px);   /* "FlushGut" wordmark in hero */
+  --fs-h1:      clamp(30px, 3.6vw, 54px);   /* "WHEN YOUR GUT IS OFF," */
+  --fs-h2:      clamp(26px, 2.9vw, 42px);
+  --fs-h3:      clamp(17px, 1.5vw, 22px);
+  --fs-stat:    clamp(44px, 5vw, 76px);     /* 95% / 15g / 30g+ */
+  --fs-body:    16px;
+  --fs-body-lg: 18px;
+  --fs-small:   13px;
   --fs-label:   11px;
 
-  /* Tracking */
-  --track-display: -0.02em;
-  --track-label:    0.14em;
-  --track-btn:      0.06em;
+  --track-display: -0.01em;
+  --track-label:    0.13em;
+  --track-btn:      0.05em;
 
-  /* Line height */
-  --lh-display: 0.92;
-  --lh-heading: 1.05;
-  --lh-body:    1.65;
+  --lh-display: 0.95;
+  --lh-heading: 1.06;
+  --lh-body:    1.6;
 
-  /* Spacing */
-  --sp-section:    32px;
-  --container-max: 1280px;
+  /* ── Layout ──────────────────────────────────────────────────────────── */
+  --container-max: 1440px;
   --container-pad: 24px;
+  --sp-section:    clamp(48px, 5vw, 88px);
 
-  /* Border radius */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   16px;
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
   --radius-pill: 100px;
 
-  /* Shadows */
-  --shadow-cta:  0 6px 24px rgba(243, 119, 33, 0.35);
-  --shadow-card: 0 4px 20px rgba(24, 6, 26, 0.08);
+  --shadow-cta:  0 6px 22px rgba(41, 25, 5, 0.28);
+  --shadow-card: 0 4px 20px rgba(41, 25, 5, 0.10);
 
-  /* Motion */
   --motion-fast: 150ms;
   --motion-base: 250ms;
   --ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* ── Section heading caps — nothing bigger than the hero (62px max) ── */
-.fg-display  { font-size: clamp(28px, 3.5vw, 52px) !important; line-height: 1.05 !important; }
-.fg-h1       { font-size: clamp(24px, 3.2vw, 48px) !important; line-height: 1.05 !important; }
-.fg-h2       { font-size: clamp(22px, 2.8vw, 40px) !important; }
-.fg-h3       { font-size: clamp(18px, 2vw, 28px)   !important; }
+/* ── Icons ────────────────────────────────────────────────────────────────
+   Rendered by snippets/fg-icon.liquid. Vector paths lifted from the comp;
+   they inherit colour via currentColor and take their size from the parent. */
+.fg-i {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
 
-/* ── Nav font overrides ── */
+/* ── Type helpers ─────────────────────────────────────────────────────── */
+.fg-display { font-family: var(--font-display); font-weight: var(--fg-w-display);
+              letter-spacing: var(--track-display); line-height: var(--lh-display); }
+.fg-h1      { font-size: var(--fs-h1); line-height: var(--lh-heading); }
+.fg-h2      { font-size: var(--fs-h2); line-height: var(--lh-heading); }
+.fg-h3      { font-size: var(--fs-h3); line-height: var(--lh-heading); }
+
+/* Eyebrow — small caps label above a headline, used in most sections */
+.fg-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: var(--fg-w-bold);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+/* Primary button — espresso pill, used for every CTA in the comp */
+.fg-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 30px;
+  background: var(--fg-espresso);
+  color: var(--fg-on-dark);
+  font-family: var(--font-body);
+  font-size: 15px; font-weight: var(--fg-w-bold);
+  letter-spacing: var(--track-btn); text-transform: uppercase;
+  border: 0; border-radius: var(--radius-sm);
+  text-decoration: none; cursor: pointer;
+  transition: background var(--motion-base) var(--ease-out),
+              transform var(--motion-fast) var(--ease-out);
+}
+.fg-btn:hover { background: var(--fg-ink); transform: translateY(-1px); }
+.fg-btn[disabled], .fg-btn.is-disabled {
+  background: var(--fg-caramel); opacity: 0.55; cursor: not-allowed; transform: none;
+}
+.fg-btn .fg-i { width: 0.7em; height: 0.7em; }
+
+.fg-container { max-width: var(--container-max); margin-inline: auto;
+                padding-inline: var(--container-pad); }
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+/* In the comp the header has no bar of its own — it floats over the hero
+   photograph, and the topbar above it is the only solid strip. On every other
+   template there is no hero to float over, so the header takes a kraft ground. */
+.shopify-section-group-header-group { position: sticky; top: 0; z-index: 200; }
+.shopify-section-group-header-group .shopify-section { margin: 0 !important; padding: 0 !important; }
+.header-wrapper {
+  display: block !important;
+  border-bottom: 0 !important;
+  background: var(--fg-kraft) !important;
+}
+.section-header { display: block !important; padding: 0 !important; margin: 0 !important; }
+
+/* Homepage: transparent, overlaid on the hero.
+   height:0 lets the header render while taking no vertical space, so the hero
+   photo starts directly under the topbar and the nav floats on it — no magic
+   offset number to keep in sync with the header's real height. */
+@media (min-width: 990px) {
+  body.template-index .shopify-section-group-header-group {
+    position: relative;
+    height: 0;
+    overflow: visible;
+    z-index: 5;
+  }
+  body.template-index .header-wrapper { background: transparent !important; }
+  body.template-index .header { padding-block: 16px; }
+}
+/* Below the desktop breakpoint the hero stacks and there is no photo to float
+   over, so the header keeps its own kraft ground and its place in the flow. */
+@media (max-width: 989px) {
+  .fg-logo__svg { width: 132px; }
+}
+
+/* Logo */
+.header__heading-logo-wrapper { line-height: 0; }
+.fg-logo__svg { display: block; width: 168px; height: auto; }
+.header__heading, .header__heading-link { margin: 0; padding: 0; }
+.header__heading-link:hover { opacity: 0.85; }
+
+/* Header icons and nav pick up brand colour rather than Dawn's defaults */
+.header__icon, .header__icon .icon, .header__menu-item { color: var(--fg-espresso); }
+.header__icon .icon { width: 21px; height: 21px; }
+
 .header__menu-item,
 .header__menu-item span,
 .header__menu-item .link,
 .header__submenu .link,
 .header__active-menu-item {
-  font-family: 'DM Sans', system-ui, -apple-system, sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.02em !important;
-  text-transform: none !important;
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  font-weight: var(--fg-w-bold) !important;
+  letter-spacing: var(--track-btn) !important;
+  text-transform: uppercase !important;
 }
 
-/* ── Header — sticky, always visible ── */
-.shopify-section-group-header-group {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-}
-.shopify-section-group-header-group .shopify-section { margin:0 !important; padding:0 !important; }
-.header-wrapper { display:block !important; background:#fff !important; border-bottom:1px solid var(--fg-border) !important; }
-.header__heading-logo-wrapper { line-height:0; }
-.section-header { display:block !important; padding:0 !important; margin:0 !important; }
-
-/* ── Product page — brand the Add to Cart button ── */
+/* ── Product page — Add to Cart ───────────────────────────────────────── */
 .product-form__submit,
 .product-form__submit.button,
 button[name="add"] {
-  background: var(--fg-orange) !important;
-  color: #fff !important;
-  border-color: var(--fg-orange) !important;
-  border-radius: var(--radius-pill) !important;
+  background: var(--fg-espresso) !important;
+  color: var(--fg-on-dark) !important;
+  border-color: var(--fg-espresso) !important;
+  border-radius: var(--radius-sm) !important;
   font-family: var(--font-body) !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.06em !important;
+  font-weight: var(--fg-w-bold) !important;
+  letter-spacing: var(--track-btn) !important;
   text-transform: uppercase !important;
   box-shadow: var(--shadow-cta) !important;
 }
 .product-form__submit:hover,
 button[name="add"]:hover {
-  background: var(--fg-orange-hot) !important;
-  border-color: var(--fg-orange-hot) !important;
+  background: var(--fg-ink) !important;
+  border-color: var(--fg-ink) !important;
   transform: translateY(-1px);
 }
 
 /* Zero out Shopify's outer section wrapper padding.
-   Our schema "class" fields accidentally apply padding CSS to the wrapper,
-   creating naked white strips where the wrapper has no background color.
-   All section padding is controlled by the section's own inner elements. */
+   The schema "class" fields apply padding to the wrapper, creating naked
+   strips where the wrapper has no background colour. All section padding is
+   controlled by the section's own inner elements. */
 .shopify-section { padding: 0 !important; margin-block: 0 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fg-btn, .fg-btn:hover { transition: none; transform: none; }
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────────
+   The comp's footer is a single espresso band: wordmark, two link columns,
+   account/cart, and a newsletter field. Dawn's footer already renders those
+   parts, so this restyles rather than replaces it — keeping the newsletter
+   wiring, policy links and payment icons intact. */
+/* Dawn wraps .footer in a section that carries its own padding but no
+   background, which showed as a white strip between the closing grid and the
+   footer. Colour the group, not just the footer. */
+.shopify-section-group-footer-group,
+.shopify-section-group-footer-group .shopify-section {
+  background: var(--fg-espresso);
+}
+.footer {
+  background: var(--fg-espresso) !important;
+  border-top: 0 !important;
+  color: var(--fg-on-dark);
+}
+.footer .footer__content-top { padding-block: 34px 22px; }
+.footer .footer__content-bottom { border-top: 1px solid var(--fg-rule-dark); padding-block: 16px; }
+.footer a, .footer p, .footer li, .footer h2, .footer .list-menu__item { color: var(--fg-on-dark) !important; }
+.footer a:hover { color: var(--fg-caramel) !important; }
+.footer .footer-block__heading {
+  font-family: var(--font-body);
+  font-size: 12px; font-weight: var(--fg-w-bold);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--fg-on-dark-dim) !important;
+}
+.footer .list-menu__item--link,
+.footer .footer-block__details-content a {
+  font-family: var(--font-body);
+  font-size: 13px; font-weight: var(--fg-w-bold);
+  letter-spacing: var(--track-btn); text-transform: uppercase;
+}
+.footer .footer-block__newsletter .field__input {
+  background: transparent;
+  border: 1px solid var(--fg-rule-dark);
+  border-radius: var(--radius-sm);
+  color: var(--fg-on-dark);
+}
+.footer .footer-block__newsletter .field__label { color: var(--fg-on-dark-dim); }
+.footer .newsletter-form__button { color: var(--fg-on-dark); }
+.footer .footer__copyright,
+.footer .policies li a { font-size: 11px; color: var(--fg-on-dark-dim) !important; }
+.footer .footer__list-social .link { color: var(--fg-on-dark) !important; }
+
+.fg-footer-logo {
+  --fg-logo-a: var(--fg-on-dark);
+  --fg-logo-b: var(--fg-caramel);
+  margin-bottom: 26px;
+}
+.fg-footer-logo .fg-logo__svg { width: 168px; height: auto; }
+.fg-footer-logo .fg-logo__link { display: inline-block; }
+/* Shop Pay's follow button ships in Shopify's own purple and fights the palette. */
+.footer .footer__follow-on-shop { display: none; }

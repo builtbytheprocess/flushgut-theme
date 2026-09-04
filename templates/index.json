@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "fg-hero": {
@@ -15,17 +6,55 @@
         "cta_url": "#fg-buy-box"
       }
     },
+    "fg-values": {
+      "type": "custom-values-bar",
+      "settings": {}
+    },
     "fg-buy-box": {
       "type": "custom-buy-box",
-      "settings": {
-        "title": "FlushGut Essentials",
-        "subtitle": "Clinically Studied · 3x Weekly Gut Support",
-        "selling_plan_5wk": "6089343205",
-        "selling_plan_11wk": ""
-      }
-    },
-    "fg-clinician-trust": {
-      "type": "custom-clinician-trust",
+      "blocks": {
+        "jelly": {
+          "type": "format",
+          "settings": {
+            "name": "Jelly",
+            "pack": "15/Bag",
+            "fallback_sub_price": "$59.99",
+            "fallback_one_price": "$85.99",
+            "fallback_save_pct": "30",
+            "flavor_a_label": "Orange",
+            "flavor_a_product": "flushgut-orange",
+            "flavor_b_label": "Berry",
+            "flavor_b_product": "flushgut-berry"
+          }
+        },
+        "gummy": {
+          "type": "format",
+          "settings": {
+            "name": "Gummy",
+            "pack": "80/Bottle",
+            "fallback_sub_price": "$29.99",
+            "fallback_one_price": "$37.99",
+            "fallback_save_pct": "21",
+            "fallback_image": "fg-pack-gummy.webp"
+          }
+        },
+        "capsule": {
+          "type": "format",
+          "settings": {
+            "name": "Capsule",
+            "pack": "80/Bottle",
+            "fallback_sub_price": "$29.99",
+            "fallback_one_price": "$37.99",
+            "fallback_save_pct": "21",
+            "fallback_image": "fg-pack-capsule.webp"
+          }
+        }
+      },
+      "block_order": [
+        "jelly",
+        "gummy",
+        "capsule"
+      ],
       "settings": {}
     },
     "fg-gut-symptoms": {
@@ -34,54 +63,193 @@
     },
     "fg-benefits": {
       "type": "custom-benefits-row",
+      "blocks": {
+        "gut_health": {
+          "type": "benefit",
+          "settings": {
+            "icon": "gut-health",
+            "title": "Gut Health",
+            "copy": "Prebiotic fiber and probiotic strains work together to support a balanced microbiome and regular, comfortable digestion."
+          }
+        },
+        "immunity": {
+          "type": "benefit",
+          "settings": {
+            "icon": "immunity",
+            "title": "Immunity",
+            "copy": "70% of your immune system lives in your gut. A healthy, balanced microbiome may help support your body's natural defenses.*"
+          }
+        },
+        "energy": {
+          "type": "benefit",
+          "settings": {
+            "icon": "energy",
+            "title": "Energy",
+            "copy": "When your gut absorbs nutrients efficiently, your energy may follow. Less sluggishness, more vitality throughout the day.*"
+          }
+        },
+        "brain_mood": {
+          "type": "benefit",
+          "settings": {
+            "icon": "brain-mood",
+            "title": "Brain & Mood",
+            "copy": "The gut-brain axis is real. A balanced microbiome may support clearer thinking, focus, and a calmer mood.*"
+          }
+        },
+        "skin": {
+          "type": "benefit",
+          "settings": {
+            "icon": "skin",
+            "title": "Skin",
+            "copy": "Gut imbalances often show up on your skin. Supporting your gut microbiome may help reduce internal inflammation that affects skin health.*"
+          }
+        }
+      },
+      "block_order": [
+        "gut_health",
+        "immunity",
+        "energy",
+        "brain_mood",
+        "skin"
+      ],
       "settings": {}
     },
-    "fg-problem": {
-      "type": "custom-problem",
+    "fg-fiber-gap": {
+      "type": "custom-fiber-gap",
+      "blocks": {
+        "s95": {
+          "type": "stat",
+          "settings": {
+            "value": "95%",
+            "label": "Of Americans\nfall short\nof the daily fiber\nrecommendation"
+          }
+        },
+        "s15": {
+          "type": "stat",
+          "settings": {
+            "value": "15g",
+            "label": "Average daily\nfiber intake vs\n25-38g\nrecommended"
+          }
+        },
+        "s30": {
+          "type": "stat",
+          "settings": {
+            "value": "30g+",
+            "label": "Daily fiber target\nconsistently cited\nfor optimal\ngut transit"
+          }
+        }
+      },
+      "block_order": [
+        "s95",
+        "s15",
+        "s30"
+      ],
       "settings": {}
     },
-    "fg-ingredients": {
-      "type": "custom-ingredient-scroll",
-      "settings": {}
-    },
-    "fg-ingredient-science": {
-      "type": "custom-ingredient-science",
-      "settings": {}
-    },
-    "fg-how-to": {
-      "type": "custom-how-to",
-      "settings": {}
-    },
-    "fg-format": {
-      "type": "custom-format-diff",
+    "fg-doctor": {
+      "type": "custom-doctor-video",
       "settings": {}
     },
     "fg-social-proof": {
       "type": "custom-social-proof",
-      "settings": {}
-    },
-    "fg-glp1": {
-      "type": "custom-glp1-bridge",
+      "blocks": {
+        "aria": {
+          "type": "quote",
+          "settings": {
+            "fallback_image": "fg-tester-aria.webp",
+            "name": "Aria M.",
+            "meta": "Verified beta tester — Daily Routine",
+            "quote": "“The tight stomach pressure I always had by evening — it's just gone. Not dramatically, just quietly gone. I didn't realize how much it was wearing on me until it stopped.”"
+          }
+        },
+        "marcus": {
+          "type": "quote",
+          "settings": {
+            "fallback_image": "fg-tester-marcus.webp",
+            "name": "Marcus T.",
+            "meta": "Verified beta tester — 1 month",
+            "quote": "“I've tried three different fiber powders and I always forget them because mixing is annoying. This stick I actually use every week. The orange flavor is genuinely good.”"
+          }
+        },
+        "jennifer": {
+          "type": "quote",
+          "settings": {
+            "fallback_image": "fg-tester-jennifer.webp",
+            "name": "Jennifer R.",
+            "meta": "Verified beta tester — 3 months",
+            "quote": "“I feel normal again. Less bloated, less distracted by what's going on in my stomach. The little discomforts were wearing on me more than I knew, and now they're just not there.”"
+          }
+        },
+        "michael": {
+          "type": "quote",
+          "settings": {
+            "fallback_image": "fg-tester-michael.webp",
+            "name": "Michael M.",
+            "meta": "Verified beta tester — 2 months",
+            "quote": "“I never realized how much my lack of fiber was affecting my whole day. Adding this simple routine changed everything. My skin is clearer, my energy is steady, and I feel incredible.”"
+          }
+        }
+      },
+      "block_order": [
+        "aria",
+        "marcus",
+        "jennifer",
+        "michael"
+      ],
       "settings": {}
     },
     "fg-final-cta": {
       "type": "custom-final-cta",
+      "blocks": {
+        "capsule": {
+          "type": "product",
+          "settings": {
+            "name": "Capsule",
+            "pack": "80 Capsules / Bottle",
+            "fallback_image": "fg-pack-capsule.webp",
+            "fallback_one_price": "$37.99",
+            "fallback_sub_price": "$29.99"
+          }
+        },
+        "gummy": {
+          "type": "product",
+          "settings": {
+            "name": "Gummy",
+            "pack": "80 Gummies / Bottle",
+            "fallback_image": "fg-pack-gummy.webp",
+            "fallback_one_price": "$37.99",
+            "fallback_sub_price": "$29.99"
+          }
+        },
+        "jelly": {
+          "type": "product",
+          "settings": {
+            "name": "Jelly",
+            "pack": "15 Packets / Bag",
+            "fallback_image": "fg-pack-jelly.webp",
+            "fallback_one_price": "$85.99",
+            "fallback_sub_price": "$59.99",
+            "product": "flushgut-orange-and-berry-combo-pack"
+          }
+        }
+      },
+      "block_order": [
+        "capsule",
+        "gummy",
+        "jelly"
+      ],
       "settings": {}
     }
   },
   "order": [
     "fg-hero",
+    "fg-values",
     "fg-buy-box",
-    "fg-clinician-trust",
     "fg-gut-symptoms",
     "fg-benefits",
-    "fg-problem",
-    "fg-ingredients",
-    "fg-ingredient-science",
-    "fg-how-to",
-    "fg-format",
+    "fg-fiber-gap",
+    "fg-doctor",
     "fg-social-proof",
-    "fg-glp1",
     "fg-final-cta"
   ]
 }

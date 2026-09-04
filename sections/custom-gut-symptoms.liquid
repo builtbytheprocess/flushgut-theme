@@ -1,79 +1,207 @@
-<style>
-/* ── Gut Symptoms — self-contained ── */
-.fg-symptoms { background:#18061a; padding-block:var(--sp-section); }
-.fg-symptoms__inner { max-width:var(--container-max); margin:0 auto; padding:0 var(--container-pad); text-align:center; }
-.fg-symptoms__overline { font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-orange); margin-bottom:12px; }
-.fg-symptoms__headline { font-family:var(--font-display); font-size:clamp(32px,4vw,56px); font-weight:900; text-transform:uppercase; line-height:1.0; color:#fff; margin:0 0 16px; }
-.fg-symptoms__headline em { color:var(--fg-orange); font-style:normal; }
-.fg-symptoms__body { font-family:var(--font-body); font-size:15px; color:rgba(250,248,245,0.6); line-height:1.65; max-width:560px; margin:0 auto 48px; }
-.fg-symptoms__cards { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:36px; }
-.fg-symptom-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px 16px; }
-.fg-symptom-card__icon { font-size:30px; margin-bottom:14px; line-height:1; }
-.fg-symptom-card__label { font-family:var(--font-body); font-size:13px; font-weight:700; color:#fff; line-height:1.3; }
-.fg-symptoms__stat { font-family:var(--font-body); font-size:13px; color:rgba(250,248,245,0.45); line-height:1.8; margin:0 0 24px; }
-.fg-symptoms__stat strong { color:var(--fg-orange); font-weight:600; }
-.fg-symptoms__cta { display:inline-flex; align-items:center; gap:8px; background:rgba(243,119,33,0.15); color:var(--fg-orange); font-family:var(--font-body); font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px 28px; border-radius:var(--radius-pill); border:1.5px solid rgba(243,119,33,0.4); text-decoration:none; transition:background 150ms; }
-.fg-symptoms__cta:hover { background:rgba(243,119,33,0.25); color:var(--fg-orange); }
-.fg-symptoms__cite { font-family:var(--font-body); font-size:10px; color:rgba(250,248,245,0.2); margin-top:28px; line-height:1.5; }
-.fg-symptoms__cite a { color:inherit; }
-@media(max-width:768px) {
-  .fg-symptoms__cards { grid-template-columns:repeat(2,1fr); }
-  .fg-symptom-card:last-child { grid-column:1 / -1; max-width:50%; margin:0 auto; }
-}
-</style>
+{%- comment -%}
+  "Does this sound like you?" — symptoms band on kraft paper.
 
-<section class="fg-symptoms" data-nav-theme="dark">
+  Comp: y1128-1730 (602px). Eyebrow 28.9px @ x461/y1187 · headline 42.2px on two
+  lines, second line in caramel · speech bubble 18px @ x1089 · five icons with
+  21px two-line labels @ y1472 · stat line and CTA @ y1577-1605.
+{%- endcomment -%}
+
+<section class="fg-symptoms">
   <div class="fg-symptoms__inner">
-    <p class="fg-symptoms__overline" data-aos="fade-up">Does This Sound Like You?</p>
-    <h2 class="fg-symptoms__headline" data-aos="fade-up" data-aos-delay="60">
-      When Your Gut Is Off,<br>
-      <em>Everything Feels Off.</em>
-    </h2>
-    <p class="fg-symptoms__body" data-aos="fade-up" data-aos-delay="100">
-      Your gut influences more than digestion. When it&rsquo;s out of balance, the effects show up everywhere &mdash; your energy, your skin, your focus, your mood.
-    </p>
 
-    <div class="fg-symptoms__cards">
-      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="0">
-        <div class="fg-symptom-card__icon">😮‍💨</div>
-        <div class="fg-symptom-card__label">Persistent Bloating</div>
+    <div class="fg-symptoms__head">
+      <div>
+        <p class="fg-symptoms__eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="fg-symptoms__title">
+          <span class="fg-symptoms__title-a">{{ section.settings.title_a }}</span>
+          <span class="fg-symptoms__title-b">{{ section.settings.title_b }}</span>
+        </h2>
       </div>
-      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="60">
-        <div class="fg-symptom-card__icon">🧠</div>
-        <div class="fg-symptom-card__label">Brain Fog</div>
-      </div>
-      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="120">
-        <div class="fg-symptom-card__icon">⚡</div>
-        <div class="fg-symptom-card__label">Low Energy</div>
-      </div>
-      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="180">
-        <div class="fg-symptom-card__icon">🐢</div>
-        <div class="fg-symptom-card__label">Sluggish Digestion</div>
-      </div>
-      <div class="fg-symptom-card" data-aos="fade-up" data-aos-delay="240">
-        <div class="fg-symptom-card__icon">🪞</div>
-        <div class="fg-symptom-card__label">Skin Flare-Ups</div>
-      </div>
+      {%- if section.settings.bubble != blank -%}
+        <p class="fg-symptoms__bubble">{{ section.settings.bubble }}</p>
+      {%- endif -%}
     </div>
 
-    <p class="fg-symptoms__stat" data-aos="fade-up">
-      61% of Americans experience weekly digestive issues.<sup>1</sup><br>
-      <strong>Your gut controls more than you think.</strong>
-    </p>
+    <ul class="fg-symptoms__list">
+      {%- assign items = section.settings.items | split: ',' -%}
+      {%- for item in items -%}
+        {%- assign bits = item | split: '|' -%}
+        <li>
+          {%- render 'fg-icon', name: bits[0] -%}
+          <span>{{ bits[1] | strip | newline_to_br }}</span>
+        </li>
+      {%- endfor -%}
+    </ul>
 
-    <a href="#fg-buy-box" class="fg-symptoms__cta" data-aos="fade-up">Support Your Gut Today &rarr;</a>
+    <div class="fg-symptoms__foot">
+      <div class="fg-symptoms__stat">
+        <p class="fg-symptoms__stat-lead">
+          {{ section.settings.stat_lead }}<sup><a href="{{ section.settings.source_url }}" rel="nofollow noopener" target="_blank">1</a></sup>
+        </p>
+        <p class="fg-symptoms__stat-strong">{{ section.settings.stat_strong }}</p>
+        <p class="fg-symptoms__source">
+          <sup>1</sup> <a href="{{ section.settings.source_url }}" rel="nofollow noopener" target="_blank">{{ section.settings.source_url }}</a>
+        </p>
+      </div>
+      <a class="fg-btn fg-symptoms__cta" href="{{ section.settings.cta_url | default: '#fg-buy-box' }}">
+        {{ section.settings.cta_label }}
+        {%- render 'fg-icon', name: 'play' -%}
+      </a>
+    </div>
 
-    <p class="fg-symptoms__cite">
-      <sup>1</sup> <a href="https://europepmc.org/article/MED/30323268" target="_blank" rel="noopener">europepmc.org/article/MED/30323268</a>
-    </p>
   </div>
 </section>
 
+<style>
+  .fg-symptoms {
+    background-color: var(--fg-kraft);
+    background-image: url('{{ 'fg-texture-kraft.jpg' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+  }
+  .fg-symptoms__inner {
+    max-width: 1000px;
+    margin-inline: auto;
+    padding: 56px var(--container-pad) 52px;
+  }
+
+  .fg-symptoms__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 370px);
+    gap: 58px;
+    align-items: start;
+  }
+  .fg-symptoms__eyebrow {
+    margin: 0 0 4px;
+    font-family: var(--font-display);
+    font-size: clamp(19px, 1.6vw, 29px);
+    font-weight: var(--fg-w-display);
+    letter-spacing: var(--track-display);
+    text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-symptoms__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(26px, 2.6vw, 38px);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: var(--track-display);
+    text-transform: uppercase;
+  }
+  .fg-symptoms__title-a,
+  .fg-symptoms__title-b { display: block; }
+  .fg-symptoms__title-a { color: var(--fg-espresso); }
+  .fg-symptoms__title-b { color: var(--fg-caramel); }
+
+  /* Speech bubble with a tail pointing back at the headline */
+  .fg-symptoms__bubble {
+    position: relative;
+    margin: 12px 0 0;
+    padding: 16px 20px;
+    border: 2px solid var(--fg-espresso);
+    border-radius: var(--radius-md);
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--fg-espresso);
+  }
+  .fg-symptoms__bubble::before,
+  .fg-symptoms__bubble::after {
+    content: '';
+    position: absolute;
+    top: 34px;
+    right: 100%;
+    border: 11px solid transparent;
+  }
+  .fg-symptoms__bubble::before { border-right-color: var(--fg-espresso); }
+  .fg-symptoms__bubble::after  { border-right-color: var(--fg-kraft); margin-right: -3px; }
+
+  .fg-symptoms__list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin: 52px 0 46px;
+    padding: 0;
+    list-style: none;
+  }
+  .fg-symptoms__list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: clamp(15px, 1.2vw, 21px);
+    font-weight: var(--fg-w-display);
+    line-height: 1.08;
+    letter-spacing: var(--track-display);
+    text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-symptoms__list .fg-i { width: 74px; height: 74px; }
+
+  .fg-symptoms__foot {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .fg-symptoms__stat-lead,
+  .fg-symptoms__stat-strong,
+  .fg-symptoms__source { margin: 0; font-family: var(--font-body); color: var(--fg-espresso); }
+  .fg-symptoms__stat-lead { font-size: clamp(16px, 1.4vw, 21px); }
+  .fg-symptoms__stat-strong {
+    margin-top: 4px;
+    font-size: clamp(18px, 1.6vw, 24px);
+    font-weight: 700;
+  }
+  .fg-symptoms__source { margin-top: 8px; font-size: 11px; line-height: 1.5; color: var(--fg-on-light-dim); word-break: break-all; }
+  @media (pointer: coarse) { .fg-symptoms__source a { display: inline-block; padding-block: 8px; } }
+  .fg-symptoms__source a { color: inherit; }
+  .fg-symptoms__stat-lead sup a { color: inherit; text-decoration: none; }
+  .fg-symptoms__cta { font-size: 16px; padding: 16px 32px; margin-top: 6px; }
+
+  @media (max-width: 900px) {
+    .fg-symptoms__head { grid-template-columns: 1fr; }
+    .fg-symptoms__bubble::before, .fg-symptoms__bubble::after {
+      top: auto; bottom: 100%; right: auto; left: 30px;
+      border-right-color: transparent;
+    }
+    .fg-symptoms__bubble::before { border-bottom-color: var(--fg-espresso); }
+    .fg-symptoms__bubble::after  { border-bottom-color: var(--fg-kraft); margin-right: 0; margin-bottom: -3px; }
+    .fg-symptoms__list { grid-template-columns: repeat(3, 1fr); gap: 28px 16px; margin-block: 40px 34px; }
+    .fg-symptoms__list .fg-i { width: 58px; height: 58px; }
+  }
+  @media (max-width: 560px) {
+    .fg-symptoms__list { grid-template-columns: repeat(2, 1fr); }
+    .fg-symptoms__cta { width: 100%; justify-content: center; }
+  }
+</style>
+
 {% schema %}
 {
-  "name": "Gut Symptoms",
-  "tag": "section",
-  "class": "fg-symptoms",
-  "presets": [{ "name": "Gut Symptoms" }]
+  "name": "FlushGut Symptoms",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Does This Sound Like You?" },
+    { "type": "text", "id": "title_a", "label": "Headline line 1", "default": "When Your Gut Is Off," },
+    { "type": "text", "id": "title_b", "label": "Headline line 2", "default": "Everything Feels Off." },
+    { "type": "textarea", "id": "bubble", "label": "Speech bubble",
+      "default": "Your gut influences more than digestion. When it's out of balance, the effects show up everywhere — your energy, your skin, your focus, your mood." },
+    { "type": "textarea", "id": "items", "label": "Symptoms", "info": "icon-name|Label",
+      "default": "bloating|Persistent\nBloating,brain-fog|Brain\nFog,low-energy|Low\nEnergy,sluggish-digestion|Sluggish\nDigestion,skin-flare-ups|Skin\nFlare-Ups" },
+    { "type": "text", "id": "stat_lead", "label": "Stat line",
+      "default": "61% of Americans experience weekly digestive issues." },
+    { "type": "text", "id": "stat_strong", "label": "Stat emphasis",
+      "default": "Your Gut Controls More Than You Think." },
+    { "type": "text", "id": "source_url", "label": "Source URL",
+      "default": "https://europepmc.org/article/MED/30323268" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Support Your Gut Today" },
+    { "type": "url", "id": "cta_url", "label": "CTA destination", "info": "Default: #fg-buy-box" }
+  ],
+  "presets": [{ "name": "FlushGut Symptoms" }]
 }
 {% endschema %}

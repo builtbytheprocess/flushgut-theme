@@ -1,0 +1,81 @@
+{%- comment -%}
+  Values bar — the espresso strip directly under the hero.
+
+  Comp: band y592-682 (90px), five icon + two-line label pairs sitting on a
+  ~1000px centred band, separated by hairline rules. Labels 12px uppercase.
+{%- endcomment -%}
+
+<section class="fg-values">
+  <ul class="fg-values__list">
+    {%- assign items = section.settings.items | split: ',' -%}
+    {%- for item in items -%}
+      {%- assign bits = item | split: '|' -%}
+      <li class="fg-values__item">
+        {%- render 'fg-icon', name: bits[0] -%}
+        <span class="fg-values__label">{{ bits[1] | strip | newline_to_br }}</span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+<style>
+  .fg-values { background: var(--fg-espresso); }
+  .fg-values__list {
+    max-width: 1040px;
+    margin-inline: auto;
+    padding: 22px var(--container-pad);
+    min-height: 90px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    gap: 0;
+    list-style: none;
+  }
+  .fg-values__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    padding-inline: 8px;
+    color: var(--fg-on-dark);
+  }
+  .fg-values__item + .fg-values__item { border-left: 1px solid var(--fg-rule-dark); }
+  .fg-values__item .fg-i { width: 34px; height: 34px; flex: 0 0 auto; }
+  .fg-values__label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: var(--fg-w-bold);
+    letter-spacing: 0.04em;
+    line-height: 1.22;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .fg-values__list { grid-template-columns: repeat(3, 1fr); gap: 18px 0; }
+    .fg-values__item:nth-child(3n + 1) { border-left: 0; }
+  }
+  @media (max-width: 560px) {
+    .fg-values__list { grid-template-columns: repeat(2, 1fr); padding-block: 18px; }
+    .fg-values__item { justify-content: flex-start; }
+    .fg-values__item:nth-child(n) { border-left: 0; }
+    .fg-values__item .fg-i { width: 28px; height: 28px; }
+    .fg-values__label { font-size: 11px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "FlushGut Values Bar",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "items",
+      "label": "Items",
+      "info": "One per comma. Format: icon-name|Label (use a line break in the label for two lines)",
+      "default": "organic-clean|Organic & Clean\nIngredients,sustainable-packaging|Sustainable\nPackaging,committed-planet|Committed To\nOur Planet,made-with-care|Made With Care\nFor You,made-in-usa|Made In\nThe USA"
+    }
+  ],
+  "presets": [{ "name": "FlushGut Values Bar" }]
+}
+{% endschema %}

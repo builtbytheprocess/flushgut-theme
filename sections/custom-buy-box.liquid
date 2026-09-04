@@ -1,276 +1,539 @@
-{% liquid
-  assign plan_5wk  = section.settings.selling_plan_5wk
-  assign plan_11wk = section.settings.selling_plan_11wk
-  assign orange = all_products['flushgut-orange']
-  assign berry  = all_products['flushgut-berry']
-  assign orange_variant = orange.variants.first
-  assign berry_variant  = berry.variants.first
-%}
+{%- comment -%}
+  FlushGut Essentials — buy box + sustainability panel.
 
-<style>
-/* ── Buy Box Section ── */
-.fg-buybox-wrap {
-  position: relative;
-  padding: var(--sp-section) 0 80px;
-  transition: background 400ms ease;
-}
-.fg-buybox-wrap[data-active-flavor="orange"] {
-  background:
-    radial-gradient(ellipse at 10% 60%, rgba(255,200,60,0.55) 0%, transparent 50%),
-    radial-gradient(ellipse at 90% 30%, rgba(255,140,0,0.5) 0%, transparent 48%),
-    radial-gradient(ellipse at 50% 100%, rgba(255,200,80,0.3) 0%, transparent 40%),
-    #fff8f0;
-}
-.fg-buybox-wrap[data-active-flavor="berry"] {
-  background:
-    radial-gradient(ellipse at 10% 60%, rgba(220,30,150,0.45) 0%, transparent 50%),
-    radial-gradient(ellipse at 90% 30%, rgba(160,0,140,0.5) 0%, transparent 48%),
-    radial-gradient(ellipse at 50% 100%, rgba(200,20,160,0.3) 0%, transparent 40%),
-    #fdf0f8;
-}
-.fg-buybox-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 var(--container-pad);
-  display: grid;
-  grid-template-columns: 1fr 520px;
-  gap: 48px;
-  align-items: center;
-}
+  Rebuilt 2026-09-03 from the design comp. The comp draws these as one row:
+  a tan buy-box panel on the left (0-1097px of 1920) and a photographic
+  sustainability panel on the right, so they live in one section rather than
+  two that would stack.
 
-/* Left: product image */
-.fg-buybox-img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-.fg-buybox-img img {
-  width: 100%;
-  max-width: 680px;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 32px 64px rgba(24,6,26,.2));
-  animation: fg-box-float 5s ease-in-out infinite;
-}
-@keyframes fg-box-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+  PRICING IS READ LIVE FROM SHOPIFY. Each format block takes a product picker;
+  the card renders that product's real price, its subscription allocation and
+  the resulting discount. A block with no product assigned falls back to the
+  comp's figures and renders inert ("Coming Soon") — which is how Capsule and
+  Gummy ship until those products exist in the catalogue. Nothing here
+  hardcodes a sellable price.
 
-/* Right: buy card */
-.fg-buybox-card {
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(16px);
-  border-radius: 24px;
-  padding: 32px;
-  border: 1px solid rgba(255,255,255,0.95);
-  box-shadow: 0 12px 56px rgba(24,6,26,.1), 0 2px 8px rgba(24,6,26,.06);
-  position: relative;
-  z-index: 2;
-}
-.fg-buybox-card__title { font-family:var(--font-display); font-size:clamp(24px,3vw,36px); font-weight:900; text-transform:uppercase; letter-spacing:var(--track-display); color:var(--fg-ink); margin:0 0 4px; line-height:1.05; }
-.fg-buybox-card__sub { font-family:var(--font-body); font-size:13px; color:var(--fg-muted); margin:0 0 14px; }
+  Comp geometry (CSS px @1920): heading y725/24px · chips y765/14.5px ·
+  cards x470/676/882, header y823/19px · price y934/36px · CTA y1041.
+{%- endcomment -%}
 
-/* Badges */
-.fg-badges { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; }
-.fg-badge { font-family:var(--font-body); font-size:10px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--fg-ink); background:rgba(255,255,255,0.8); border:1px solid var(--fg-border); border-radius:var(--radius-pill); padding:4px 10px; }
+{%- liquid
+  assign has_purchasable = false
+  for block in section.blocks
+    if block.settings.product != blank
+      assign has_purchasable = true
+    endif
+  endfor
+-%}
 
-/* Flavor pills */
-.fg-flavors { display:flex; gap:8px; margin-bottom:18px; }
-.fg-flavor-btn { flex:1; background:rgba(255,255,255,0.7); border:2px solid var(--fg-border); border-radius:var(--radius-md); padding:10px 12px; display:flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:13px; font-weight:600; color:var(--fg-muted); cursor:pointer; transition:border-color 150ms, color 150ms, background 150ms; position:relative; }
-.fg-flavor-btn.fg-flavor--active { border-color:var(--fg-orange); color:var(--fg-ink); background:#fff; }
-.fg-flavor-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-.fg-flavor-popular { position:absolute; top:-10px; right:10px; background:var(--fg-orange); color:#fff; font-size:9px; font-weight:800; letter-spacing:.06em; padding:2px 7px; border-radius:var(--radius-pill); text-transform:uppercase; }
+<section class="fg-essentials" id="fg-buy-box">
 
-/* Savings banner */
-.fg-savings-banner { background:#e8f5e9; border-radius:var(--radius-md); padding:8px 14px; text-align:center; font-family:var(--font-body); font-size:12px; font-weight:700; color:#2e7d32; margin-bottom:12px; }
+  {%- comment -%} ── Left: buy box ── {%- endcomment -%}
+  <div class="fg-essentials__buy">
+    <div class="fg-essentials__inner">
 
-/* Tiers */
-.fg-tier { background:rgba(255,255,255,0.9); border:2px solid var(--fg-border); border-radius:var(--radius-md); margin-bottom:8px; overflow:hidden; cursor:pointer; opacity:.72; transition:opacity 150ms, border-color 150ms; }
-.fg-tier--selected { border-color:var(--fg-orange); opacity:1; }
-.fg-tier__header { display:flex; align-items:flex-start; justify-content:space-between; padding:12px 14px; gap:10px; }
-.fg-tier__radio { width:18px; height:18px; border-radius:50%; border:2px solid var(--fg-border); flex-shrink:0; margin-top:2px; transition:background 150ms,border-color 150ms; display:flex; align-items:center; justify-content:center; }
-.fg-tier--selected .fg-tier__radio { background:var(--fg-orange); border-color:var(--fg-orange); }
-.fg-tier__radio-dot { width:6px; height:6px; border-radius:50%; background:#fff; display:none; }
-.fg-tier--selected .fg-tier__radio-dot { display:block; }
-.fg-tier__meta { flex:1; }
-.fg-tier__name { font-family:var(--font-body); font-size:13px; font-weight:700; color:var(--fg-ink); }
-.fg-tier__save { color:var(--fg-orange); font-size:12px; }
-.fg-tier__freq { font-size:11px; color:var(--fg-muted); margin-top:2px; }
-.fg-tier__price { text-align:right; flex-shrink:0; }
-.fg-tier__amount { font-family:var(--font-body); font-size:17px; font-weight:900; color:var(--fg-ink); }
-.fg-tier__was { font-size:11px; color:#bbb; text-decoration:line-through; }
-.fg-tier__perks { max-height:0; overflow:hidden; transition:max-height var(--motion-base) var(--ease-out); background:#fffbf7; border-top:1px solid #fde8d8; }
-.fg-tier--selected .fg-tier__perks { max-height:200px; }
-.fg-tier__perks-inner { padding:12px 14px; }
-.fg-tier__perks-label { font-size:10px; font-weight:700; letter-spacing:.06em; color:var(--fg-muted); text-align:center; text-transform:uppercase; margin-bottom:10px; }
-.fg-tier__perk { display:flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:12px; color:var(--fg-ink); margin-bottom:6px; }
-.fg-tier__perk-tag { font-size:9px; font-weight:800; padding:2px 6px; border-radius:4px; text-transform:uppercase; letter-spacing:.04em; flex-shrink:0; }
-.fg-tier__perk-tag--free { background:var(--fg-orange); color:#fff; }
-.fg-tier__perk-tag--exclusive { background:var(--fg-purple); color:#fff; }
-.fg-tier__perk-tag--check { color:#22c55e; font-size:14px; }
-.fg-tier__popular { background:var(--fg-orange); color:#fff; text-align:center; padding:5px; font-family:var(--font-body); font-size:9px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
-.fg-onetime { text-align:center; margin-bottom:18px; }
-.fg-onetime__link { font-family:var(--font-body); font-size:12px; color:var(--fg-muted); text-decoration:underline; cursor:pointer; background:none; border:none; padding:0; }
-.fg-atc-btn { width:100%; background:var(--fg-orange); color:#fff; font-family:var(--font-body); font-size:15px; font-weight:900; letter-spacing:var(--track-btn); text-transform:uppercase; border:none; border-radius:var(--radius-pill); padding:17px; cursor:pointer; transition:background 150ms, transform 150ms; box-shadow:var(--shadow-cta); margin-bottom:12px; }
-.fg-atc-btn:hover { background:var(--fg-orange-hot); transform:translateY(-1px); }
-.fg-atc-btn:disabled { opacity:.6; cursor:not-allowed; transform:none; }
-.fg-trust-strip { display:flex; border-top:1px solid var(--fg-border); padding-top:12px; }
-.fg-trust-strip__item { flex:1; text-align:center; font-family:var(--font-body); font-size:9px; font-weight:700; color:var(--fg-muted); text-transform:uppercase; letter-spacing:.06em; border-right:1px solid var(--fg-border); padding:0 6px; }
-.fg-trust-strip__item:last-child { border-right:none; }
+      <h2 class="fg-essentials__title">
+        {%- render 'fg-logo' -%}
+        <span class="fg-essentials__title-word">{{ section.settings.title }}</span>
+      </h2>
 
-@media(max-width:900px){
-  .fg-buybox-wrap { margin-top:-20px; padding:0 0 56px; }
-  .fg-buybox-inner { grid-template-columns:1fr; gap:0; }
-  .fg-buybox-img { padding:32px 24px 0; display:flex; justify-content:center; }
-  .fg-buybox-img img { max-width:min(360px, 90vw); }
-  .fg-buybox-card { margin:0 16px; border-radius:16px; padding:24px 20px; }
-  .fg-buybox-card__title { font-size:clamp(22px,6vw,32px); }
-  .fg-flavors { gap:6px; }
-  .fg-flavor-btn { padding:8px 10px; font-size:12px; }
-}
-</style>
+      <ul class="fg-chips">
+        {%- assign chips = section.settings.chips | split: ',' -%}
+        {%- for chip in chips -%}
+          <li class="fg-chip">{{ chip | strip }}</li>
+        {%- endfor -%}
+      </ul>
 
-<div class="fg-buybox-wrap" id="fg-buy-box" data-active-flavor="berry" data-flavor-section>
-  <div class="fg-buybox-inner">
+      <div class="fg-formats" role="radiogroup" aria-label="Choose your format">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            comment
+              A format either sells one product, or offers flavours that are
+              separate products (Orange and Berry are distinct products in this
+              catalogue, not variants of one). Selecting a flavour changes the
+              package image and the product added to the cart. Nothing else on
+              the page reacts to it, by design.
+            endcomment
+            assign flavours = ''
+            if block.settings.flavor_a_product != blank
+              assign flavours = 'a'
+              if block.settings.flavor_b_product != blank
+                assign flavours = 'a,b'
+              endif
+            endif
+            assign flavour_list = flavours | split: ','
 
-    <!-- Left: flavor-aware product image -->
-    <div class="fg-buybox-img">
-      <img data-flavor-image
-           src="{{ 'https://cdn.shopify.com/s/files/1/0797/7215/6133/files/fg-berry-box_800x800.png?v=1782937577' }}"
-           alt="FlushGut Berry — High Fiber Jelly"
-           width="540" loading="lazy">
-    </div>
+            assign prod = block.settings.product
+            if flavour_list.size > 0
+              assign prod = block.settings.flavor_a_product
+            endif
 
-    <!-- Right: buy card -->
-    <div class="fg-buybox-card">
-      <div class="fg-buybox-card__title">{{ section.settings.title }}</div>
-      <div class="fg-buybox-card__sub">{{ section.settings.subtitle }}</div>
-<div style="font-family:var(--font-body);font-size:12px;color:var(--fg-muted);margin:-10px 0 14px;font-style:italic;">Smooth texture · Berry or Orange flavor · no aftertaste</div>
+            assign live = false
+            assign variant_id = ''
+            assign plan_id = ''
+            assign sub_price = block.settings.fallback_sub_price
+            assign one_price = block.settings.fallback_one_price
+            assign save_pct  = block.settings.fallback_save_pct | plus: 0
 
-      <div class="fg-badges">
-        <span class="fg-badge">7G Dietary Fiber</span>
-        <span class="fg-badge">Third-Party Tested</span>
-        <span class="fg-badge">3x Per Week</span>
-        <span class="fg-badge">HSA/FSA Eligible</span>
-      </div>
+            if prod != blank and prod.available
+              assign v = prod.selected_or_first_available_variant
+              if v != blank
+                assign live = true
+                assign variant_id = v.id
+                assign one_price = v.price | money_without_trailing_zeros
+                assign alloc = v.selling_plan_allocations | first
+                if alloc != blank
+                  assign plan_id = alloc.selling_plan.id
+                  assign sub_price = alloc.price | money_without_trailing_zeros
+                  assign diff = v.price | minus: alloc.price
+                  assign save_pct = diff | times: 100.0 | divided_by: v.price | round
+                else
+                  assign sub_price = one_price
+                  assign save_pct = 0
+                endif
+              endif
+            endif
+          -%}
+          <div class="fg-format{% if forloop.first %} is-selected{% endif %}{% unless live %} is-unavailable{% endunless %}"
+               data-format
+               data-live="{{ live }}"
+               data-variant-id="{{ variant_id }}"
+               data-selling-plan="{{ plan_id }}"
+               data-sub-price="{{ sub_price }}"
+               data-one-price="{{ one_price }}">
+            <button type="button" class="fg-format__head"
+                    role="radio"
+                    aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"
+                    {% unless live %}aria-disabled="true"{% endunless %}>
+              <span class="fg-format__radio" aria-hidden="true">
+                {%- render 'fg-icon', name: 'radio-on' -%}
+                {%- render 'fg-icon', name: 'radio-off' -%}
+              </span>
+              <span class="fg-format__name">{{ block.settings.name }}</span>
+            </button>
 
-      <div style="font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:var(--track-label);text-transform:uppercase;color:var(--fg-muted);margin-bottom:8px;">Choose Your Flavor</div>
-      <div class="fg-flavors">
-        <button type="button"
-                class="fg-flavor-btn"
-                data-flavor-btn
-                data-variant-id="{{ orange_variant.id }}"
-                data-image-src="{{ 'https://cdn.shopify.com/s/files/1/0797/7215/6133/files/fg-orange-box_800x800.png?v=1782937577' }}"
-                data-image-alt="FlushGut Orange"
-                data-section-bg="radial-gradient(ellipse at 10% 60%,rgba(255,200,60,0.55) 0%,transparent 50%),radial-gradient(ellipse at 90% 30%,rgba(255,140,0,0.5) 0%,transparent 48%),radial-gradient(ellipse at 50% 100%,rgba(255,200,80,0.3) 0%,transparent 40%),#fff8f0"
-                data-flavor-key="orange"
-                aria-pressed="false">
-          <span class="fg-flavor-dot" style="background:#f37721;"></span>
-          Orange
-        </button>
-        <button type="button"
-                class="fg-flavor-btn fg-flavor--active"
-                data-flavor-btn
-                data-variant-id="{{ berry_variant.id }}"
-                data-image-src="{{ 'https://cdn.shopify.com/s/files/1/0797/7215/6133/files/fg-berry-box_800x800.png?v=1782937577' }}"
-                data-image-alt="FlushGut Berry"
-                data-section-bg="radial-gradient(ellipse at 10% 60%,rgba(220,30,150,0.45) 0%,transparent 50%),radial-gradient(ellipse at 90% 30%,rgba(160,0,140,0.5) 0%,transparent 48%),radial-gradient(ellipse at 50% 100%,rgba(200,20,160,0.3) 0%,transparent 40%),#fdf0f8"
-                data-flavor-key="berry"
-                aria-pressed="true"
-                style="position:relative;">
-          <span class="fg-flavor-dot" style="background:#a0237f;"></span>
-          Berry
-          <span class="fg-flavor-popular">Most Popular</span>
-        </button>
-      </div>
+            <div class="fg-format__body">
+              {%- unless flavour_list.size > 0 -%}
+                {%- liquid
+                  assign shot = block.settings.card_image
+                  unless shot
+                    assign shot = block.settings.product.featured_image
+                  endunless
+                -%}
+                <div class="fg-format__shot">
+                  {%- if shot -%}
+                    <img src="{{ shot | image_url: width: 400 }}"
+                         alt="{{ block.settings.name | escape }}" width="160" height="160" loading="lazy">
+                  {%- elsif block.settings.fallback_image != blank -%}
+                    <img src="{{ block.settings.fallback_image | asset_url }}"
+                         alt="{{ block.settings.name | escape }}" width="160" height="160" loading="lazy">
+                  {%- endif -%}
+                </div>
+              {%- endunless -%}
 
-      <div class="fg-savings-banner">YOU SAVE $8/MO — $96/YR</div>
+              {%- if flavour_list.size > 0 -%}
+                {%- liquid
+                  assign fa_img = block.settings.flavor_a_image
+                  unless fa_img
+                    assign fa_img = block.settings.flavor_a_product.featured_image
+                  endunless
+                  assign fb_img = block.settings.flavor_b_image
+                  unless fb_img
+                    assign fb_img = block.settings.flavor_b_product.featured_image
+                  endunless
+                -%}
+                <div class="fg-format__shot">
+                  <img data-flavor-image
+                       src="{{ fa_img | image_url: width: 400 }}"
+                       alt="{{ block.settings.flavor_a_label | escape }}"
+                       width="160" height="160" loading="lazy">
+                </div>
 
-      <form data-atc-form>
-        <input type="hidden" data-variant-input value="{{ berry_variant.id }}">
-        <input type="hidden" data-selling-plan-input name="selling_plan" value="{{ plan_5wk }}">
+                <div class="fg-format__flavors" role="radiogroup" aria-label="Choose your flavor">
+                  {%- for key in flavour_list -%}
+                    {%- liquid
+                      if key == 'a'
+                        assign fp = block.settings.flavor_a_product
+                        assign flabel = block.settings.flavor_a_label
+                        assign fimg = fa_img
+                      else
+                        assign fp = block.settings.flavor_b_product
+                        assign flabel = block.settings.flavor_b_label
+                        assign fimg = fb_img
+                      endif
+                      assign fv = fp.selected_or_first_available_variant
+                      assign f_one = fv.price | money_without_trailing_zeros
+                      assign f_alloc = fv.selling_plan_allocations | first
+                      assign f_plan = ''
+                      assign f_sub = f_one
+                      assign f_save = 0
+                      if f_alloc != blank
+                        assign f_plan = f_alloc.selling_plan.id
+                        assign f_sub = f_alloc.price | money_without_trailing_zeros
+                        assign f_diff = fv.price | minus: f_alloc.price
+                        assign f_save = f_diff | times: 100.0 | divided_by: fv.price | round
+                      endif
+                    -%}
+                    <button type="button" class="fg-flavor{% if forloop.first %} is-selected{% endif %}"
+                            data-flavor
+                            role="radio"
+                            aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"
+                            data-variant-id="{{ fv.id }}"
+                            data-selling-plan="{{ f_plan }}"
+                            data-sub-price="{{ f_sub }}"
+                            data-one-price="{{ f_one }}"
+                            data-save="{{ f_save }}"
+                            data-image="{{ fimg | image_url: width: 400 }}">{{ flabel }}</button>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
 
-        <div class="fg-tier fg-tier--selected"
-             data-tier
-             data-selling-plan="{{ plan_5wk }}"
-             data-price="$29.99/mo"
-             aria-expanded="true">
-          <div class="fg-tier__header">
-            <div class="fg-tier__radio"><div class="fg-tier__radio-dot"></div></div>
-            <div class="fg-tier__meta">
-              <div class="fg-tier__name">Subscribe & Save <span class="fg-tier__save">(SAVE 21%)</span></div>
-              <div class="fg-tier__freq">Ships monthly · pause or cancel anytime</div>
-            </div>
-            <div class="fg-tier__price">
-              <div class="fg-tier__amount">$29.99</div>
-              <div class="fg-tier__was">$37.95/box</div>
-              <div style="font-size:10px;color:var(--fg-muted);">per box</div>
-            </div>
-          </div>
-          <div class="fg-tier__perks" data-tier-perks>
-            <div class="fg-tier__perks-inner">
-              
-              
-              <div class="fg-tier__perk"><span class="fg-tier__perk-tag--check">&#10003;</span> Clinician Reviewed</div>
-              
+              <p class="fg-format__sub">
+                <span>{{ section.settings.sub_label }}</span>
+                <strong class="fg-format__save" data-save-label{% if save_pct == 0 %} hidden{% endif %}>(Save {{ save_pct }}%)</strong>
+              </p>
+              <p class="fg-format__terms">{{ section.settings.terms }}</p>
+              <p class="fg-format__price">
+                <span class="fg-format__price-main" data-price-main>{{ sub_price }}</span>
+                <span class="fg-format__price-unit">{{ block.settings.pack }}</span>
+              </p>
+              <p class="fg-format__compare"><s data-price-compare>{{ one_price }} / box</s></p>
+              {%- comment -%}
+                Always rendered, hidden when the format is purchasable: the line
+                reserves its own height so every card's price sits on the same
+                baseline, which is how the comp aligns the row.
+              {%- endcomment -%}
+              <p class="fg-format__soon"{% if live %} aria-hidden="true" data-placeholder{% endif %}>{{ section.settings.soon_label }}</p>
             </div>
           </div>
-          <div class="fg-tier__popular">Most Popular</div>
-        </div>
+        {%- endfor -%}
+      </div>
 
-        <div class="fg-onetime">
-          <button type="button" class="fg-onetime__link"
-                  data-tier
-                  data-selling-plan=""
-                  data-price="$37.95"
-                  aria-expanded="false">
-            One Time Purchase for $37.95
-          </button>
-        </div>
-
-        <button type="submit" class="fg-atc-btn" data-atc-btn
-                data-default-label="Start My FlushGut Routine &#8212; $29.99/mo">
-          <span data-cta-label>Start My FlushGut Routine &#8212; $29.99/mo</span>
+      <form data-atc-form class="fg-essentials__form">
+        <input type="hidden" data-variant-input name="id" value="">
+        <input type="hidden" data-selling-plan-input name="selling_plan" value="">
+        <button type="submit" class="fg-btn fg-essentials__cta" data-atc-btn
+                data-default-label="{{ section.settings.cta_label | escape }}"
+                {% unless has_purchasable %}disabled{% endunless %}>
+          <span data-cta-label>{{ section.settings.cta_label }}</span>
+          {%- render 'fg-icon', name: 'play' -%}
         </button>
       </form>
 
-      <div class="fg-trust-strip">
-        <div class="fg-trust-strip__item">Free US Shipping</div>
-        <div class="fg-trust-strip__item">Clinician Reviewed</div>
-        <div class="fg-trust-strip__item">Cancel Anytime</div>
-      </div>
+      <button type="button" class="fg-essentials__onetime" data-onetime>
+        {{ section.settings.onetime_label }}
+      </button>
+
+      <ul class="fg-essentials__trust">
+        {%- assign trust = section.settings.trust | split: ',' -%}
+        {%- for item in trust -%}
+          {%- assign bits = item | split: '|' -%}
+          <li>
+            {%- render 'fg-icon', name: bits[0] -%}
+            <span>{{ bits[1] | strip | newline_to_br }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+
     </div>
-
   </div>
-</div>
 
-<script>(function(){if(window.__fgCartRefreshPatched)return;window.__fgCartRefreshPatched=true;var o=window.fetch;window.fetch=function(i,n){try{var u=typeof i==='string'?i:(i&&i.url)||'';if(u.indexOf('/cart/add')!==-1&&n&&typeof n.body==='string'){var d=JSON.parse(n.body);var cd=document.querySelector('cart-drawer');if(cd&&!d.sections){d.sections=cd.getSectionsToRender?cd.getSectionsToRender().map(function(s){return s.id;}):['cart-drawer','cart-icon-bubble'];d.sections_url=window.location.pathname;var nn=Object.assign({},n,{body:JSON.stringify(d)});return o.call(this,i,nn).then(function(r){try{r.clone().json().then(function(j){if(j&&j.sections&&cd&&typeof cd.renderContents==='function'){cd.classList.remove('is-empty');cd.renderContents(j);}}).catch(function(){});}catch(e){}return r;});}}}catch(e){}return o.apply(this,arguments);};})();</script><script src="{{ 'fg-buy-box.js' | asset_url }}" defer></script>
-<script>
-(function(){
-  var wrap = document.querySelector('[data-flavor-section]');
-  if (!wrap) return;
-  document.querySelectorAll('[data-flavor-btn]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      if (btn.dataset.sectionBg) {
-        wrap.style.background = btn.dataset.sectionBg;
-      }
-      if (btn.dataset.flavorKey) {
-        wrap.setAttribute('data-active-flavor', btn.dataset.flavorKey);
-      }
-    });
-  });
-})();
-</script>
+  {%- comment -%} ── Right: sustainability ── {%- endcomment -%}
+  <div class="fg-essentials__sustain">
+    <div class="fg-sustain__inner">
+      <p class="fg-sustain__eyebrow">{{ section.settings.sustain_eyebrow }}</p>
+      <h3 class="fg-sustain__title">{{ section.settings.sustain_title | newline_to_br }}</h3>
+      <ul class="fg-sustain__list">
+        {%- assign points = section.settings.sustain_points | split: ',' -%}
+        {%- for point in points -%}
+          {%- assign bits = point | split: '|' -%}
+          <li>
+            {%- render 'fg-icon', name: bits[0] -%}
+            <span>{{ bits[1] | strip | newline_to_br }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .fg-essentials {
+    display: grid;
+    grid-template-columns: minmax(0, 1097fr) minmax(0, 823fr);
+    background: var(--fg-kraft);
+  }
+
+  /* ── Left panel ── */
+  .fg-essentials__buy { display: flex; justify-content: flex-end; }
+  .fg-essentials__inner {
+    width: 100%;
+    max-width: 651px;
+    padding: 34px clamp(24px, 4.5vw, 87px) 30px 24px;
+  }
+
+  .fg-essentials__title {
+    display: flex; align-items: baseline; gap: 12px;
+    margin: 0 0 12px;
+  }
+  .fg-essentials__title .fg-logo__svg { width: 176px; height: auto; }
+  .fg-essentials__title-word {
+    font-family: var(--font-display);
+    font-size: 24px; font-weight: var(--fg-w-display);
+    letter-spacing: 0.01em; text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+
+  .fg-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; padding: 0; list-style: none; }
+  .fg-chip {
+    font-family: var(--font-body); font-size: 10px; font-weight: var(--fg-w-bold);
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-espresso);
+    border: 1px solid var(--fg-rule-light); border-radius: var(--radius-sm);
+    padding: 5px 8px; white-space: nowrap;
+  }
+
+  /* ── Format cards ── */
+  .fg-formats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; margin-bottom: 18px; }
+  .fg-format {
+    display: flex;
+    flex-direction: column;
+    background: var(--fg-parchment);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color var(--motion-fast) var(--ease-out);
+  }
+  .fg-format.is-selected { border-color: var(--fg-espresso); }
+  .fg-format.is-unavailable { opacity: 0.72; }
+
+  .fg-format__head {
+    width: 100%; display: flex; align-items: center; gap: 8px;
+    padding: 10px 12px; background: var(--fg-caramel); border: 0;
+    cursor: pointer; text-align: left; color: var(--fg-on-dark);
+  }
+  .fg-format.is-unavailable .fg-format__head { cursor: not-allowed; }
+  .fg-format__radio { display: block; width: 16px; height: 16px; flex: 0 0 auto; }
+  .fg-format__radio .fg-i { width: 16px; height: 16px; }
+  .fg-format__radio .fg-i:first-child { display: none; }
+  .fg-format.is-selected .fg-format__radio .fg-i:first-child { display: block; }
+  .fg-format.is-selected .fg-format__radio .fg-i:last-child { display: none; }
+  .fg-format__name {
+    font-family: var(--font-display); font-size: 19px; font-weight: var(--fg-w-display);
+    letter-spacing: 0.01em; text-transform: uppercase;
+  }
+
+  /* Column layout with the price pushed to the bottom: the Jelly card carries a
+     flavour row the others do not, and without this its price would sit lower
+     than Gummy's and Capsule's, which the comp aligns. */
+  .fg-format__body { display: flex; flex-direction: column; flex: 1; padding: 12px 12px 14px; }
+
+  /* Flavour packshot. The current Orange and Berry photographs are opaque with
+     a near-white ground, so the image sits in a white product tile — that reads
+     as deliberate now, and still works when transparent brown renders replace
+     them. The tile has a fixed square aspect so swapping flavours can never
+     reflow the card. */
+  .fg-format__shot {
+    background: #fff;
+    border-radius: var(--radius-sm);
+    height: 92px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .fg-format__shot img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .fg-format__flavors { display: flex; gap: 6px; margin-bottom: 11px; }
+  .fg-flavor {
+    flex: 1 1 0;
+    padding: 6px 4px;
+    background: transparent;
+    border: 1px solid var(--fg-rule-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: var(--fg-w-bold);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-flavor.is-selected { background: var(--fg-espresso); border-color: var(--fg-espresso); color: var(--fg-on-dark); }
+  .fg-format__save[hidden] { display: none; }
+  .fg-format__soon[data-placeholder] { visibility: hidden; }
+  .fg-format__sub,
+  .fg-format__terms,
+  .fg-format__price,
+  .fg-format__compare,
+  .fg-format__soon { margin: 0; font-family: var(--font-body); color: var(--fg-espresso); }
+  .fg-format__sub { font-size: 14px; line-height: 1.25; white-space: nowrap; }
+  .fg-format__save { display: block; font-weight: 700; }
+  .fg-format__terms { margin-top: 6px; font-size: 11px; color: var(--fg-on-light-dim); line-height: 1.3; }
+  /* margin-top:auto must live here: the shared `margin: 0` rule above this
+     point would otherwise reset it, which is what misaligned the prices. */
+  .fg-format__price { margin-top: auto; padding-top: 12px; display: flex; align-items: baseline; gap: 5px; }
+  .fg-format__price-main { font-family: var(--font-display); font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+  .fg-format__price-unit { font-size: 12px; color: var(--fg-on-light-dim); white-space: nowrap; }
+  .fg-format__compare { font-size: 14px; color: var(--fg-on-light-dim); }
+  .fg-format__soon {
+    margin-top: 10px; font-size: 10px; font-weight: 700;
+    letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-caramel);
+  }
+
+  /* ── Actions ── */
+  .fg-essentials__form { margin: 0 0 10px; }
+  .fg-essentials__cta { font-size: 14px; padding: 14px 26px; }
+  .fg-essentials__onetime {
+    display: block; margin: 0 0 18px; padding: 0;
+    background: none; border: 0; cursor: pointer;
+    font-family: var(--font-body); font-size: 14px;
+    color: var(--fg-espresso); text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .fg-essentials__onetime[aria-pressed="true"] { font-weight: 700; }
+
+  .fg-essentials__trust { display: flex; gap: 26px; margin: 0; padding: 0; list-style: none; }
+  .fg-essentials__trust li {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    text-align: center;
+    font-family: var(--font-body); font-size: 11px; font-weight: var(--fg-w-bold);
+    letter-spacing: 0.04em; line-height: 1.2; text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-essentials__trust .fg-i { width: 26px; height: 26px; }
+
+  /* ── Right panel ── */
+  .fg-essentials__sustain {
+    position: relative;
+    background-color: var(--fg-caramel);
+    background-image: url('{{ 'fg-sustainability-hands.jpg' | asset_url }}');
+    background-size: cover;
+    background-position: left center;
+    display: flex;
+    align-items: center;
+  }
+  .fg-sustain__inner { padding: 40px clamp(24px, 3vw, 48px); max-width: 520px; }
+  .fg-sustain__eyebrow {
+    margin: 0 0 6px;
+    font-family: var(--font-body); font-size: 15px; font-weight: 700;
+    letter-spacing: 0.02em; text-transform: uppercase; color: var(--fg-espresso);
+  }
+  .fg-sustain__title {
+    margin: 0 0 30px;
+    font-family: var(--font-display); font-size: clamp(24px, 2.3vw, 33px);
+    font-weight: var(--fg-w-display); line-height: 1.1; letter-spacing: var(--track-display);
+    color: var(--fg-espresso);
+  }
+  .fg-sustain__list { margin: 0; padding: 0; list-style: none; display: grid; gap: 22px; }
+  .fg-sustain__list li {
+    display: flex; align-items: center; gap: 13px;
+    font-family: var(--font-body); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.03em; line-height: 1.2; text-transform: uppercase;
+    color: var(--fg-espresso);
+  }
+  .fg-sustain__list .fg-i { width: 34px; height: 34px; flex: 0 0 auto; }
+
+  /* ── Responsive ── */
+  /* Stacked, the panel is far taller than it is wide, so `cover` crops to the
+     hands and the heading loses its light ground. A scrim keeps the copy
+     legible without changing the desktop composition. */
+  @media (max-width: 1100px) {
+    .fg-essentials__sustain::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        rgba(222, 198, 166, 0.94) 0%,
+        rgba(222, 198, 166, 0.80) 42%,
+        rgba(222, 198, 166, 0.12) 100%);
+    }
+    .fg-sustain__inner { position: relative; z-index: 1; }
+    .fg-essentials { grid-template-columns: 1fr; }
+    .fg-essentials__buy { justify-content: center; }
+    .fg-essentials__inner { max-width: 640px; padding-inline: var(--container-pad); }
+    .fg-essentials__sustain { min-height: 340px; }
+    .fg-sustain__inner { margin-inline: auto; }
+  }
+  @media (max-width: 620px) {
+    /* "FlushGut ESSENTIALS" was breaking mid-word at 390px. */
+    .fg-essentials__title { flex-wrap: wrap; gap: 8px; }
+    .fg-essentials__title .fg-logo__svg { width: 140px; }
+    .fg-essentials__title-word { font-size: 20px; white-space: nowrap; }
+    .fg-formats { grid-template-columns: 1fr; }
+    .fg-essentials__cta { width: 100%; justify-content: center; }
+    .fg-essentials__trust { gap: 14px; }
+    .fg-chip { font-size: 11px; padding: 7px 10px; }
+    .fg-essentials__trust li { font-size: 10.5px; }
+    .fg-essentials__trust .fg-i { width: 30px; height: 30px; }
+  }
+  /* Touch targets: the one-time link is a 15px-tall text run on desktop. */
+  @media (pointer: coarse) {
+    .fg-essentials__onetime { padding-block: 14px; }
+    .fg-flavor { padding-block: 11px; }
+  }
+</style>
+
+{%- comment -%}
+  Cart-drawer refresh patch — carried over from the previous buy box. Shopify's
+  drawer only re-renders when /cart/add is given a `sections` payload; this
+  wraps fetch to add it. Kept verbatim because it is known-good.
+{%- endcomment -%}
+<script>(function(){if(window.__fgCartRefreshPatched)return;window.__fgCartRefreshPatched=true;var o=window.fetch;window.fetch=function(i,n){try{var u=typeof i==='string'?i:(i&&i.url)||'';if(u.indexOf('/cart/add')!==-1&&n&&typeof n.body==='string'){var d=JSON.parse(n.body);var cd=document.querySelector('cart-drawer');if(cd&&!d.sections){d.sections=cd.getSectionsToRender?cd.getSectionsToRender().map(function(s){return s.id;}):['cart-drawer','cart-icon-bubble'];d.sections_url=window.location.pathname;var nn=Object.assign({},n,{body:JSON.stringify(d)});return o.call(this,i,nn).then(function(r){try{r.clone().json().then(function(j){if(j&&j.sections&&cd&&typeof cd.renderContents==='function'){cd.classList.remove('is-empty');cd.renderContents(j);}}).catch(function(){});}catch(e){}return r;});}}}catch(e){}return o.apply(this,arguments);};})();</script>
+<script src="{{ 'fg-format-picker.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
-  "name": "FlushGut Buy Box",
+  "name": "FlushGut Essentials",
   "tag": "div",
+  "max_blocks": 3,
   "settings": [
-    { "type": "text", "id": "title", "label": "Product title", "default": "FlushGut Essentials" },
-    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "All-in-One Weekly Gut Support" },
-    { "type": "text", "id": "selling_plan_5wk", "label": "Selling plan ID — 12-week", "info": "Numeric ID only.", "default": "6089343205" },
-    { "type": "text", "id": "selling_plan_11wk", "label": "Selling plan ID — 3-month", "info": "Create in Appstle first." }
+    { "type": "text", "id": "title", "label": "Heading word after logo", "default": "Essentials" },
+    { "type": "text", "id": "chips", "label": "Chips (comma separated)",
+      "default": "Clinically Studied,Third-Party Tested,3x Per Week,HSA/FSA Eligible" },
+    { "type": "text", "id": "sub_label", "label": "Subscription label", "default": "Subscribe & Save" },
+    { "type": "text", "id": "terms", "label": "Subscription terms", "default": "Ships monthly, pause or cancel anytime." },
+    { "type": "text", "id": "soon_label", "label": "Label for formats with no product", "default": "Coming Soon" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Start My FlushGut Routine" },
+    { "type": "text", "id": "onetime_label", "label": "One-time purchase link", "default": "Start with a one time purchase" },
+    { "type": "textarea", "id": "trust", "label": "Trust items", "info": "icon-name|Label",
+      "default": "truck|Free US\nShipping,clinicians|Clinician\nReviewed,cancel-anytime|Cancel\nAnytime" },
+    { "type": "header", "content": "Sustainability panel" },
+    { "type": "text", "id": "sustain_eyebrow", "label": "Eyebrow", "default": "Sustainability is in our DNA" },
+    { "type": "textarea", "id": "sustain_title", "label": "Heading", "default": "Good for You.\nGood for the Planet." },
+    { "type": "textarea", "id": "sustain_points", "label": "Points", "info": "icon-name|Label",
+      "default": "natural-ingredients|Natural\nIngredients,thoughtful-formulation|Thoughtful\nFormulation,healthier-you-earth|A Healthier You\nA Healthier Earth" }
   ],
-  "presets": [{ "name": "FlushGut Buy Box" }]
+  "blocks": [
+    {
+      "type": "format",
+      "name": "Format",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Format name", "default": "Jelly" },
+        { "type": "product", "id": "product", "label": "Product",
+          "info": "Empty = inert Coming Soon card." },
+        { "type": "header", "content": "Flavours (optional)" },
+        { "type": "paragraph", "content": "Set flavour A to turn this card into a flavour picker. Only the package image and the product added to cart change." },
+        { "type": "text", "id": "flavor_a_label", "label": "Flavour A label" },
+        { "type": "product", "id": "flavor_a_product", "label": "Flavour A product" },
+        { "type": "image_picker", "id": "flavor_a_image", "label": "Flavour A image" },
+        { "type": "text", "id": "flavor_b_label", "label": "Flavour B label" },
+        { "type": "product", "id": "flavor_b_product", "label": "Flavour B product" },
+        { "type": "image_picker", "id": "flavor_b_image", "label": "Flavour B image" },
+        { "type": "text", "id": "pack", "label": "Pack size", "default": "15/Bag" },
+        { "type": "image_picker", "id": "card_image", "label": "Packshot" },
+        { "type": "text", "id": "fallback_image", "label": "Theme asset fallback", "info": "e.g. fg-pack-gummy.webp" },
+        { "type": "header", "content": "Fallback figures" },
+        { "type": "text", "id": "fallback_sub_price", "label": "Subscription price", "default": "$59.99" },
+        { "type": "text", "id": "fallback_one_price", "label": "One-time price", "default": "$85.99" },
+        { "type": "text", "id": "fallback_save_pct", "label": "Save %", "default": "30" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FlushGut Essentials",
+      "blocks": [
+        { "type": "format", "settings": { "name": "Jelly", "pack": "15/Bag", "fallback_sub_price": "$59.99", "fallback_one_price": "$85.99", "fallback_save_pct": "30" } },
+        { "type": "format", "settings": { "name": "Gummy", "pack": "80/Bottle", "fallback_sub_price": "$29.99", "fallback_one_price": "$37.99", "fallback_save_pct": "21" } },
+        { "type": "format", "settings": { "name": "Capsule", "pack": "80/Bottle", "fallback_sub_price": "$29.99", "fallback_one_price": "$37.99", "fallback_save_pct": "21" } }
+      ]
+    }
+  ]
 }
 {% endschema %}
