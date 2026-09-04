@@ -46,25 +46,24 @@
         -%}
         <li class="fg-close__card{% unless live %} is-unavailable{% endunless %}" {{ block.shopify_attributes }}>
           {%- comment -%}
-            Packshot priority: an explicit override, then the assigned product's
-            own Shopify image, then the comp's render.
+            Packshot priority: an explicit override, then the comp's render,
+            then the assigned product's Shopify image.
 
-            The order matters commercially. Until the new packaging sells
-            through, the shop still ships the previous magenta cartons, so any
-            card a customer can actually buy has to show the product's real
-            Shopify image rather than the comp's brown render. Cards with no
-            product (Coming Soon) fall through to the render, which is the only
-            artwork that exists for them. When the packaging changes over,
-            updating the product images in Shopify is enough — no code change.
+            The render comes before the product image deliberately. The shop
+            still ships the previous magenta cartons while that stock sells
+            through, but the storefront is meant to read as the new brand — so
+            the old carton is confined to the product page gallery, where it
+            sets expectations for what actually arrives. It is kept off the
+            homepage entirely.
           {%- endcomment -%}
           {%- liquid
             assign shot_url = ''
             if block.settings.image != blank
               assign shot_url = block.settings.image | image_url: width: 600
-            elsif prod != blank and prod.featured_image != blank
-              assign shot_url = prod.featured_image | image_url: width: 600
             elsif block.settings.fallback_image != blank
               assign shot_url = block.settings.fallback_image | asset_url
+            elsif prod != blank and prod.featured_image != blank
+              assign shot_url = prod.featured_image | image_url: width: 600
             endif
           -%}
           <div class="fg-close__shot">

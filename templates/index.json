@@ -24,7 +24,8 @@
             "flavor_a_label": "Orange",
             "flavor_a_product": "flushgut-orange",
             "flavor_b_label": "Berry",
-            "flavor_b_product": "flushgut-berry"
+            "flavor_b_product": "flushgut-berry",
+            "fallback_image": "fg-pack-jelly.webp"
           }
         },
         "gummy": {

@@ -133,18 +133,40 @@
 
               {%- if flavour_list.size > 0 -%}
                 {%- liquid
-                  assign fa_img = block.settings.flavor_a_image
-                  unless fa_img
-                    assign fa_img = block.settings.flavor_a_product.featured_image
-                  endunless
-                  assign fb_img = block.settings.flavor_b_image
-                  unless fb_img
-                    assign fb_img = block.settings.flavor_b_product.featured_image
-                  endunless
+                  comment
+                    Flavour art, in the same order the closing grid uses: an
+                    explicit per-flavour image, then the card's brand render,
+                    then the product's own photograph.
+
+                    Today only the brand render exists, so both flavours show
+                    the same pack and the swap is invisible. That is deliberate:
+                    the previous magenta carton is kept off the homepage, and it
+                    still ships, so the product page gallery is where a customer
+                    sees what actually arrives. Drop per-flavour renders into
+                    flavor_a_image / flavor_b_image and the swap becomes visible
+                    with no code change.
+                  endcomment
+                  assign fa_src = ''
+                  if block.settings.flavor_a_image != blank
+                    assign fa_src = block.settings.flavor_a_image | image_url: width: 400
+                  elsif block.settings.fallback_image != blank
+                    assign fa_src = block.settings.fallback_image | asset_url
+                  elsif block.settings.flavor_a_product.featured_image != blank
+                    assign fa_src = block.settings.flavor_a_product.featured_image | image_url: width: 400
+                  endif
+
+                  assign fb_src = ''
+                  if block.settings.flavor_b_image != blank
+                    assign fb_src = block.settings.flavor_b_image | image_url: width: 400
+                  elsif block.settings.fallback_image != blank
+                    assign fb_src = block.settings.fallback_image | asset_url
+                  elsif block.settings.flavor_b_product.featured_image != blank
+                    assign fb_src = block.settings.flavor_b_product.featured_image | image_url: width: 400
+                  endif
                 -%}
                 <div class="fg-format__shot">
                   <img data-flavor-image
-                       src="{{ fa_img | image_url: width: 400 }}"
+                       src="{{ fa_src }}"
                        alt="{{ block.settings.flavor_a_label | escape }}"
                        width="160" height="160" loading="lazy">
                 </div>
@@ -155,11 +177,11 @@
                       if key == 'a'
                         assign fp = block.settings.flavor_a_product
                         assign flabel = block.settings.flavor_a_label
-                        assign fimg = fa_img
+                        assign fimg_src = fa_src
                       else
                         assign fp = block.settings.flavor_b_product
                         assign flabel = block.settings.flavor_b_label
-                        assign fimg = fb_img
+                        assign fimg_src = fb_src
                       endif
                       assign fv = fp.selected_or_first_available_variant
                       assign f_one = fv.price | money_without_trailing_zeros
@@ -183,7 +205,7 @@
                             data-sub-price="{{ f_sub }}"
                             data-one-price="{{ f_one }}"
                             data-save="{{ f_save }}"
-                            data-image="{{ fimg | image_url: width: 400 }}">{{ flabel }}</button>
+                            data-image="{{ fimg_src }}">{{ flabel }}</button>
                   {%- endfor -%}
                 </div>
               {%- endif -%}
