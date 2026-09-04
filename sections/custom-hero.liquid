@@ -17,14 +17,25 @@
   <div class="fg-hero__inner">
 
     <div class="fg-hero__copy">
-      <p class="fg-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      <div class="fg-hero__head">
+        <p class="fg-hero__eyebrow">{{ section.settings.eyebrow }}</p>
 
-      <h1 class="fg-hero__title">
-        {%- render 'fg-logo' -%}
-        <span class="visually-hidden">{{ section.settings.eyebrow }} FlushGut</span>
-      </h1>
+        <h1 class="fg-hero__title">
+          {%- render 'fg-logo' -%}
+          <span class="visually-hidden">{{ section.settings.eyebrow }} FlushGut</span>
+        </h1>
 
-      <p class="fg-hero__sub">{{ section.settings.subhead }}</p>
+        <p class="fg-hero__sub">{{ section.settings.subhead }}</p>
+      </div>
+
+      {%- comment -%}
+        Small screens only. On desktop the packshot is part of the hero
+        photograph beside the copy; stacked, that photo fell to the bottom of a
+        1079px hero and the product sat ~930px down, well below the fold. Here
+        it is a real element directly under the headline instead.
+      {%- endcomment -%}
+      <div class="fg-hero__photo" role="img"
+           aria-label="{{ 'FlushGut jelly, gummy and capsule packs' | escape }}"></div>
 
       <ul class="fg-hero__badges">
         {%- assign badges = section.settings.badges | split: ',' -%}
@@ -198,18 +209,42 @@
   .fg-hero__callout-title { font-size: 11px; font-weight: 700; color: var(--fg-espresso); }
   .fg-hero__callout-sub   { font-size: 10.5px; color: var(--fg-on-light-dim); }
 
+  /* Desktop keeps the packshot inside the hero photograph, so the standalone
+     image is hidden there. Scoped to a min-width query rather than a bare rule
+     the mobile block has to override — that override was not taking. */
+  @media (min-width: 981px) {
+    .fg-hero__photo { display: none; }
+  }
+
   /* ── Responsive ──
-     The comp is desktop-only. Below 1100px the photo's packshot no longer has
-     room beside the copy, so the callouts drop under the copy as a 2x2 grid
-     and the photo is pushed to a banner above. */
+     The comp is desktop-only. Below 1100px the packshot no longer has room
+     beside the copy, so the callouts drop under the copy as a 2x2 grid. */
   @media (max-width: 1180px) {
     .fg-hero__inner { max-width: 920px; grid-template-columns: minmax(280px, 330px) 154px; }
   }
   @media (max-width: 980px) {
+    /* The section no longer carries the photo; .fg-hero__photo does, so it can
+       sit above the fold rather than below several screens of copy. */
     .fg-hero {
-      background-position: center bottom;
-      background-size: 150% auto;
-      padding-bottom: 34vw;
+      background-image: none;
+      background-color: var(--fg-cream);
+      padding-bottom: 0;
+    }
+    .fg-hero__photo {
+      /* !important because something outside this section's stylesheet was
+         holding this element at display:none — the min-width:981px rule below
+         does not match here, and CSSOM enumeration found no other rule, so the
+         competing declaration is in a stylesheet this page cannot read (an app
+         sheet). Without this the hero loses its product image entirely on
+         mobile, so the override is worth the specificity. */
+      display: block !important;
+      height: clamp(190px, 52vw, 300px);
+      margin: 20px 0 24px;
+      border-radius: var(--radius-md);
+      background-image: url('{{ 'fg-hero-wood.jpg' | asset_url }}');
+      background-size: cover;
+      /* the packs occupy 55-76% of the frame; centre the crop on them */
+      background-position: 65% center;
     }
     .fg-hero__inner {
       grid-template-columns: 1fr;
@@ -228,7 +263,6 @@
     .fg-hero__callout-sub { font-size: 12.5px; }
   }
   @media (max-width: 560px) {
-    .fg-hero { padding-bottom: 62vw; background-size: 190% auto; }
     .fg-hero__inner { padding-top: 32px; }
     .fg-hero__badges { grid-template-columns: repeat(2, 1fr); max-width: 300px; gap: 18px 14px; }
     .fg-hero__callouts { grid-template-columns: 1fr; }
