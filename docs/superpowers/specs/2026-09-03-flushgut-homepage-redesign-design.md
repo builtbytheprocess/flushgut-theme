@@ -400,3 +400,67 @@ Audited at 390px and 768px with touch emulation.
   140px and the word is `nowrap` below 620px.
 - Sustainability panel gained a scrim below 1100px: stacked, `cover` crops to
   the hands and the heading lost its light ground.
+
+---
+
+## 14. Klaviyo popup, contrast and access limits (2026-09-03, third round)
+
+### Klaviyo popup
+
+The signup popup is a Klaviyo app form and shipped in the previous brand. It
+renders into the page DOM rather than an iframe, so the theme can restyle it:
+cream card, espresso border and button, Archivo throughout, quiet dismiss link.
+
+Two things made this non-obvious:
+
+- Both the submit and the dismiss are `<button type="button">` with generated
+  class names (`go3634373664`, `go488503511`) that change whenever the form is
+  republished. There is no stable selector separating them, so
+  `assets/fg-klaviyo-brand.js` tags them by DOM order (`fg-kl-primary` /
+  `fg-kl-secondary`) via a MutationObserver, since the popup mounts late.
+- The blue ring on the close control is not a Klaviyo colour — it is the
+  browser focus ring, and Klaviyo moves focus there when the popup opens. It is
+  restyled to espresso rather than removed; keyboard users need it.
+
+**Appearance only.** The copy and the FLUSH20 offer live in Klaviyo's dashboard
+and cannot be changed from the theme.
+
+### Contrast
+
+Caramel `#947751` is a display colour and fails WCAG AA as text. Two accessible
+siblings now carry the accent per ground: `--fg-caramel-deep #7A5C38` on
+cream/kraft, `--fg-caramel-light #C2A170` on espresso/ink.
+
+The doctor band needed more than a colour swap — its copy sits directly on a
+photograph, so legibility depended on the pixels behind it. A left-to-right
+scrim now darkens the right side, and the copy moved to cream with the accent
+line in light caramel.
+
+**This is a deliberate deviation from the comp**, which set that copy dark on a
+light ground. It is reversible: remove `.fg-doctor::after` and restore the
+espresso colours.
+
+Result: **0 contrast failures on every theme-rendered page** — home, product,
+collection, cart, contact, wholesale, search, login, 404.
+
+A computed-style checker cannot see a `::after` scrim, so it reports the doctor
+band as failing. That section is verified instead by sampling the actual
+rendered pixels behind each line (4.93:1 to 10.08:1, all passing).
+
+### Blocked by app scopes
+
+The custom app token holds `read/write_products` and `read/write_files` only.
+Verified denied:
+
+| Needed for | Field | Result |
+|---|---|---|
+| Header/footer menus | `menus` | Access denied |
+| Nutrition Label page content | `pages` | Access denied |
+| Theme listing via API | `themes` | Needs `read_themes` |
+
+So these remain admin tasks, or need scopes added to the "API Access" app:
+
+- Header menu says CATALOG where the comp says SHOP; both footer link lists
+  point at the same `footer` menu.
+- The Nutrition Label page body contains a hardcoded `#8F1263` magenta panel
+  and white-on-orange text at 3.58:1. Both live in the page's content HTML.

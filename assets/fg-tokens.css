@@ -18,9 +18,13 @@ html, body { overflow-x: hidden; max-width: 100%; }
   --fg-cream:      #EFE1CC;  /* lighter panels, fibre-gap left column */
   --fg-caramel:    #947751;  /* accent — "IT'S NOT IN YOUR HEAD", doctor band */
   --fg-tan:        #D4B281;  /* kraft texture midtone, card fills on kraft */
-  /* Caramel is a display colour. At body sizes on cream it only reaches 3.3:1,
-     so small text uses this deeper tone instead (4.8:1 on cream). */
-  --fg-caramel-deep: #7A5C38;
+  /* Caramel is a display colour and fails WCAG AA as text at body sizes.
+     Two accessible siblings carry the same accent identity per ground:
+       deep  #7A5C38 -> 4.8:1 on cream, 3.8:1 on kraft
+       light #C2A170 -> 5.2:1 on espresso, 6.9:1 on ink
+     The comp's large caramel display headings are otherwise left as drawn. */
+  --fg-caramel-deep:  #7A5C38;
+  --fg-caramel-light: #C2A170;
   --fg-parchment:  #F7EFE1;  /* card fills on cream */
 
   /* Foreground pairs — always set text colour from one of these */
@@ -282,3 +286,102 @@ button[name="add"]:hover {
 .fg-footer-logo .fg-logo__link { display: inline-block; }
 /* Shop Pay's follow button ships in Shopify's own purple and fights the palette. */
 .footer .footer__follow-on-shop { display: none; }
+
+/* ── Klaviyo popup ────────────────────────────────────────────────────────
+   The signup popup is a Klaviyo app form, styled in Klaviyo's dashboard, and
+   it shipped in the previous brand: white card, black pill button, blue
+   accents. It renders into the page DOM rather than an iframe, so the theme
+   can restyle it.
+
+   Its own rules are inline and its class names are generated (go417382439),
+   which change whenever the form is republished. Everything below therefore
+   hangs off the stable `.klaviyo-form` root and structural selectors, and
+   needs !important to beat the inline styles.
+
+   This controls appearance only. The copy and the offer code live in Klaviyo;
+   changing those means editing the form there. */
+
+.klaviyo-form {
+  background: var(--fg-cream) !important;
+  border: 1px solid var(--fg-espresso) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 18px 50px rgba(41, 25, 5, 0.28) !important;
+  font-family: var(--font-body) !important;
+}
+
+/* Headline and body copy */
+.klaviyo-form h1,
+.klaviyo-form h2,
+.klaviyo-form h3,
+.klaviyo-form p,
+.klaviyo-form span,
+.klaviyo-form div {
+  font-family: var(--font-body) !important;
+  color: var(--fg-espresso) !important;
+}
+.klaviyo-form h1,
+.klaviyo-form h2,
+.klaviyo-form h3 {
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  letter-spacing: var(--track-display) !important;
+  text-transform: uppercase !important;
+}
+
+/* Email field */
+.klaviyo-form input[type="email"],
+.klaviyo-form input[type="text"],
+.klaviyo-form input[type="tel"] {
+  background: #fff !important;
+  border: 1px solid var(--fg-rule-light) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--fg-espresso) !important;
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+}
+.klaviyo-form input::placeholder { color: var(--fg-on-light-dim) !important; }
+.klaviyo-form input:focus-visible {
+  outline: 2px solid var(--fg-espresso) !important;
+  outline-offset: 1px !important;
+}
+
+/* Submit — the brand's espresso block button, not Klaviyo's black pill.
+   Both Klaviyo buttons are type="button" with generated class names, so
+   assets/fg-klaviyo-brand.js tags them by DOM order. */
+.klaviyo-form .fg-kl-primary,
+.klaviyo-form [type="submit"] {
+  background: var(--fg-espresso) !important;
+  background-image: none !important;
+  color: var(--fg-on-dark) !important;
+  border: 0 !important;
+  border-radius: var(--radius-sm) !important;
+  font-family: var(--font-body) !important;
+  font-weight: var(--fg-w-bold) !important;
+  letter-spacing: var(--track-btn) !important;
+  text-transform: uppercase !important;
+}
+.klaviyo-form .fg-kl-primary:hover,
+.klaviyo-form [type="submit"]:hover { background: var(--fg-ink) !important; }
+
+/* "No thanks" dismiss */
+.klaviyo-form .fg-kl-secondary,
+.klaviyo-form a {
+  background: transparent !important;
+  color: var(--fg-on-light-dim) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+/* Close cross — Klaviyo draws it blue */
+/* Klaviyo moves focus to the close button when the popup opens, so the
+   browser's default blue focus ring is what shows. Keyboard users need a
+   visible ring, so brand it rather than remove it. */
+.klaviyo-form :focus-visible,
+.klaviyo-close-form:focus-visible {
+  outline: 2px solid var(--fg-espresso) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--radius-sm);
+}
+.klaviyo-close-form { background: transparent !important; }
+.klaviyo-close-form svg * { stroke: var(--fg-espresso) !important; }
+.klaviyo-close-form svg circle { fill: transparent !important; }

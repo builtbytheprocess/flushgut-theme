@@ -49,12 +49,31 @@
 
 <style>
   .fg-doctor {
+    position: relative;
     background-color: var(--fg-caramel);
     background-image: url('{{ 'fg-doctor-still.jpg' | asset_url }}');
     background-size: cover;
     background-position: center left;
   }
+  /* The copy column sits on the photograph itself, so its contrast depended on
+     the image behind it — cream on the bare caramel fallback only reached
+     3.25:1. This scrim darkens the right side so every line clears WCAG AA
+     regardless of what the photo is doing, while leaving the doctor and the
+     monitor on the left untouched. */
+  .fg-doctor::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+      rgba(41, 25, 5, 0) 0%,
+      rgba(41, 25, 5, 0.10) 34%,
+      rgba(41, 25, 5, 0.72) 60%,
+      rgba(41, 25, 5, 0.82) 100%);
+  }
   .fg-doctor__inner {
+    position: relative;
+    z-index: 1;
     max-width: 1000px;
     margin-inline: auto;
     min-height: 402px;
@@ -70,9 +89,9 @@
     font-family: var(--font-body);
     font-size: 13px; font-weight: var(--fg-w-bold);
     letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--fg-espresso);
+    color: var(--fg-cream);
   }
-  .fg-doctor__eyebrow span { flex: 1 1 auto; height: 1px; background: var(--fg-espresso); opacity: 0.5; max-width: 34px; }
+  .fg-doctor__eyebrow span { flex: 1 1 auto; height: 1px; background: var(--fg-cream); opacity: 0.6; max-width: 34px; }
 
   .fg-doctor__title {
     margin: 0 0 18px;
@@ -83,7 +102,7 @@
     text-transform: uppercase;
   }
   .fg-doctor__title-a { display: block; font-size: clamp(24px, 2.4vw, 36px); color: var(--fg-cream); }
-  .fg-doctor__title-b { display: block; font-size: clamp(27px, 2.8vw, 41px); color: var(--fg-espresso); }
+  .fg-doctor__title-b { display: block; font-size: clamp(27px, 2.8vw, 41px); color: var(--fg-caramel-light); }
 
   .fg-doctor__body {
     margin: 0 0 22px;
@@ -98,7 +117,7 @@
   .fg-doctor__byline img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
   .fg-doctor__name,
   .fg-doctor__role { margin: 0; font-family: var(--font-body); line-height: 1.3; }
-  .fg-doctor__name { font-size: 17px; font-weight: 700; color: var(--fg-espresso); }
+  .fg-doctor__name { font-size: 17px; font-weight: 700; color: var(--fg-cream); }
   .fg-doctor__role { font-size: 14px; color: var(--fg-cream); }
 
   .fg-doctor__play { margin-top: 22px; }
