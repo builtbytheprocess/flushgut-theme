@@ -45,9 +45,33 @@
           endif
         -%}
         <li class="fg-close__card{% unless live %} is-unavailable{% endunless %}" {{ block.shopify_attributes }}>
+          {%- comment -%}
+            Packshot priority: an explicit override, then the assigned product's
+            own Shopify image, then the comp's render.
+
+            The order matters commercially. Until the new packaging sells
+            through, the shop still ships the previous magenta cartons, so any
+            card a customer can actually buy has to show the product's real
+            Shopify image rather than the comp's brown render. Cards with no
+            product (Coming Soon) fall through to the render, which is the only
+            artwork that exists for them. When the packaging changes over,
+            updating the product images in Shopify is enough — no code change.
+          {%- endcomment -%}
+          {%- liquid
+            assign shot_url = ''
+            if block.settings.image != blank
+              assign shot_url = block.settings.image | image_url: width: 600
+            elsif prod != blank and prod.featured_image != blank
+              assign shot_url = prod.featured_image | image_url: width: 600
+            elsif block.settings.fallback_image != blank
+              assign shot_url = block.settings.fallback_image | asset_url
+            endif
+          -%}
           <div class="fg-close__shot">
-            <img src="{{ block.settings.image | default: block.settings.fallback_image | asset_url }}"
-                 alt="{{ block.settings.name | escape }}" width="300" height="300" loading="lazy">
+            {%- if shot_url != blank -%}
+              <img src="{{ shot_url }}" alt="{{ block.settings.name | escape }}"
+                   width="300" height="300" loading="lazy">
+            {%- endif -%}
           </div>
           <p class="fg-close__pack">{{ block.settings.pack }}</p>
           <h3 class="fg-close__name">
