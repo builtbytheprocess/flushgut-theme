@@ -385,3 +385,21 @@ button[name="add"]:hover {
 .klaviyo-close-form { background: transparent !important; }
 .klaviyo-close-form svg * { stroke: var(--fg-espresso) !important; }
 .klaviyo-close-form svg circle { fill: transparent !important; }
+
+/* Klaviyo teaser — the collapsed bar shown after the popup is dismissed. It is
+   a separate element from .klaviyo-form and shipped white with black text.
+   Its class suffixes are generated (kl-teaser-UQEWuH, Teaser-pointer-kSCH8),
+   so match on the stable prefixes. */
+[class*="kl-teaser"],
+[class*="Teaser-pointer"] {
+  background: var(--fg-espresso) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: 0 10px 30px rgba(41, 25, 5, 0.30) !important;
+}
+[class*="kl-teaser"] *,
+[class*="Teaser-pointer"] * {
+  color: var(--fg-on-dark) !important;
+  font-family: var(--font-body) !important;
+}
+[class*="kl-teaser"] svg *,
+[class*="Teaser-pointer"] svg * { stroke: var(--fg-on-dark) !important; }
