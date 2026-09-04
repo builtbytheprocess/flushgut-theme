@@ -1,6 +1,11 @@
+{%- comment %}<locksmith:69ce>{% endcomment -%}
+  {%- include 'locksmith' -%}
+{%- comment %}</locksmith:69ce>{% endcomment -%}
+
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
+    {{ locksmith_initializations }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,7 +28,10 @@
     </title>
 
     {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+      {%- comment %}<locksmith:a6da>{% endcomment -%}
+        {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ page_description | escape }}">{% endif -%}
+        {%- comment %}original: <meta name="description" content="{{ page_description | escape }}">{%- endcomment %}
+      {%- comment %}</locksmith:a6da>{% endcomment -%}
     {% endif %}
 
     {% render 'meta-tags' %}
@@ -314,7 +322,7 @@
       <div class="fg-topbar__static">
         <span class="fg-topbar__item">&#10003; Clinician Recommended</span>
         <span class="fg-topbar__dot">&#9679;</span>
-        <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
+        <span class="fg-topbar__item">&#9201; Reviewed by 200+ Clinicians</span>
         <span class="fg-topbar__dot">&#9679;</span>
         <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
         <span class="fg-topbar__dot">&#9679;</span>
@@ -325,7 +333,7 @@
         <div class="fg-topbar__scroll">
           <span class="fg-topbar__item">&#10003; Clinician Recommended</span>
           <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
+          <span class="fg-topbar__item">&#9201; Reviewed by 200+ Clinicians</span>
           <span class="fg-topbar__dot">&#9679;</span>
           <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
           <span class="fg-topbar__dot">&#9679;</span>
@@ -333,7 +341,7 @@
           <span class="fg-topbar__dot">&#9679;</span>
           <span class="fg-topbar__item">&#10003; Clinician Recommended</span>
           <span class="fg-topbar__dot">&#9679;</span>
-          <span class="fg-topbar__item">&#9201; 60-Day Money-Back Guarantee</span>
+          <span class="fg-topbar__item">&#9201; Reviewed by 200+ Clinicians</span>
           <span class="fg-topbar__dot">&#9679;</span>
           <span class="fg-topbar__item">&#128666; Free US Shipping on Subscriptions</span>
           <span class="fg-topbar__dot">&#9679;</span>
@@ -454,5 +462,6 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+  
   </body>
 </html>

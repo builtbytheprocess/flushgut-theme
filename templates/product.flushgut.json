@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -5,18 +14,24 @@
       "blocks": {
         "title": {
           "type": "title",
-          "settings": {
-            "heading_size": "h1"
-          }
+          "settings": {}
         },
         "price": {
           "type": "price",
           "settings": {}
         },
+        "dealeasy_vd_cards_yradjG": {
+          "type": "shopify://apps/dealeasy/blocks/vd-cards/e47a8634-0496-480d-9e46-6f7fafd34b30",
+          "settings": {
+            "lb-product-handle": "",
+            "lb-product-id": "wholesale pricing"
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": false
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
           }
         },
         "description": {
@@ -35,9 +50,9 @@
         "guarantee_tab": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "60-Day Guarantee",
+            "heading": "Clinician Reviewed",
             "icon": "heart",
-            "content": "<p>Try FlushGut risk-free for 60 days. If you're not satisfied with your results, we'll refund your first order — no questions asked.</p>",
+            "content": "<p>Every batch of FlushGut is third-party tested and developed with input from 200+ clinicians. Questions about your results? Reach our support team at info@flushgut.com.</p>",
             "page": ""
           }
         }
@@ -45,23 +60,24 @@
       "block_order": [
         "title",
         "price",
+        "dealeasy_vd_cards_yradjG",
         "buy_buttons",
         "description",
         "ingredients_tab",
         "guarantee_tab"
       ],
       "settings": {
+        "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "secondary_background": false,
         "media_size": "large",
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
         "hide_variants": false,
         "enable_video_looping": false,
-        "image_zoom": "lightbox",
-        "media_position": "left",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -79,12 +95,19 @@
       "settings": {
         "cta_scroll_target": "#MainContent"
       }
+    },
+    "1781035310ce2428d8": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "main",
     "pg-format",
     "pg-social",
-    "pg-final-cta"
+    "pg-final-cta",
+    "1781035310ce2428d8"
   ]
 }

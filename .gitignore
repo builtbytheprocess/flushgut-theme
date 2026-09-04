@@ -8,3 +8,7 @@
 ehthumbs.db
 Thumbs.db
 .shopify
+
+# Local helper carrying a live Shopify admin API token — never commit.
+check_scopes.py
+.superpowers/
